@@ -1,0 +1,19 @@
+.initials{
+    border: solid 2px #6c6c6d;
+    border-radius: 20px;
+    font-size: small;
+    height: 35px;
+}
+
+.user-hello{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    right: 2px;
+}
+
+.user-options{
+    display: flex;
+    flex-direction: row;
+}
+

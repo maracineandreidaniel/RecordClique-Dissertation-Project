@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecordClique_API", "RecordClique_API\RecordClique_API.csproj", "{3266DCC7-42B9-4DF1-B302-255215B778B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecordClique_BusinessLogic", "RecordClique_BusinessLogic\RecordClique_BusinessLogic.csproj", "{BC07A4BD-32FD-4AD3-987B-A042F5C028E0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecordClique_DataAccess", "RecordClique_DataAccess\RecordClique_DataAccess.csproj", "{2CA889D4-427A-4CB2-817F-D4E7E8E0BC57}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3266DCC7-42B9-4DF1-B302-255215B778B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3266DCC7-42B9-4DF1-B302-255215B778B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3266DCC7-42B9-4DF1-B302-255215B778B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3266DCC7-42B9-4DF1-B302-255215B778B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC07A4BD-32FD-4AD3-987B-A042F5C028E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC07A4BD-32FD-4AD3-987B-A042F5C028E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC07A4BD-32FD-4AD3-987B-A042F5C028E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC07A4BD-32FD-4AD3-987B-A042F5C028E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CA889D4-427A-4CB2-817F-D4E7E8E0BC57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CA889D4-427A-4CB2-817F-D4E7E8E0BC57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CA889D4-427A-4CB2-817F-D4E7E8E0BC57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CA889D4-427A-4CB2-817F-D4E7E8E0BC57}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A48FCA07-AF9B-45E7-BC4A-F22F00EC69C5}
+	EndGlobalSection
+EndGlobal

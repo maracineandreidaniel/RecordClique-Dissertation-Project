@@ -1,0 +1,111 @@
+<div class="outer">
+    <div class="container">
+        <div class="row">
+            <div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+                <div class="panel border bg-white">
+                    <div class="panel-heading">
+                        <h3 class="pt-3 font-weight-bold">Sign Up</h3>
+                    </div>
+                    <div class="panel-body p-3">
+                        <form [formGroup]="signUpForm">
+                            <div class="form-group pt-3">
+                                <div class="input-field"
+                                    [class.error]="f.firstName.errors?.required && f.firstName.dirty">
+                                    <span [class.text-danger]="f.firstName.errors?.required && f.firstName.dirty"
+                                        class="fa fa-user p-2"></span>
+                                    <input formControlName="firstName" type="text" placeholder="First Name">
+                                </div>
+                                <small *ngIf="f.firstName.errors?.required && f.firstName.dirty"
+                                    class="text-danger">First
+                                    Name is required!</small>
+                            </div>
+                            <div class="form-group pt-3">
+                                <div class="input-field"
+                                    [class.error]="f.lastName.errors?.required && f.lastName.dirty">
+                                    <span [class.text-danger]="f.lastName.errors?.required && f.lastName.dirty"
+                                        class="fa fa-user p-2"></span>
+                                    <input formControlName="lastName" type="text" placeholder="Last Name">
+                                </div>
+                                <small *ngIf="f.lastName.errors?.required && f.lastName.dirty" class="text-danger">Last
+                                    Name
+                                    is required!</small>
+                            </div>
+                            <div class="form-group pt-3">
+                                <div class="input-field"
+                                    [class.error]="(f.email.dirty && f.email.errors?.required) || f.email.errors?.email ">
+                                    <span
+                                        [class.text-danger]="(f.email.dirty && f.email.errors?.required) || f.email.errors?.email "
+                                        class="fa fa-user p-2"></span>
+                                    <input formControlName="email" type="text" placeholder="Email">
+                                </div>
+                                <small *ngIf="f.email.errors?.required && f.email.dirty" class="text-danger">Email is
+                                    required! </small>
+                                <small *ngIf="f.email.errors?.email" class="text-danger">Email must be a valid email
+                                    address!</small>
+                            </div>
+                            <div class="form-group pt-3">
+                                <div class="input-field"
+                                    [class.error]="f.userName.dirty && f.userName.errors?.required ">
+                                    <span [class.text-danger]="f.userName.dirty && f.userName.errors?.required"
+                                        class="fa fa-user p-2"></span>
+                                    <input formControlName="userName" type="text" placeholder="Username">
+                                </div>
+                                <small *ngIf="f.userName.errors?.required && f.userName.dirty"
+                                    class="text-danger">Username
+                                    is required!</small>
+                            </div>
+                            <div class="form-group pt-3">
+                                <div class="input-field"
+                                    [class.error]="f.password.errors?.required && f.password.dirty">
+                                    <span [class.text-danger]="f.password.errors?.required && f.password.dirty"
+                                        class="fa fa-lock p-2"></span>
+                                    <input formControlName="password" [type]="passwordFields.password.type"
+                                        placeholder="Password">
+                                    <span (click)="hideShowPass('password')" class="fa"
+                                        [ngClass]="passwordFields.password.eyeIcon"
+                                        [class.text-danger]="f.password.errors?.required && f.password.dirty"></span>
+                                </div>
+                                <small *ngIf="f.password.errors?.required && f.password.dirty"
+                                    class="text-danger">Password is required!</small>
+                            </div>
+                            <div class="form-group pt-3">
+                                <div class="input-field"
+                                    [class.error]="(f.confirmedPassword.errors?.required && f.confirmedPassword.dirty) || f.confirmedPassword.errors?.MustMatch">
+                                    <span
+                                        [class.text-danger]="(f.confirmedPassword.errors?.required && f.confirmedPassword.dirty) || f.confirmedPassword.errors?.MustMatch"
+                                        class="fa fa-lock p-2"></span>
+                                    <input formControlName="confirmedPassword"
+                                        [type]="passwordFields.confirmedPassword.type" placeholder="Confirm Password">
+                                    <span (click)="hideShowPass('confirmedPassword')" class="fa"
+                                        [ngClass]="passwordFields.confirmedPassword.eyeIcon"
+                                        [class.text-danger]="(f.confirmedPassword.errors?.required && f.confirmedPassword.dirty) || f.confirmedPassword.errors?.MustMatch"></span>
+                                </div>
+                                <small *ngIf="f.confirmedPassword.errors?.required && f.confirmedPassword.dirty"
+                                    class="text-danger">Password is required! </small>
+                                <small *ngIf="f.confirmedPassword.errors?.MustMatch" class="text-danger">Passwords do
+                                    not match!</small>
+                            </div>
+
+                            <div class="text-center pt-4 text-muted">
+                                Already have an account? <a id="forget" routerLink="/login">Login</a>
+                            </div>
+                            <button (click)="onSignUp()" type="submit" class="btn btn-primary btn-block mt-4 w-100">Sign
+                                Up</button>
+                        </form>
+                    </div>
+                    <div class="mx-3 my-2 py-2 bordert">
+                        <div class="text-center py-3">
+                            <a href="https://www.facebook.com" target="_blank" class="px-2"><img
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUFWmkKq1NFf3SQnAl62jKpRH54XB3yb7cCg&usqp=CAU"></a>
+                            <a href="https://www.facebook.com" target="_blank" class="px-2"><img
+                                    src="https://play-lh.googleusercontent.com/VRMWkE5p3CkWhJs6nv-9ZsLAs1QOg5ob1_3qg-rckwYW7yp1fMrYZqnEFpk0IoVP4LM"></a>
+                            <a href="https://gitlab.netrom.live/didactic-apps/multiplex-track-a-maracine"
+                                target="_blank" class="px-2"><img src="https://yt3.googleusercontent.com/R6P5skGdZJeM1bebvt3ILeU8k-9tiqE5T198RmBH8SoGXH2gk_Lk-45uZoq6X6pW4a4c9Sqn=s900-c-k-c0x00ffffff-no-rj
+                                "></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
