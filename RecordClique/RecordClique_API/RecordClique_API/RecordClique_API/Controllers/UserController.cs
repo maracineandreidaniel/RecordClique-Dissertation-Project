@@ -16,6 +16,7 @@ namespace RecordClique_API.Controllers
             this._userService = userService;
         }
 
+
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate([FromBody] User userObj)
         {
