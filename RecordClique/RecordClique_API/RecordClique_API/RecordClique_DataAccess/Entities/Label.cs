@@ -1,23 +1,19 @@
-﻿using RecordClique.Data.Base;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace RecordClique.Models
 {
-    public class Label: IEntityBase
+    public class Label
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
-        [Display(Name = "Profile Picture")]
         [Required(ErrorMessage ="Profile Picture Required")]
-        public string ProfilePictureURL { get; set; }
+        public string ProfilePicture { get; set; }
 
-        [Display(Name = "Name")]
         [Required(ErrorMessage = "Name Required")]
         public string LabelName { get; set; }
 
-        [Display(Name = "Biography")]
-        public string LabelBio { get; set;}
+        public string Biography { get; set;}
 
         public List<Album> Albums { get; set; }
     }

@@ -1,9 +1,13 @@
 ﻿using RecordClique.Models;
+using RecordClique_DataAccess.Entities;
+using System.ComponentModel.DataAnnotations;
 
-public class UserAlbum
-{
-    public string ApplicationUserId { get; set; }
-    public ApplicationUser ApplicationUser { get; set; }
+public class UserAlbum { 
+    [Key]
+    public Guid Id { get; set; }
+    [Required]
+    public Guid UserId { get; set; }
+    public User User { get; set; }
 
     public int AlbumId { get; set; }
     public Album Album { get; set; }
