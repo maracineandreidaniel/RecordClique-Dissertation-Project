@@ -11,7 +11,7 @@ namespace RecordClique.Models
         public string ProfilePicture { get; set; }
 
         [Required(ErrorMessage = "Name Required")]
-        public string LabelName { get; set; }
+        public string Name { get; set; }
 
         public string Biography { get; set;}
 

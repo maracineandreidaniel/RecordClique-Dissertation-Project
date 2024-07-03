@@ -12,7 +12,7 @@ namespace RecordClique.Models
 
         [Required(ErrorMessage = "Name is required!")]
         [StringLength(10,MinimumLength = 3,ErrorMessage = "Full name between 3 and 10")]
-        public string ArtistName { get; set; }
+        public string Name { get; set; }
 
         [Required(ErrorMessage = "Biography is required!")]
         public string Biography { get; set;}
