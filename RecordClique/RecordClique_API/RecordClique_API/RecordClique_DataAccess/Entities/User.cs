@@ -19,5 +19,6 @@ namespace RecordClique_DataAccess.Entities
         public DateTime? RefreshTokenExpiryTime { get; set; }
         public string? ResetPasswordToken { get; set; }
         public DateTime? ResetPasswordExpiry { get; set; }
+        public List<UserAlbumLink>? UserAlbumLinks {  get; set; } 
     }
 }
