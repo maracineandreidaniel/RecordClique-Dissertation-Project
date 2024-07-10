@@ -474,3 +474,5 @@ baseline.json
 # Husky
 .husky/_
 aio/content/examples/.DS_Store
+
+RecordClique\RecordClique_API\RecordClique_API\RecordClique_API\appsettings.json
