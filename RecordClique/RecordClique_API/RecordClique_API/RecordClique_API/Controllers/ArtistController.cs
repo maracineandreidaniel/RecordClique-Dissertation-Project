@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RecordClique.Models.DTOs;
 using RecordClique_API.Services.Interfaces;
+using RecordClique_BusinessLogic.Exceptions;
 using RecordClique_BusinessLogic.Services;
 using RecordClique_BusinessLogic.Services.Abstractions;
 
 namespace RecordClique_API.Controllers
 {
+    [ApiController]
+    [Route("/[controller]")]
     public class ArtistController : Controller
     {
         private readonly IArtistService _artistService;
@@ -15,16 +19,16 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult GetAllArtists()
+        public async Task<IActionResult> GetAllArtists()
         {
-            var artists = _artistService.GetAllArtists();
+            var artists = await _artistService.GetAllArtists();
             return Ok(artists);
         }
 
-        [HttpPost("add")]
-        public IActionResult AddArtist([FromBody]ArtistDto artistRequest)
+        [HttpPost]
+        public async Task<IActionResult> AddArtist([FromBody]ArtistDto artistRequest)
         {
-            _artistService.AddArtist(artistRequest);
+            await _artistService.AddArtist(artistRequest);
             return Ok("Artist was added!");
         }
 
@@ -33,6 +37,36 @@ namespace RecordClique_API.Controllers
         {
             var result = await _artistService.DeleteArtist(id);
             return Ok(result);
+        }
+
+        [HttpGet("{id:Guid}")]
+        public async Task<IActionResult> GetArtistById([FromRoute] Guid id)
+        {
+            var artist = await _artistService.GetArtistById(id);
+            if (artist != null)
+            {
+                return Ok(artist);
+            }
+            return NotFound();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateArtist([FromBody]ArtistDto updateArtistRequest)
+        {
+            try
+            {
+                var screening = await _artistService.UpdateArtist(updateArtistRequest);
+                if (screening == null)
+                {
+                    return NotFound();
+                }
+                return Ok(screening);
+            }
+            catch
+            {
+                return StatusCode(500, "An unexpected error occurred.");
+            }
+
         }
 
     }

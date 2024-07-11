@@ -27,7 +27,7 @@ namespace RecordClique_BusinessLogic.Services
                 Biography = artistRequest.Biography
             };
 
-            _artistRepository.AddAsync(artist);
+            await _artistRepository.AddAsync(artist);
 
             return artistRequest;
 
@@ -50,14 +50,25 @@ namespace RecordClique_BusinessLogic.Services
             return artistDtos;
         }
 
-        public Task<ArtistDto> GetArtistById(Guid id)
+        public async Task<ArtistDto> GetArtistById(Guid id)
         {
-            throw new NotImplementedException();
+            var artist = await _artistRepository.GetByIdAsync(id);
+            return  _mapper.Map<ArtistDto>(artist);
         }
 
-        public Task<ArtistDto> UpdateArtist(ArtistDto artistRequest)
+        public async Task<ArtistDto> UpdateArtist(ArtistDto artistRequest)
         {
-            throw new NotImplementedException();
+            var artist = await _artistRepository.GetByIdAsync(artistRequest.Id);    
+
+            artist.Name = artistRequest.Name;
+            artist.Picture = artistRequest.Picture;
+            artist.Biography = artistRequest.Biography;
+
+            await _artistRepository.UpdateAsync(artist, artistRequest.Id);
+
+            return _mapper.Map<ArtistDto>(artist);
         }
+
+
     }
 }

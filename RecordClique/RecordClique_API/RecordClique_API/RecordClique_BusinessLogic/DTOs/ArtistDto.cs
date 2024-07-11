@@ -4,7 +4,6 @@ namespace RecordClique.Models.DTOs
 {
     public class ArtistDto
     {
-        [Required]
         public Guid Id { get; set; }
 
         public string Name { get; set; }
