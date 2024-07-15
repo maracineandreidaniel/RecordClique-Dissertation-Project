@@ -27,9 +27,11 @@ namespace RecordClique_BusinessLogic.Services
         {
             var albums = await _albumRepository.GetAll();
             var albumDtos = albums
-                //.Include(a => a.RecordLabel)
+                .Include(a => a.RecordLabel)
                 .Include(a => a.AlbumGenreLinks)
+                .ThenInclude(link => link.Genre)
                 .Include(a => a.AlbumArtistLinks)
+                .ThenInclude(link => link.Artist)
                 .Select(a => _mapper.Map<AlbumDto>(a))
                 .ToList();  
             return albumDtos;
