@@ -13,7 +13,7 @@ namespace RecordClique.Models
         public string Name { get; set; }
         public string? Picture { get; set; }
         public string? Biography { get; set;}
-        public ICollection<Album>? Albums { get; set; }
+        public List<AlbumArtistLink>? AlbumArtistLinks { get; set; }
 
 
     }
