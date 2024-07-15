@@ -22,6 +22,51 @@ namespace RecordClique_DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("AlbumArtist", b =>
+                {
+                    b.Property<Guid>("AlbumsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ArtistsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("AlbumsId", "ArtistsId");
+
+                    b.HasIndex("ArtistsId");
+
+                    b.ToTable("AlbumArtist");
+                });
+
+            modelBuilder.Entity("AlbumGenre", b =>
+                {
+                    b.Property<Guid>("AlbumsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GenresId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("AlbumsId", "GenresId");
+
+                    b.HasIndex("GenresId");
+
+                    b.ToTable("AlbumGenre");
+                });
+
+            modelBuilder.Entity("AlbumUser", b =>
+                {
+                    b.Property<Guid>("AlbumsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UsersId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("AlbumsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("AlbumUser");
+                });
+
             modelBuilder.Entity("RecordClique.Models.Album", b =>
                 {
                     b.Property<Guid>("Id")
@@ -127,36 +172,6 @@ namespace RecordClique_DataAccess.Migrations
                     b.ToTable("RecordLabels");
                 });
 
-            modelBuilder.Entity("RecordClique_DataAccess.Entities.AlbumArtistLink", b =>
-                {
-                    b.Property<Guid>("FK_AlbumId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("FK_ArtistId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("FK_AlbumId", "FK_ArtistId");
-
-                    b.HasIndex("FK_ArtistId");
-
-                    b.ToTable("AlbumArtistLink");
-                });
-
-            modelBuilder.Entity("RecordClique_DataAccess.Entities.AlbumGenreLink", b =>
-                {
-                    b.Property<Guid>("FK_AlbumId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("FK_GenreId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("FK_AlbumId", "FK_GenreId");
-
-                    b.HasIndex("FK_GenreId");
-
-                    b.ToTable("AlbumGenreLinks");
-                });
-
             modelBuilder.Entity("RecordClique_DataAccess.Entities.Genre", b =>
                 {
                     b.Property<Guid>("Id")
@@ -228,28 +243,49 @@ namespace RecordClique_DataAccess.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("UserAlbumLink", b =>
+            modelBuilder.Entity("AlbumArtist", b =>
                 {
-                    b.Property<Guid>("FK_AlbumId")
-                        .HasColumnType("uniqueidentifier");
+                    b.HasOne("RecordClique.Models.Album", null)
+                        .WithMany()
+                        .HasForeignKey("AlbumsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<Guid>("FK_UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.HasOne("RecordClique.Models.Artist", null)
+                        .WithMany()
+                        .HasForeignKey("ArtistsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.Property<bool>("IsFavourite")
-                        .HasColumnType("bit");
+            modelBuilder.Entity("AlbumGenre", b =>
+                {
+                    b.HasOne("RecordClique.Models.Album", null)
+                        .WithMany()
+                        .HasForeignKey("AlbumsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<bool>("IsListening")
-                        .HasColumnType("bit");
+                    b.HasOne("RecordClique_DataAccess.Entities.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.Property<bool>("IsOnWishlist")
-                        .HasColumnType("bit");
+            modelBuilder.Entity("AlbumUser", b =>
+                {
+                    b.HasOne("RecordClique.Models.Album", null)
+                        .WithMany()
+                        .HasForeignKey("AlbumsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasKey("FK_AlbumId", "FK_UserId");
-
-                    b.HasIndex("FK_UserId");
-
-                    b.ToTable("UserAlbumLinks");
+                    b.HasOne("RecordClique_DataAccess.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RecordClique.Models.Album", b =>
@@ -282,90 +318,9 @@ namespace RecordClique_DataAccess.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("RecordClique_DataAccess.Entities.AlbumArtistLink", b =>
-                {
-                    b.HasOne("RecordClique.Models.Album", "Album")
-                        .WithMany("AlbumArtistLinks")
-                        .HasForeignKey("FK_AlbumId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RecordClique.Models.Artist", "Artist")
-                        .WithMany("AlbumArtistLinks")
-                        .HasForeignKey("FK_ArtistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Album");
-
-                    b.Navigation("Artist");
-                });
-
-            modelBuilder.Entity("RecordClique_DataAccess.Entities.AlbumGenreLink", b =>
-                {
-                    b.HasOne("RecordClique.Models.Album", "Album")
-                        .WithMany("AlbumGenreLinks")
-                        .HasForeignKey("FK_AlbumId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RecordClique_DataAccess.Entities.Genre", "Genre")
-                        .WithMany("AlbumGenreLinks")
-                        .HasForeignKey("FK_GenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Album");
-
-                    b.Navigation("Genre");
-                });
-
-            modelBuilder.Entity("UserAlbumLink", b =>
-                {
-                    b.HasOne("RecordClique.Models.Album", "Album")
-                        .WithMany("UserAlbumLinks")
-                        .HasForeignKey("FK_AlbumId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RecordClique_DataAccess.Entities.User", "User")
-                        .WithMany("UserAlbumLinks")
-                        .HasForeignKey("FK_UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Album");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("RecordClique.Models.Album", b =>
-                {
-                    b.Navigation("AlbumArtistLinks");
-
-                    b.Navigation("AlbumGenreLinks");
-
-                    b.Navigation("UserAlbumLinks");
-                });
-
-            modelBuilder.Entity("RecordClique.Models.Artist", b =>
-                {
-                    b.Navigation("AlbumArtistLinks");
-                });
-
             modelBuilder.Entity("RecordClique.Models.RecordLabel", b =>
                 {
                     b.Navigation("Albums");
-                });
-
-            modelBuilder.Entity("RecordClique_DataAccess.Entities.Genre", b =>
-                {
-                    b.Navigation("AlbumGenreLinks");
-                });
-
-            modelBuilder.Entity("RecordClique_DataAccess.Entities.User", b =>
-                {
-                    b.Navigation("UserAlbumLinks");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using RecordClique.Models;
 
 namespace RecordClique_DataAccess.Entities
 {
@@ -19,6 +20,6 @@ namespace RecordClique_DataAccess.Entities
         public DateTime? RefreshTokenExpiryTime { get; set; }
         public string? ResetPasswordToken { get; set; }
         public DateTime? ResetPasswordExpiry { get; set; }
-        public List<UserAlbumLink>? UserAlbumLinks {  get; set; } 
+        public ICollection<Album>? Albums { get; set; }
     }
 }

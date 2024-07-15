@@ -10,7 +10,7 @@ namespace RecordClique.Models
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = "Title is required!")]
-        [StringLength(10, MinimumLength = 3, ErrorMessage = "Title between 3 and 10 characters")]
+        [MinLength(3, ErrorMessage = "Title should have minimum 3 characters")]
         public string Title { get; set; }
 
         public string? Description { get; set; }
@@ -24,9 +24,9 @@ namespace RecordClique.Models
 
         public RecordLabel RecordLabel { get; set; }      
 
-        public List<AlbumGenreLink>? AlbumGenreLinks { get; set; }
-        public List<UserAlbumLink>? UserAlbumLinks { get; set; }
-        public List<AlbumArtistLink>? AlbumArtistLinks { get; set; }
+        public List<Genre>? Genres { get; set; }
+        public List<User>? Users { get; set; }
+        public List<Artist>? Artists { get; set; }
 
     }
 

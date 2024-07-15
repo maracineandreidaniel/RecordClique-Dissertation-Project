@@ -21,5 +21,12 @@ namespace RecordClique_API.Controllers
             var albums = await _albumService.GetAllAlbums();
             return Ok(albums);
         }
+
+        [HttpGet("getalltest")]
+        public async Task<IActionResult> test()
+        {
+            var albums = await _albumService.test();
+            return Ok(albums);
+        }
     }
 }

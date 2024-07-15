@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RecordClique_DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class first : Migration
+    public partial class update1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -98,49 +98,73 @@ namespace RecordClique_DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AlbumArtistLink",
+                name: "AlbumArtist",
                 columns: table => new
                 {
-                    FK_AlbumId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FK_ArtistId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    AlbumsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ArtistsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AlbumArtistLink", x => new { x.FK_AlbumId, x.FK_ArtistId });
+                    table.PrimaryKey("PK_AlbumArtist", x => new { x.AlbumsId, x.ArtistsId });
                     table.ForeignKey(
-                        name: "FK_AlbumArtistLink_Albums_FK_AlbumId",
-                        column: x => x.FK_AlbumId,
+                        name: "FK_AlbumArtist_Albums_AlbumsId",
+                        column: x => x.AlbumsId,
                         principalTable: "Albums",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AlbumArtistLink_Artists_FK_ArtistId",
-                        column: x => x.FK_ArtistId,
+                        name: "FK_AlbumArtist_Artists_ArtistsId",
+                        column: x => x.ArtistsId,
                         principalTable: "Artists",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AlbumGenreLinks",
+                name: "AlbumGenre",
                 columns: table => new
                 {
-                    FK_AlbumId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FK_GenreId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    AlbumsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GenresId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AlbumGenreLinks", x => new { x.FK_AlbumId, x.FK_GenreId });
+                    table.PrimaryKey("PK_AlbumGenre", x => new { x.AlbumsId, x.GenresId });
                     table.ForeignKey(
-                        name: "FK_AlbumGenreLinks_Albums_FK_AlbumId",
-                        column: x => x.FK_AlbumId,
+                        name: "FK_AlbumGenre_Albums_AlbumsId",
+                        column: x => x.AlbumsId,
                         principalTable: "Albums",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AlbumGenreLinks_Genres_FK_GenreId",
-                        column: x => x.FK_GenreId,
+                        name: "FK_AlbumGenre_Genres_GenresId",
+                        column: x => x.GenresId,
                         principalTable: "Genres",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AlbumUser",
+                columns: table => new
+                {
+                    AlbumsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UsersId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AlbumUser", x => new { x.AlbumsId, x.UsersId });
+                    table.ForeignKey(
+                        name: "FK_AlbumUser_Albums_AlbumsId",
+                        column: x => x.AlbumsId,
+                        principalTable: "Albums",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AlbumUser_Users_UsersId",
+                        column: x => x.UsersId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -173,47 +197,25 @@ namespace RecordClique_DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "UserAlbumLinks",
-                columns: table => new
-                {
-                    FK_UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FK_AlbumId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IsListening = table.Column<bool>(type: "bit", nullable: false),
-                    IsFavourite = table.Column<bool>(type: "bit", nullable: false),
-                    IsOnWishlist = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserAlbumLinks", x => new { x.FK_AlbumId, x.FK_UserId });
-                    table.ForeignKey(
-                        name: "FK_UserAlbumLinks_Albums_FK_AlbumId",
-                        column: x => x.FK_AlbumId,
-                        principalTable: "Albums",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserAlbumLinks_Users_FK_UserId",
-                        column: x => x.FK_UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_AlbumArtist_ArtistsId",
+                table: "AlbumArtist",
+                column: "ArtistsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AlbumArtistLink_FK_ArtistId",
-                table: "AlbumArtistLink",
-                column: "FK_ArtistId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AlbumGenreLinks_FK_GenreId",
-                table: "AlbumGenreLinks",
-                column: "FK_GenreId");
+                name: "IX_AlbumGenre_GenresId",
+                table: "AlbumGenre",
+                column: "GenresId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Albums_FK_RecordLabelId",
                 table: "Albums",
                 column: "FK_RecordLabelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AlbumUser_UsersId",
+                table: "AlbumUser",
+                column: "UsersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_AlbumId",
@@ -224,27 +226,22 @@ namespace RecordClique_DataAccess.Migrations
                 name: "IX_Comments_UserId",
                 table: "Comments",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserAlbumLinks_FK_UserId",
-                table: "UserAlbumLinks",
-                column: "FK_UserId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AlbumArtistLink");
+                name: "AlbumArtist");
 
             migrationBuilder.DropTable(
-                name: "AlbumGenreLinks");
+                name: "AlbumGenre");
+
+            migrationBuilder.DropTable(
+                name: "AlbumUser");
 
             migrationBuilder.DropTable(
                 name: "Comments");
-
-            migrationBuilder.DropTable(
-                name: "UserAlbumLinks");
 
             migrationBuilder.DropTable(
                 name: "Artists");
