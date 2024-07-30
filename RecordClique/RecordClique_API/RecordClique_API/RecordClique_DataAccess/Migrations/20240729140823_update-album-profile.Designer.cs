@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecordClique_DataAccess.Context;
 
@@ -11,9 +12,11 @@ using RecordClique_DataAccess.Context;
 namespace RecordClique_DataAccess.Migrations
 {
     [DbContext(typeof(RecordCliqueContext))]
-    partial class RecordCliqueContextModelSnapshot : ModelSnapshot
+    [Migration("20240729140823_update-album-profile")]
+    partial class updatealbumprofile
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

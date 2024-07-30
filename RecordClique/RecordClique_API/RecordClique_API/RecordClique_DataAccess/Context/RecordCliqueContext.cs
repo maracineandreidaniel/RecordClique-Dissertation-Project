@@ -13,6 +13,7 @@ namespace RecordClique_DataAccess.Context
         public DbSet<Artist> Artists { get; set; } 
         public DbSet<Album> Albums { get; set; } 
         public DbSet<AlbumGenreLink> AlbumGenreLinks { get; set; } 
+        public DbSet<AlbumArtistLink> AlbumArtistLinks { get; set; } 
         public DbSet<Comment> Comments { get; set; } 
         public DbSet<Genre> Genres { get; set; } 
         public DbSet<RecordLabel> RecordLabels { get; set; } 
@@ -22,6 +23,15 @@ namespace RecordClique_DataAccess.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<AlbumGenreLink>()
+            .HasKey(mg => new { mg.FK_AlbumId, mg.FK_GenreId });
+
+            modelBuilder.Entity<AlbumArtistLink>()
+            .HasKey(mg => new { mg.FK_AlbumId, mg.FK_ArtistId });
+
+            modelBuilder.Entity<UserAlbumLink>()
+            .HasKey(mg => new { mg.FK_UserId, mg.FK_AlbumId });
+
             //M:M for Album-Genre
             modelBuilder.Entity<AlbumGenreLink>()
             .HasKey(ag => new { ag.FK_AlbumId, ag.FK_GenreId });
