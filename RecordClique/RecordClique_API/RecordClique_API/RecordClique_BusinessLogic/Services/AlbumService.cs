@@ -97,10 +97,8 @@ namespace RecordClique_BusinessLogic.Services
 
         }
 
-        public async Task<AlbumDto> UpdateAlbum(Guid albumId, AlbumDto albumRequest)
-        {
-           // var album = await _albumRepository.GetByIdAsync(albumId);
-
+        public async Task<AlbumDto> UpdateAlbum(AlbumDto albumRequest)
+        { 
             var albums = await _albumRepository.GetAll();
             var album = await albums
                 .Include(a => a.RecordLabel)
@@ -108,7 +106,7 @@ namespace RecordClique_BusinessLogic.Services
                 .ThenInclude(link => link.Genre)
                 .Include(a => a.AlbumArtistLinks)
                 .ThenInclude(link => link.Artist)
-                .Where(a => a.Id == albumId)
+                .Where(a => a.Id == albumRequest.Id)
                 .FirstOrDefaultAsync();
 
             if (album == null)
@@ -118,10 +116,8 @@ namespace RecordClique_BusinessLogic.Services
 
             var newAlbum = _mapper.Map<Album>(albumRequest);
 
-            // Update artists links
             if (albumRequest.Artists != null)
             {
-                // Remove existing links
                 var existingArtists = album.AlbumArtistLinks.Select(a => a.FK_ArtistId).ToList();
                 foreach (var link in album.AlbumArtistLinks.ToList())
                 {
@@ -132,7 +128,6 @@ namespace RecordClique_BusinessLogic.Services
                     }
                 }
 
-                // Add new links
                 foreach (var artistId in albumRequest.Artists)
                 {
                     if (!existingArtists.Contains(artistId))
@@ -150,10 +145,8 @@ namespace RecordClique_BusinessLogic.Services
                 }
             }
 
-            // Update genres links
             if (albumRequest.Genres != null)
             {
-                // Remove existing links
                 var existingGenres = album.AlbumGenreLinks.Select(g => g.FK_GenreId).ToList();
                 foreach (var link in album.AlbumGenreLinks.ToList())
                 {
@@ -164,7 +157,6 @@ namespace RecordClique_BusinessLogic.Services
                     }
                 }
 
-                // Add new links
                 foreach (var genreId in albumRequest.Genres)
                 {
                     if (!existingGenres.Contains(genreId))
@@ -182,7 +174,7 @@ namespace RecordClique_BusinessLogic.Services
                 }
             }
 
-            await _albumRepository.UpdateAsync(newAlbum, albumId);
+            await _albumRepository.UpdateAsync(newAlbum, album.Id);
             return _mapper.Map<AlbumDto>(album);
         }
 

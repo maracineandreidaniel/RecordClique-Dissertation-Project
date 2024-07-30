@@ -24,8 +24,8 @@ namespace RecordClique_API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddArtist([FromBody]ArtistDto artistRequest)
         {
-            await _artistService.AddArtist(artistRequest);
-            return Ok("Artist was added!");
+            var artist = await _artistService.AddArtist(artistRequest);
+            return Ok(artist);
         }
 
         [HttpDelete("{id:Guid}")]
@@ -51,12 +51,12 @@ namespace RecordClique_API.Controllers
         {
             try
             {
-                var screening = await _artistService.UpdateArtist(updateArtistRequest);
-                if (screening == null)
+                var artist = await _artistService.UpdateArtist(updateArtistRequest);
+                if (artist == null)
                 {
                     return NotFound();
                 }
-                return Ok(screening);
+                return Ok(artist);
             }
             catch
             {

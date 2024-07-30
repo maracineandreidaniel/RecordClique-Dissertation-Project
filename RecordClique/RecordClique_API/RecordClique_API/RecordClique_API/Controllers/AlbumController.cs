@@ -39,11 +39,11 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateAlbum(Guid albumId, [FromBody] AlbumDto albumRequest)
+        public async Task<IActionResult> UpdateAlbum([FromBody] AlbumDto albumRequest)
         {
             try
             {
-                var album = await _albumService.UpdateAlbum(albumId, albumRequest);
+                var album = await _albumService.UpdateAlbum(albumRequest);
                 return Ok(album);
             }
             catch (Exception ex)

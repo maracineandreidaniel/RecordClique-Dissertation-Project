@@ -19,13 +19,7 @@ namespace RecordClique_BusinessLogic.Services
 
         public async Task<ArtistDto> AddArtist(ArtistDto artistRequest)
         {
-            var artist = new Artist
-            {
-                Id = Guid.NewGuid(),
-                Name = artistRequest.Name,
-                Picture = artistRequest.Picture,
-                Biography = artistRequest.Biography
-            };
+            var artist = _mapper.Map<Artist>(artistRequest);
 
             await _artistRepository.AddAsync(artist);
 
