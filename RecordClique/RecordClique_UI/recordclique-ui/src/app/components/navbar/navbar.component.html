@@ -6,36 +6,35 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li *ngIf = "role === 'User' && isAuthenticated === true" class="nav-item active">
-          <a [routerLink]="['/screenings-today']" class="nav-link">Movies <span class="sr-only">(current)</span></a>
+          <a [routerLink]="['/screenings-today']" class="nav-link">Albums <span class="sr-only">(current)</span></a>
         </li>
         <li *ngIf = "role === 'Admin' && isAuthenticated === true" class="nav-item dropdown" dropdown>
           <a class="nav-link dropdown-toggle" dropdownToggle style="cursor: pointer;">
-            Movies
+            Albums
             <span class="caret"></span>
           </a>
           <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/screenings-today']">Today</a></li>
-            <li role="menuitem"><a class="dropdown-item" routerLink="/dates">All Time</a></li>
+            <li role="menuitem"><a class="dropdown-item" routerLink="/dates">All Albums</a></li>
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/screenings-today']">Add Album</a></li>
           </ul>
         </li>
         <li *ngIf = "role === 'Admin' && isAuthenticated === true" class="nav-item dropdown" dropdown>
           <a class="nav-link dropdown-toggle" dropdownToggle style="cursor: pointer;">
-            Screenings
+            Artists
             <span class="caret"></span>
           </a>
           <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-            <li role="menuitem"><a class="dropdown-item" routerLink="/screenings/add">Add Screening</a></li>
-            <li role="menuitem"><a class="dropdown-item" routerLink="/screenings">View Screenings</a></li>
+            <li role="menuitem"><a class="dropdown-item" routerLink="/artists">All Artists</a></li>
+            <li role="menuitem"><a class="dropdown-item" routerLink="/artists/add">Add Artist</a></li>
           </ul>
         </li>
         <li *ngIf = "role === 'Admin' && isAuthenticated === true" class="nav-item dropdown" dropdown>
           <a class="nav-link dropdown-toggle" dropdownToggle style="cursor: pointer;">
-            Tickets
+            Record Labels
             <span class="caret"></span>
           </a>
           <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-            <!-- <li role="menuitem"><a class="dropdown-item" routerLink="/tickets/add">Add Ticket</a></li> -->
-            <li role="menuitem"><a class="dropdown-item" routerLink="/tickets">View Tickets</a></li>
+            <li role="menuitem"><a class="dropdown-item" routerLink="/tickets">All Record Labels</a></li>
           </ul>
         </li>
         <li *ngIf = "role === 'Admin' && isAuthenticated === true" class="nav-item active">

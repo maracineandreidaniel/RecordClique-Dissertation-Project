@@ -29,6 +29,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatButtonModule } from '@angular/material/button';
 import { UnauthorizedPageComponent } from './components/unauthorized-page/unauthorized-page.component';
+import { AddArtistComponent } from './components/crud-artist/add-artist/add-artist.component';
+import { UpdateArtistComponent } from './components/crud-artist/update-artist/update-artist.component';
+import { IndexArtistComponent } from './components/crud-artist/index-artist/index-artist.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,9 @@ import { UnauthorizedPageComponent } from './components/unauthorized-page/unauth
     ResetPasswordComponent,
     MyProfileComponent,
     UnauthorizedPageComponent,
+    AddArtistComponent,
+    UpdateArtistComponent,
+    IndexArtistComponent,
   ],
   imports: [
     BrowserModule,

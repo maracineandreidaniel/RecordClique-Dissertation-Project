@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using RecordClique.Models;
 using RecordClique.Models.DTOs;
 using RecordClique_BusinessLogic.Services.Abstractions;
+using RecordClique_DataAccess.Helpers;
 using RecordClique_DataAccess.Repository.Abstraction;
 
 namespace RecordClique_BusinessLogic.Services
@@ -27,21 +29,49 @@ namespace RecordClique_BusinessLogic.Services
 
         }
 
-        public async Task<string> DeleteArtist(Guid id)
+        public async Task<object> DeleteArtist(Guid id)
         {
             var artist = await _artistRepository.GetByIdAsync(id);
-            if (artist != null)
+            if (artist == null)
             {
-                await _artistRepository.RemoveAsync(artist);
+                throw new Exception("Artist was not found!");
             }
-            return "Done!";
+            await _artistRepository.RemoveAsync(artist);
+            return new { Message = "Artist was successfully deleted!" };
         }
 
-        public async Task<IEnumerable<ArtistDto>> GetAllArtists()
+        public async Task<PaginatedResult<ArtistDto>> GetArtists(int pageNumber, int pageSize, string? filterName)
         {
-           var artists = await _artistRepository.GetAll();
-            var artistDtos = artists.Select(t => _mapper.Map<ArtistDto>(t)).ToList();
-            return artistDtos;
+
+            var query = await _artistRepository.GetAll();
+
+
+            if (!string.IsNullOrEmpty(filterName))
+            {
+                query = query.Where(s => s.Name.ToLower().Contains(filterName.ToLower()));
+            }
+
+            var totalItems = await query.CountAsync();
+
+
+            var artists = await query
+             .Skip((pageNumber - 1) * pageSize)
+             .Take(pageSize)
+             .OrderByDescending(s => s.Name)
+             .ToListAsync();
+
+            var artistDtos = artists.Select(s =>
+                _mapper.Map<ArtistDto>(s)
+            )
+                .ToList();
+
+            return new PaginatedResult<ArtistDto>
+            {
+                Items = artistDtos,
+                TotalItems = totalItems,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
         }
 
         public async Task<ArtistDto> GetArtistById(Guid id)

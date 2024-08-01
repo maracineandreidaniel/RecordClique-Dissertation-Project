@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RecordClique.Models.DTOs;
 using RecordClique_BusinessLogic.Services.Abstractions;
 
@@ -12,13 +13,6 @@ namespace RecordClique_API.Controllers
         public ArtistController(IArtistService artistService)
         {
             _artistService = artistService;
-        }
-
-        [HttpGet("getall")]
-        public async Task<IActionResult> GetAllArtists()
-        {
-            var artists = await _artistService.GetAllArtists();
-            return Ok(artists);
         }
 
         [HttpPost]
@@ -63,6 +57,15 @@ namespace RecordClique_API.Controllers
                 return StatusCode(500, "An unexpected error occurred.");
             }
 
+        }
+
+        [HttpGet("/artists")]
+        //[Authorize(Policy = "AdminUserPolicy")]
+        public async Task<IActionResult> GetArtists(int pageNumber, int pageSize, string? filterName)
+
+        {
+            var artists = await _artistService.GetArtists(pageNumber, pageSize, filterName);
+            return Ok(artists);
         }
 
     }
