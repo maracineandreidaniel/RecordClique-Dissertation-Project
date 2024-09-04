@@ -227,5 +227,17 @@ namespace RecordClique_BusinessLogic.Services
                 PageSize = pageSize
             };
         }
+
+        public async Task<AlbumDto> GetAlbumById(Guid id)
+        {
+            var query = await _albumRepository.GetAll();
+            var album = await query.Include(ag => ag.AlbumGenreLinks!)
+                .ThenInclude(link => link.Genre)
+                .Include(aa => aa.AlbumArtistLinks!)
+                .ThenInclude(link => link.Artist)
+                .Where(a => a.Id == id)
+                .FirstOrDefaultAsync();
+            return _mapper.Map<AlbumDto>(album);
+        }
     }
 }

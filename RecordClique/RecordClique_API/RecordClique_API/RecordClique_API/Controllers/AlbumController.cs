@@ -59,5 +59,16 @@ namespace RecordClique_API.Controllers
             var albums = await _albumService.GetAlbums(pageNumber, pageSize, filterName);
             return Ok(albums);
         }
+
+        [HttpGet("{id:Guid}")]
+        public async Task<IActionResult> GetAlbumById([FromRoute] Guid id)
+        {
+            var album = await _albumService.GetAlbumById(id);
+            if (album != null)
+            {
+                return Ok(album);
+            }
+            return NotFound();
+        }
     }
 }

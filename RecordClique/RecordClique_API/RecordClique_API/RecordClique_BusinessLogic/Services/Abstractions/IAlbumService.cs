@@ -10,5 +10,6 @@ namespace RecordClique_BusinessLogic.Services.Abstractions
         Task<AlbumDto> UpdateAlbum(AlbumDto albumRequest);
         Task<string> DeleteAlbum(Guid id);
         Task<PaginatedResult<AlbumDto>> GetAlbums(int pageNumber, int pageSize, string? filterName);
+        Task<AlbumDto> GetAlbumById(Guid id);
     }
 }

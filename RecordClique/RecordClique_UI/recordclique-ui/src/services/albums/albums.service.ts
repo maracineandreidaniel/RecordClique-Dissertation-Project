@@ -34,4 +34,12 @@ export class AlbumsService extends BaseService {
     addAlbumRequest.Id = '00000000-0000-0000-0000-000000000000';
     return this.http.post<Album>(this.apiUrl + '/Album',addAlbumRequest);
    }
+
+   updateAlbum(updateAlbumRequest: Album): Observable<Album>{
+    return this.http.put<Album>(this.apiUrl + '/Album/', updateAlbumRequest);
+   }
+
+   getAlbumById(id: string):Observable<Album> {
+    return this.http.get<Album>(`${this.apiUrl}/Album/`+ id);
+  }  
 }
