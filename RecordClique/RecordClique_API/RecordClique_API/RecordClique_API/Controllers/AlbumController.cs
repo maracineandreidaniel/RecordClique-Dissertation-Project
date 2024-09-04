@@ -16,14 +16,6 @@ namespace RecordClique_API.Controllers
             _albumService = albumService;
         }
 
-
-        [HttpGet("getall")]
-        public async Task<IActionResult> GetAllAlbums()
-        {
-            var albums = await _albumService.GetAllAlbums();
-            return Ok(albums);
-        }
-
         [HttpPost]
         public async Task<IActionResult> AddAlbum([FromBody] AlbumDto albumRequest)
         {
