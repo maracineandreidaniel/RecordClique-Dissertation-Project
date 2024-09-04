@@ -36,7 +36,7 @@ export class AddArtistComponent {
 
       this.artistService.addArtist(artist).subscribe({
         next: (res) => {
-          this.router.navigate(['index-artist']);
+          this.router.navigate(['artists']);
         },
         error: (err) => {
           this.toaster.error(err.message || 'An error occurred', 'ERROR', {

@@ -14,8 +14,8 @@
             <span class="caret"></span>
           </a>
           <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-            <li role="menuitem"><a class="dropdown-item" routerLink="/dates">All Albums</a></li>
-            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/screenings-today']">Add Album</a></li>
+            <li role="menuitem"><a class="dropdown-item" routerLink="/albums">All Albums</a></li>
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/albums/add']">Add Album</a></li>
           </ul>
         </li>
         <li *ngIf = "role === 'Admin' && isAuthenticated === true" class="nav-item dropdown" dropdown>

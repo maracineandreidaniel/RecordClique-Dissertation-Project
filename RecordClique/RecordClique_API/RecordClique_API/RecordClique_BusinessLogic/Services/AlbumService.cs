@@ -10,6 +10,7 @@ using RecordClique.Models.DTOs;
 using RecordClique_BusinessLogic.DTOs;
 using RecordClique_BusinessLogic.Services.Abstractions;
 using RecordClique_DataAccess.Entities;
+using RecordClique_DataAccess.Helpers;
 using RecordClique_DataAccess.Repository.Abstraction;
 
 namespace RecordClique_BusinessLogic.Services
@@ -68,7 +69,9 @@ namespace RecordClique_BusinessLogic.Services
                         await _albumArtistLinkRepository.AddAsync(new AlbumArtistLink
                         {
                             FK_ArtistId = artistId,
-                            FK_AlbumId = album.Id
+                            FK_AlbumId = album.Id,
+                            Artist = artist,
+                            Album = album,
                         });
                     }
                 }
@@ -87,8 +90,10 @@ namespace RecordClique_BusinessLogic.Services
                         await _albumGenreLinkRepository.AddAsync(new AlbumGenreLink
                         {
                             FK_GenreId = genreId,
-                            FK_AlbumId = album.Id
-                        });
+                            FK_AlbumId = album.Id,
+                            Genre = genre,
+                            Album = album,
+                        }); ;
                     }
                 }
             }
@@ -186,6 +191,41 @@ namespace RecordClique_BusinessLogic.Services
                 await _albumRepository.RemoveAsync(album);
             }
             return "Done!";
+        }
+
+        public async Task<PaginatedResult<AlbumDto>> GetAlbums(int pageNumber, int pageSize, string? filterName)
+        {
+
+            var query = await _albumRepository.GetAll();
+            query = query.Include(a => a.RecordLabel)
+                .Include(ag => ag.AlbumGenreLinks!)
+                .ThenInclude(link => link.Genre)
+                .Include(aa => aa.AlbumArtistLinks!)
+                .ThenInclude(link => link.Artist);
+
+            if (!string.IsNullOrEmpty(filterName))
+            {
+                query = query.Where(s => s.Title.ToLower().Contains(filterName.ToLower()));
+            }
+
+            var totalItems = await query.CountAsync();
+
+            var albums = await query
+             .Skip((pageNumber - 1) * pageSize)
+             .Take(pageSize)
+             .OrderByDescending(s => s.Title)
+             .ToListAsync();
+
+            var albumDtos = albums
+                .Select(a => _mapper.Map<AlbumDto>(a)).ToList();
+
+            return new PaginatedResult<AlbumDto>
+            {
+                Items = albumDtos,
+                TotalItems = totalItems,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
         }
     }
 }

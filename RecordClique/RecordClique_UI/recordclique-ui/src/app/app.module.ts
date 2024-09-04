@@ -32,6 +32,10 @@ import { UnauthorizedPageComponent } from './components/unauthorized-page/unauth
 import { AddArtistComponent } from './components/crud-artist/add-artist/add-artist.component';
 import { UpdateArtistComponent } from './components/crud-artist/update-artist/update-artist.component';
 import { IndexArtistComponent } from './components/crud-artist/index-artist/index-artist.component';
+import { AddAlbumComponent } from './components/crud-album/add-album/add-album/add-album.component';
+import { IndexAlbumComponent } from './components/crud-album/index-album/index-album/index-album.component';
+import { UpdateAlbumComponent } from './components/crud-album/update-album/update-album.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -46,6 +50,9 @@ import { IndexArtistComponent } from './components/crud-artist/index-artist/inde
     AddArtistComponent,
     UpdateArtistComponent,
     IndexArtistComponent,
+    AddAlbumComponent,
+    IndexAlbumComponent,
+    UpdateAlbumComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +79,8 @@ import { IndexArtistComponent } from './components/crud-artist/index-artist/inde
     MatIconModule,
     BsDatepickerModule,
     NgxPaginationModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSelectModule
   ],
   providers: [LoginComponent,
   {

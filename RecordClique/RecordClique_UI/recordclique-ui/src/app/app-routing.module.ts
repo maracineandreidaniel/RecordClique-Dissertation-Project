@@ -10,6 +10,9 @@ import { UnauthorizedPageComponent } from './components/unauthorized-page/unauth
 import { IndexArtistComponent } from './components/crud-artist/index-artist/index-artist.component';
 import { AddArtistComponent } from './components/crud-artist/add-artist/add-artist.component';
 import { UpdateArtistComponent } from './components/crud-artist/update-artist/update-artist.component';
+import { IndexAlbumComponent } from './components/crud-album/index-album/index-album/index-album.component';
+import { AddAlbumComponent } from './components/crud-album/add-album/add-album/add-album.component';
+import { UpdateAlbumComponent } from './components/crud-album/update-album/update-album.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -22,6 +25,9 @@ const routes: Routes = [
   { path: 'artists', component: IndexArtistComponent},
   { path: 'artists/add', component: AddArtistComponent},
   { path: 'artists/update/:id', component: UpdateArtistComponent},
+  { path: 'albums', component: IndexAlbumComponent},
+  { path: 'albums/add', component: AddAlbumComponent},
+  { path: 'albums/update/:id', component: UpdateAlbumComponent},
 
 ];
 

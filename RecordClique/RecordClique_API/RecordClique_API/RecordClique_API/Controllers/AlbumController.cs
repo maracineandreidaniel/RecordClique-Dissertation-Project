@@ -58,5 +58,14 @@ namespace RecordClique_API.Controllers
             var result = await _albumService.DeleteAlbum(id);
             return Ok(result);
         }
+
+        [HttpGet("/albums")]
+        //[Authorize(Policy = "AdminUserPolicy")]
+        public async Task<IActionResult> GetAlbums(int pageNumber, int pageSize, string? filterName)
+
+        {
+            var albums = await _albumService.GetAlbums(pageNumber, pageSize, filterName);
+            return Ok(albums);
+        }
     }
 }
