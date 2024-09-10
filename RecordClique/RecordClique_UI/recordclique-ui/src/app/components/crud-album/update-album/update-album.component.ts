@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { tap } from 'rxjs';
@@ -20,19 +20,24 @@ export class UpdateAlbumComponent {
 
   updateAlbumForm!: FormGroup;
 
-  genres: SelectOption[] = [
+
+  genresOptions: SelectOption[] = [
     { id: '4FA85F64-5717-4562-B3FC-2C963F66AFA6', name: 'Rock' },
-    { id: '2f4e8900-1a11-4fc0-a5f8-e3bbf9ebc9e2', name: 'Pop' },
     { id: '5FA85F64-5717-4562-B3FC-2C963F66AFA6', name: 'Jazz' },
-    { id: '4f4e8900-1a11-4fc0-a5f8-e3bbf9ebc9e4', name: 'Classical' }
   ];
   
-  artists: SelectOption[] = [
+  artistsOptions: SelectOption[] = [
     { id: '43EE4B7B-286D-4FF2-DC14-08DCC78198DB', name: 'Artist One' },
     { id: '1EA85F64-5717-4562-B3FC-2C963F66AFA6', name: 'Artist Two' },
-    { id: '3a6e6700-2a22-5dc0-b6f9-f4cc0fae9e13', name: 'Artist Three' },
-    { id: '4a6e6700-2a22-5dc0-b6f9-f4cc0fae9e14', name: 'Artist Four' }
+    { id: '1EA85F64-5717-4562-B3FC-2C963F66AFA9', name: 'Artist Three' },
   ];
+
+  selectedArtists: string[] = ['43EE4B7B-286D-4FF2-DC14-08DCC78198DB','1EA85F64-5717-4562-B3FC-2C963F66AFA6'];
+
+
+  toppings = new FormControl();
+  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  selected: string[] = this.toppingList.filter((item, i) => i % 2 === 0);
 
   constructor(private toaster: ToastrService, private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, private albumService: AlbumsService){
     this.updateAlbumForm = this.fb.group({
@@ -43,6 +48,7 @@ export class UpdateAlbumComponent {
       genres: [[]],
       artists: [[]]
     });
+    
   }
   
 
@@ -84,15 +90,17 @@ export class UpdateAlbumComponent {
   setDefaultValues() {
     this.albumService.getAlbumById(this.route.snapshot.paramMap.get('id')!).pipe(
       tap((album: Album) => {
-        // Ensure the form is patched with the correct values for the multi-selects
+        
         this.updateAlbumForm.patchValue({
           title: album.Title,
           cover: album.Cover,
           description: album.Description,
-          releaseDate: album.ReleaseDate,
-          genres: album.Genres, // Ensure this is an array of genre IDs
-          artists: album.Artists // Ensure this is an array of artist IDs
+          releaseDate: album.ReleaseDate
+          //genres: album.Genres, 
+          //artists: album.Artists 
         });
+        console.log(album.Genres);
+        console.log(album.Artists);
       })
     ).subscribe({
       error: (err) => {

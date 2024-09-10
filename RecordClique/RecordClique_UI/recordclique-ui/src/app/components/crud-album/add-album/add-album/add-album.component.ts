@@ -21,16 +21,13 @@ export class AddAlbumComponent implements OnInit {
   
   genres: SelectOption[] = [
     { id: '4FA85F64-5717-4562-B3FC-2C963F66AFA6', name: 'Rock' },
-    { id: '2f4e8900-1a11-4fc0-a5f8-e3bbf9ebc9e2', name: 'Pop' },
     { id: '5FA85F64-5717-4562-B3FC-2C963F66AFA6', name: 'Jazz' },
-    { id: '4f4e8900-1a11-4fc0-a5f8-e3bbf9ebc9e4', name: 'Classical' }
   ];
   
   artists: SelectOption[] = [
     { id: '43EE4B7B-286D-4FF2-DC14-08DCC78198DB', name: 'Artist One' },
     { id: '1EA85F64-5717-4562-B3FC-2C963F66AFA6', name: 'Artist Two' },
-    { id: '3a6e6700-2a22-5dc0-b6f9-f4cc0fae9e13', name: 'Artist Three' },
-    { id: '4a6e6700-2a22-5dc0-b6f9-f4cc0fae9e14', name: 'Artist Four' }
+    { id: '1EA85F64-5717-4562-B3FC-2C963F66AFA9', name: 'Artist Three' },
   ];
 
   constructor(
