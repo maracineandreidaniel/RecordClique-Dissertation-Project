@@ -22,22 +22,15 @@ export class UpdateAlbumComponent {
 
 
   genresOptions: SelectOption[] = [
-    { id: '4FA85F64-5717-4562-B3FC-2C963F66AFA6', name: 'Rock' },
-    { id: '5FA85F64-5717-4562-B3FC-2C963F66AFA6', name: 'Jazz' },
+    { id: '4fa85f64-5717-4562-b3fc-2c963f66afa6', name: 'Rock' },
+    { id: '5fa85f64-5717-4562-b3fc-2c963f66afa6', name: 'Jazz' },
   ];
   
   artistsOptions: SelectOption[] = [
-    { id: '43EE4B7B-286D-4FF2-DC14-08DCC78198DB', name: 'Artist One' },
-    { id: '1EA85F64-5717-4562-B3FC-2C963F66AFA6', name: 'Artist Two' },
-    { id: '1EA85F64-5717-4562-B3FC-2C963F66AFA9', name: 'Artist Three' },
+    { id: '43ee4b7b-286d-4ff2-dc14-08dcc78198db', name: 'Artist One' },
+    { id: '1ea85f64-5717-4562-b3fc-2c963f66afa6', name: 'Artist Two' },
+    { id: '1ea85f64-5717-4562-b3fc-2c963f66afa9', name: 'Artist Three' },
   ];
-
-  selectedArtists: string[] = ['43EE4B7B-286D-4FF2-DC14-08DCC78198DB','1EA85F64-5717-4562-B3FC-2C963F66AFA6'];
-
-
-  toppings = new FormControl();
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
-  selected: string[] = this.toppingList.filter((item, i) => i % 2 === 0);
 
   constructor(private toaster: ToastrService, private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, private albumService: AlbumsService){
     this.updateAlbumForm = this.fb.group({
@@ -48,12 +41,12 @@ export class UpdateAlbumComponent {
       genres: [[]],
       artists: [[]]
     });
-    
+        this.setDefaultValues();
   }
   
 
   ngOnInit(): void {
-    this.setDefaultValues();
+
     
   }
   
@@ -90,17 +83,15 @@ export class UpdateAlbumComponent {
   setDefaultValues() {
     this.albumService.getAlbumById(this.route.snapshot.paramMap.get('id')!).pipe(
       tap((album: Album) => {
-        
+
         this.updateAlbumForm.patchValue({
           title: album.Title,
           cover: album.Cover,
           description: album.Description,
-          releaseDate: album.ReleaseDate
-          //genres: album.Genres, 
-          //artists: album.Artists 
+          releaseDate: album.ReleaseDate,
+          genres: album.Genres, 
+          artists:  album.Artists
         });
-        console.log(album.Genres);
-        console.log(album.Artists);
       })
     ).subscribe({
       error: (err) => {

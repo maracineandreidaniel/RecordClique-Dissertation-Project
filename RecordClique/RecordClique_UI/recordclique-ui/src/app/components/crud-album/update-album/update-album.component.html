@@ -34,17 +34,10 @@
           
           <mat-form-field appearance="fill" class="w-100 mb-3">
             <mat-label>Artists</mat-label>
-            <mat-select formControlName="artists" multiple [(ngModel)]="selectedArtists">
+            <mat-select formControlName="artists" multiple>
               <mat-option *ngFor="let artist of artistsOptions" [value]="artist.id">{{ artist.name }}</mat-option>
             </mat-select>
           </mat-form-field>
-
-          <mat-form-field>
-            <mat-select placeholder="Toppings" [formControl]="toppings" multiple [(ngModel)]="selected">
-              <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          
   
           <button mat-raised-button color="primary" type="submit">Save</button>
         </form>

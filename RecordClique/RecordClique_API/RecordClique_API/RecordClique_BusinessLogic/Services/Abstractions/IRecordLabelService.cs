@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RecordClique.Models.DTOs;
-using RecordClique_BusinessLogic.DTOs;
+﻿using RecordClique_BusinessLogic.DTOs;
+using RecordClique_DataAccess.Helpers;
 
 namespace RecordClique_BusinessLogic.Services.Abstractions
 {
     public interface IRecordLabelService
     {
-        Task<IEnumerable<RecordLabelDto>> GetAllRecordLabels();
+        Task<PaginatedResult<RecordLabelDto>> GetRecordLabels(int pageNumber, int pageSize);
 
         Task<RecordLabelDto> GetRecordLabelById(Guid id);
 

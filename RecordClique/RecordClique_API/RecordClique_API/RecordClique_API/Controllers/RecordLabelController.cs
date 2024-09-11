@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RecordClique_BusinessLogic.DTOs;
+using RecordClique_BusinessLogic.Services;
 using RecordClique_BusinessLogic.Services.Abstractions;
 
 namespace RecordClique_API.Controllers
@@ -14,10 +15,12 @@ namespace RecordClique_API.Controllers
             this._recordLabelService = recordLabelService;
         }
 
-        [HttpGet("getall")]
-        public async Task<IActionResult> GetAllRecordLabels()
+        [HttpGet("/record-labels")]
+        //[Authorize(Policy = "AdminUserPolicy")]
+        public async Task<IActionResult> GetArtists(int pageNumber, int pageSize)
+
         {
-            var recordLabels = await _recordLabelService.GetAllRecordLabels();
+            var recordLabels = await _recordLabelService.GetRecordLabels(pageNumber, pageSize);
             return Ok(recordLabels);
         }
 

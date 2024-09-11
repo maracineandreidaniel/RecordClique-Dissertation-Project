@@ -34,7 +34,8 @@
             <span class="caret"></span>
           </a>
           <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-            <li role="menuitem"><a class="dropdown-item" routerLink="/tickets">All Record Labels</a></li>
+            <li role="menuitem"><a class="dropdown-item" routerLink="/record-labels">All Record Labels</a></li>
+            <li role="menuitem"><a class="dropdown-item" routerLink="/record-labels/add">Add Record Label</a></li>
           </ul>
         </li>
         <li *ngIf = "role === 'Admin' && isAuthenticated === true" class="nav-item active">

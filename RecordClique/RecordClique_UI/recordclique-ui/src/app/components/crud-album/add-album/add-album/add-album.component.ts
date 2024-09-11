@@ -19,15 +19,15 @@ export class AddAlbumComponent implements OnInit {
 
   addAlbumForm!: FormGroup;
   
-  genres: SelectOption[] = [
-    { id: '4FA85F64-5717-4562-B3FC-2C963F66AFA6', name: 'Rock' },
-    { id: '5FA85F64-5717-4562-B3FC-2C963F66AFA6', name: 'Jazz' },
+  genresOptions: SelectOption[] = [
+    { id: '4fa85f64-5717-4562-b3fc-2c963f66afa6', name: 'Rock' },
+    { id: '5fa85f64-5717-4562-b3fc-2c963f66afa6', name: 'Jazz' },
   ];
   
-  artists: SelectOption[] = [
-    { id: '43EE4B7B-286D-4FF2-DC14-08DCC78198DB', name: 'Artist One' },
-    { id: '1EA85F64-5717-4562-B3FC-2C963F66AFA6', name: 'Artist Two' },
-    { id: '1EA85F64-5717-4562-B3FC-2C963F66AFA9', name: 'Artist Three' },
+  artistsOptions: SelectOption[] = [
+    { id: '43ee4b7b-286d-4ff2-dc14-08dcc78198db', name: 'Artist One' },
+    { id: '1ea85f64-5717-4562-b3fc-2c963f66afa6', name: 'Artist Two' },
+    { id: '1ea85f64-5717-4562-b3fc-2c963f66afa9', name: 'Artist Three' },
   ];
 
   constructor(

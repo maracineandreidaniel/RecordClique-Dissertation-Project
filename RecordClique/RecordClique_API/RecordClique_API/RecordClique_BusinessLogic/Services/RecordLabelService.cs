@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using RecordClique.Models;
-using RecordClique.Models.DTOs;
 using RecordClique_BusinessLogic.DTOs;
 using RecordClique_BusinessLogic.Services.Abstractions;
+using RecordClique_DataAccess.Helpers;
 using RecordClique_DataAccess.Repository.Abstraction;
 
 namespace RecordClique_BusinessLogic.Services
@@ -44,6 +40,33 @@ namespace RecordClique_BusinessLogic.Services
             var recordLabels = await _recordLabelRepository.GetAll();
             var recordLabelDtos = recordLabels.Select(t => _mapper.Map<RecordLabelDto>(t)).ToList();
             return recordLabelDtos;
+        }
+
+        public async Task<PaginatedResult<RecordLabelDto>> GetRecordLabels(int pageNumber, int pageSize)
+        {
+
+            var query = await _recordLabelRepository.GetAll();
+
+            var totalItems = await query.CountAsync();
+
+            var recordlabels = await query
+             .Skip((pageNumber - 1) * pageSize)
+             .Take(pageSize)
+             .OrderByDescending(s => s.Name)
+             .ToListAsync();
+
+            var recordLabelsDtos = recordlabels.Select(s =>
+                _mapper.Map<RecordLabelDto>(s)
+            )
+                .ToList();
+
+            return new PaginatedResult<RecordLabelDto>
+            {
+                Items = recordLabelsDtos,
+                TotalItems = totalItems,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
         }
 
         public async Task<RecordLabelDto> GetRecordLabelById(Guid id)

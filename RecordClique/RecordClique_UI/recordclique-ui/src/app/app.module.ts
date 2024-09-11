@@ -36,6 +36,9 @@ import { AddAlbumComponent } from './components/crud-album/add-album/add-album/a
 import { IndexAlbumComponent } from './components/crud-album/index-album/index-album/index-album.component';
 import { UpdateAlbumComponent } from './components/crud-album/update-album/update-album.component';
 import { MatSelectModule } from '@angular/material/select';
+import { AddRecordLabelComponent } from './components/crud-record-label/add-record-label/add-record-label.component';
+import { IndexRecordLabelComponent } from './components/crud-record-label/index-record-label/index-record-label.component';
+import { UpdateRecordLabelComponent } from './components/crud-record-label/update-record-label/update-record-label.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +56,9 @@ import { MatSelectModule } from '@angular/material/select';
     AddAlbumComponent,
     IndexAlbumComponent,
     UpdateAlbumComponent,
+    AddRecordLabelComponent,
+    IndexRecordLabelComponent,
+    UpdateRecordLabelComponent,
   ],
   imports: [
     BrowserModule,
