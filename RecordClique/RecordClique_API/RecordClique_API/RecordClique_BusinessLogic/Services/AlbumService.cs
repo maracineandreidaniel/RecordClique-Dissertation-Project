@@ -183,14 +183,15 @@ namespace RecordClique_BusinessLogic.Services
             return _mapper.Map<AlbumDto>(album);
         }
 
-        public async Task<string> DeleteAlbum(Guid id)
+        public async Task<object> RemoveAlbum(Guid id)
         {
             var album = await _albumRepository.GetByIdAsync(id);
-            if (album != null)
+            if (album == null)
             {
-                await _albumRepository.RemoveAsync(album);
+                throw new Exception("Album was not found!");
             }
-            return "Done!";
+            await _albumRepository.RemoveAsync(album);
+            return new { Message = "Album was successfully deleted!" };
         }
 
         public async Task<PaginatedResult<AlbumDto>> GetAlbums(int pageNumber, int pageSize, string? filterName)
@@ -239,5 +240,7 @@ namespace RecordClique_BusinessLogic.Services
                 .FirstOrDefaultAsync();
             return _mapper.Map<AlbumDto>(album);
         }
+
+  
     }
 }

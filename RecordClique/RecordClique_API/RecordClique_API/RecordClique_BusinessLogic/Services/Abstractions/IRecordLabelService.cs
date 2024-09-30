@@ -13,6 +13,8 @@ namespace RecordClique_BusinessLogic.Services.Abstractions
 
         Task<RecordLabelDto> UpdateRecordLabel(RecordLabelDto recordLabelRequest);
 
-        Task<string> DeleteRecordLabel(Guid id);
+        Task<object> DeleteRecordLabel(Guid id);
+
+        Task<List<SelectOptionResult>> GetRecordLabelSelectOptions();
     }
 }

@@ -25,14 +25,15 @@ namespace RecordClique_BusinessLogic.Services
             return recordLabelRequest;
         }
 
-        public async Task<string> DeleteRecordLabel(Guid id)
+        public async Task<object> DeleteRecordLabel(Guid id)
         {
             var recordLabel = await _recordLabelRepository.GetByIdAsync(id);
-            if (recordLabel != null)
+            if (recordLabel == null)
             {
-                await _recordLabelRepository.RemoveAsync(recordLabel);
+                throw new Exception("Record Label was not found!");
             }
-            return "Done!";
+            await _recordLabelRepository.RemoveAsync(recordLabel);
+            return new { Message = "Record Label was successfully deleted!" };
         }
 
         public async Task<IEnumerable<RecordLabelDto>> GetAllRecordLabels()
@@ -83,6 +84,20 @@ namespace RecordClique_BusinessLogic.Services
             recordLabel.Biography = recordLabelRequest.Biography;
             await _recordLabelRepository.UpdateAsync(recordLabel, recordLabelRequest.Id);
             return _mapper.Map<RecordLabelDto>(recordLabel);
+        }
+
+        public async Task<List<SelectOptionResult>> GetRecordLabelSelectOptions()
+        {
+
+            var query = await _recordLabelRepository.GetAll();
+
+            var recordLabels = query.Select(s => new SelectOptionResult
+            {
+                Id = s.Id,
+                Value = s.Name
+            }).ToListAsync();
+
+            return await recordLabels;
         }
     }
 }

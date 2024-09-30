@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { PaginatedResponse } from 'src/app/models/paginated-response.model';
 import { Artist } from 'src/app/models/artist.model';
 import { Observable } from 'rxjs';
+import { SelectOptionResult } from 'src/app/models/select-option-result.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +41,9 @@ export class ArtistsService extends BaseService {
 
    getArtistById(id: string):Observable<Artist> {
     return this.http.get<Artist>(`${this.apiUrl}/Artist/`+ id);
+  }  
+
+  getArtistSelectOptions():Observable<SelectOptionResult[]> {
+    return this.http.get<SelectOptionResult[]>(`${this.apiUrl}/Artist/SelectOptions`);
   }  
 }

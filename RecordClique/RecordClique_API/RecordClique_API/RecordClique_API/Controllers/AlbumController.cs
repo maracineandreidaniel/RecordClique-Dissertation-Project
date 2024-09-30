@@ -47,7 +47,7 @@ namespace RecordClique_API.Controllers
         [HttpDelete("{id:Guid}")]
         public async Task<IActionResult> RemoveAlbum([FromRoute] Guid id)
         {
-            var result = await _albumService.DeleteAlbum(id);
+            var result = await _albumService.RemoveAlbum(id);
             return Ok(result);
         }
 
@@ -70,5 +70,7 @@ namespace RecordClique_API.Controllers
             }
             return NotFound();
         }
+
+  
     }
 }

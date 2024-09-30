@@ -93,6 +93,20 @@ namespace RecordClique_BusinessLogic.Services
             return _mapper.Map<ArtistDto>(artist);
         }
 
+        public async Task<List<SelectOptionResult>> GetArtistSelectOptions()
+        {
+
+            var query = await _artistRepository.GetAll();
+
+            var artists = query.Select(s => new SelectOptionResult
+            {
+                Id = s.Id,
+                Value = s.Name
+            }).ToListAsync();
+
+            return await artists;
+        }
+
 
     }
 }

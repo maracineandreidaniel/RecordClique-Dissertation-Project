@@ -17,7 +17,7 @@ namespace RecordClique_API.Controllers
 
         [HttpGet("/record-labels")]
         //[Authorize(Policy = "AdminUserPolicy")]
-        public async Task<IActionResult> GetArtists(int pageNumber, int pageSize)
+        public async Task<IActionResult> GetRecordLabels(int pageNumber, int pageSize)
 
         {
             var recordLabels = await _recordLabelService.GetRecordLabels(pageNumber, pageSize);
@@ -66,6 +66,13 @@ namespace RecordClique_API.Controllers
                 return StatusCode(500, "An unexpected error occurred.");
             }
 
+        }
+
+        [HttpGet("SelectOptions")]
+        public async Task<IActionResult> GetRecordLabelSelectOptions()
+        {
+            var result = await _recordLabelService.GetRecordLabelSelectOptions();
+            return Ok(result);
         }
     }
 }

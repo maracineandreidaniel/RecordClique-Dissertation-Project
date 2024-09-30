@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecordClique.Models.DTOs;
+using RecordClique_BusinessLogic.Services;
 using RecordClique_BusinessLogic.Services.Abstractions;
 
 namespace RecordClique_API.Controllers
@@ -66,6 +67,13 @@ namespace RecordClique_API.Controllers
         {
             var artists = await _artistService.GetArtists(pageNumber, pageSize, filterName);
             return Ok(artists);
+        }
+
+        [HttpGet("SelectOptions")]
+        public async Task<IActionResult> GetArtistSelectOptions()
+        {
+            var result = await _artistService.GetArtistSelectOptions();
+            return Ok(result);
         }
 
     }

@@ -1,1 +1,23 @@
-<p>update-record-label works!</p>
+
+<div class="container my-5">
+    <h1 class = "mb-3">Add New Record Label</h1>
+    <div class="row">
+        <div class="col-6">
+            <form aform="ngForm" [formGroup]="updateRecordLabelForm">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" formControlName="name">
+                  </div>
+                  <div class="mb-3">
+                    <label for="biography" class="form-label">Biography</label>
+                    <textarea class="form-control" id="biography" formControlName="biography" rows="5"></textarea>
+                  </div>
+                  <div class="mb-3">
+                    <label for="picture" class="form-label">Picture</label>
+                    <textarea class="form-control" id="picture" formControlName="picture" rows="5"></textarea>
+                  </div>
+                <button type="submit" class="btn btn-primary" (click)="updateRecordLabel()">Save</button>
+              </form>
+        </div>
+    </div>
+</div>
