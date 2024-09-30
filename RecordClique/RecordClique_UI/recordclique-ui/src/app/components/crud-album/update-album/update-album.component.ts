@@ -4,7 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { tap } from 'rxjs';
 import { Album } from 'src/app/models/album.model';
+import { SelectOptionResult } from 'src/app/models/select-option-result.model';
 import { AlbumsService } from 'src/services/albums/albums.service';
+import { ArtistsService } from 'src/services/artists/artists.service';
+import { GenresService } from 'src/services/genres/genres.service';
 
 interface SelectOption {
   id: string;
@@ -19,20 +22,16 @@ interface SelectOption {
 export class UpdateAlbumComponent {
 
   updateAlbumForm!: FormGroup;
+  genresOptions!: SelectOptionResult[];
+  artistsOptions!: SelectOptionResult[];
 
-
-  genresOptions: SelectOption[] = [
-    { id: '4fa85f64-5717-4562-b3fc-2c963f66afa6', name: 'Rock' },
-    { id: '5fa85f64-5717-4562-b3fc-2c963f66afa6', name: 'Jazz' },
-  ];
-  
-  artistsOptions: SelectOption[] = [
-    { id: '43ee4b7b-286d-4ff2-dc14-08dcc78198db', name: 'Artist One' },
-    { id: '1ea85f64-5717-4562-b3fc-2c963f66afa6', name: 'Artist Two' },
-    { id: '1ea85f64-5717-4562-b3fc-2c963f66afa9', name: 'Artist Three' },
-  ];
-
-  constructor(private toaster: ToastrService, private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, private albumService: AlbumsService){
+  constructor(private toaster: ToastrService, 
+    private fb: FormBuilder, 
+    private router: Router,  
+    private route: ActivatedRoute, 
+    private albumService: AlbumsService, 
+    private artistService: ArtistsService, 
+    private genreService: GenresService){
     this.updateAlbumForm = this.fb.group({
       title: [''],
       cover: [''],
@@ -44,11 +43,7 @@ export class UpdateAlbumComponent {
         this.setDefaultValues();
   }
   
-
-  ngOnInit(): void {
-
-    
-  }
+  ngOnInit(): void {}
   
   updateAlbum() {
     if (this.updateAlbumForm.valid) {
@@ -100,6 +95,25 @@ export class UpdateAlbumComponent {
         });
       }
     });
+
+    this.artistService.getArtistSelectOptions().subscribe({
+      next: (res) => {
+        this.artistsOptions = res;
+      },
+      error: (err) => {
+        this.toaster.error(err.message || 'An error occurred', 'ERROR', { timeOut: 5000 });
+      }
+    });
+
+    this.genreService.getGenreSelectOptions().subscribe({
+      next: (res) => {
+        this.genresOptions = res;
+      },
+      error: (err) => {
+        this.toaster.error(err.message || 'An error occurred', 'ERROR', { timeOut: 5000 });
+      }
+    });
+
   }
   
 

@@ -28,14 +28,14 @@
           <mat-form-field appearance="fill" class="w-100 mb-3">
             <mat-label>Genres</mat-label>
             <mat-select formControlName="genres" multiple>
-              <mat-option *ngFor="let genre of genresOptions" [value]="genre.id">{{ genre.name }}</mat-option>
+              <mat-option *ngFor="let genre of genresOptions" [value]="genre.Id">{{ genre.Value }}</mat-option>
             </mat-select>
           </mat-form-field>
   
           <mat-form-field appearance="fill" class="w-100 mb-3">
             <mat-label>Artists</mat-label>
             <mat-select formControlName="artists" multiple>
-              <mat-option *ngFor="let artist of artistsOptions" [value]="artist.id">{{ artist.name }}</mat-option>
+              <mat-option *ngFor="let artist of artistsOptions" [value]="artist.Id">{{ artist.Value }}</mat-option>
             </mat-select>
           </mat-form-field>
   
