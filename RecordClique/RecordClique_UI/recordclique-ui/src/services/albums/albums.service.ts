@@ -14,7 +14,7 @@ export class AlbumsService extends BaseService {
     super();
    }
 
-  getAlbums(pageNumber: number, pageSize: number, filterName?: string): Observable<PaginatedResponse<Album>> {
+  getAlbums(pageNumber: number, pageSize: number, filterName?: string, artistId?: string, genreId?: string, year?: number): Observable<PaginatedResponse<Album>> {
     let queryParams: any = {};
 
     queryParams.pageNumber = pageNumber;
@@ -22,6 +22,18 @@ export class AlbumsService extends BaseService {
    
     if (filterName) {
       queryParams.filterName = filterName;
+    }
+
+    if (artistId) {
+      queryParams.artistId = artistId;
+    }
+
+    if (genreId) {
+      queryParams.genreId = genreId;
+    }
+
+    if (year) {
+      queryParams.year = year;
     }
     return this.http.get<PaginatedResponse<Album>>(this.apiUrl + '/albums', { params: queryParams });
   }

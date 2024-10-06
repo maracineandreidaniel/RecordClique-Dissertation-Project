@@ -4,6 +4,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
   </head>
+
+  <form class="form-inline" aform="ngForm" [formGroup]="searchArtistForm">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" formControlName="filter">
+    <button (click)="searchArtist()" class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
+  </form>
   
   <button class="btn btn-warning my-2 my-sm-0" type="button" data-bs-toggle="modal" data-bs-target="#filtersModal">
     <i class="bi bi-filter"></i>

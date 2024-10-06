@@ -4,6 +4,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
   </head>
+
+  <form class="form-inline" aform="ngForm" [formGroup]="searchAlbumForm">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" formControlName="filter">
+    <button (click)="searchAlbum()" class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
+    <button class="btn btn-warning my-2 my-sm-0" type="button" data-bs-toggle="modal" data-bs-target="#filtersModal"><i class="bi bi-filter"></i>Filter</button>
+  </form>
   
   <button class="btn btn-warning my-2 my-sm-0" type="button" data-bs-toggle="modal" data-bs-target="#filtersModal">
     <i class="bi bi-filter"></i>
@@ -45,13 +51,13 @@
     </ul>
   </div>
   
-  <!-- <div class="modal fade" id="filtersModal" tabindex="-1" aria-labelledby="filtersModal" aria-hidden="true">
+  <div class="modal fade" id="filtersModal" tabindex="-1" aria-labelledby="filtersModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <p class="modal-title" id="filtersModal">
-            <span style="font-size: 25px; font-weight: 700">Filter Screenings</span><br />
-            <small> Choose filters for available movies </small>
+            <span style="font-size: 25px; font-weight: 700">Filter Albums</span><br />
+            <small> Choose filters for available albums </small>
           </p>
           <button type="button" (click)="closeFiltersModal()" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -59,34 +65,28 @@
           <div class="container my-9">
             <div class="row">
               <div class="col-9">
-                <form aform="ngForm" [formGroup]="filterScreeningsForm">
+                <form aform="ngForm" [formGroup]="filterAlbumsForm">
                   <div class="mb-3">
-                    <div class="datepicker">
-                      <label for="date" class="form-label">Choose a date</label>
-                      <input type="text"
-                         class="form-control" 
-                         bsDatepicker 
-                         formControlName="date"
-                          />
-                    </div>
+                      <label for="year" class="form-label">Year</label>
+                      <input type="number" class="form-control" id="year" formControlName="year" >
                   </div>
                   <div class="mb-3">
-                    <label for="room" class="form-label">Room</label>
-                    <select class="form-control" id="room" formControlName="room" [ngModel]="defaultValueFilterRoom">
-                      <option *ngFor="let room of rooms" [value]="room.Id">
-                        {{ room.Name }}
+                    <label for="artist" class="form-label">Artist</label>
+                    <select class="form-control" id="artist" formControlName="artist" [ngModel]="defaultValueFilterArtist">
+                      <option *ngFor="let artistOption of artistOptions" [value]="artistOption.Id">
+                        {{ artistOption.Value }}
                       </option>
                     </select>
                   </div>
                   <div class="mb-3">
                     <label for="genre" class="form-label">Genre</label>
                     <select class="form-control" id="genre" formControlName="genre" [ngModel]="defaultValueFilterGenre">
-                      <option *ngFor="let genre of genres" [value]="genre.Id">
-                        {{ genre.Name }}
+                      <option *ngFor="let genreOption of genreOptions" [value]="genreOption.Id">
+                        {{ genreOption.Value }}
                       </option>
                     </select>
                   </div>
-                  <button type="submit" class="btn btn-warning" [disabled]="!(filterScreeningsForm.valid && filterScreeningsForm.dirty)" (click)="filterScreenings()">
+                  <button type="submit" class="btn btn-warning" [disabled]="!(filterAlbumsForm.valid && filterAlbumsForm.dirty)" (click)="filterAlbums()">
                     Filter
                   </button>
                   <button type="submit" class="btn btn-danger" (click)="clearFilters()">
@@ -99,7 +99,7 @@
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
   
   <div class="modal fade" id="deleteAlbumModal" tabindex="-1" aria-labelledby="deleteAlbumModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

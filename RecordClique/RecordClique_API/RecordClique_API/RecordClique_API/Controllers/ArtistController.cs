@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RecordClique.Models.DTOs;
-using RecordClique_BusinessLogic.Services;
 using RecordClique_BusinessLogic.Services.Abstractions;
 
 namespace RecordClique_API.Controllers

@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Album } from 'src/app/models/album.model';
+import { SelectOptionResult } from 'src/app/models/select-option-result.model';
 import { AlbumsService } from 'src/services/albums/albums.service';
+import { ArtistsService } from 'src/services/artists/artists.service';
+import { GenresService } from 'src/services/genres/genres.service';
 
 @Component({
   selector: 'app-index-album',
@@ -10,27 +13,56 @@ import { AlbumsService } from 'src/services/albums/albums.service';
   styleUrls: ['./index-album.component.css']
 })
 export class IndexAlbumComponent {
-   // filterScreeningsForm!: FormGroup;
+   filterAlbumsForm!: FormGroup;
+   searchAlbumForm!: FormGroup;
    albums: Album[] = [];
    selectedAlbumId! : string | ' ';
    page: number = 1;
    pageSize: number = 5;
    totalPages: number = 0;
+   artistOptions: SelectOptionResult[] = [];
+   genreOptions: SelectOptionResult[] = [];
+   defaultValueFilterArtist = "00000000-0000-0000-0000-000000000000";
+   defaultValueFilterGenre = "00000000-0000-0000-0000-000000000000";
  
    constructor(
      private albumService: AlbumsService,
      private fb: FormBuilder,
-     private toast: ToastrService
+     private toast: ToastrService,
+     private genreService: GenresService,
+     private artistService: ArtistsService
    ) {
-     // this.filterScreeningsForm = this.fb.group({
-     //   date: [''],
-     //   room: [''],
-     //   genre: [''],
-     // });
+     this.filterAlbumsForm = this.fb.group({
+       artist: [''],
+       genre: [''],
+       year: ['']
+     });
+
+     this.searchAlbumForm = this.fb.group({
+      filter: ['']
+    });
+
+     this.artistService.getArtistSelectOptions().subscribe({
+      next: (res: any) => {
+        this.artistOptions = res;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+
+    this.genreService.getGenreSelectOptions().subscribe({
+      next: (res: any) => {
+        this.genreOptions = res;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
    }
  
    ngOnInit(): void {
-     this.loadScreenings(this.page, this.pageSize);  
+     this.loadAlbums(this.page, this.pageSize);  
    }
  
    deleteAlbum(id: string) {
@@ -50,15 +82,27 @@ export class IndexAlbumComponent {
      const modal = $('#filtersModal');
      (modal as any).modal('hide');
    }
+
+   searchAlbum() {
+    if (this.searchAlbumForm.valid) {
+      this.page = 1;
+      this.loadAlbums(this.page, this.pageSize);
+    }
+  }
  
-   // filterScreenings() {
-   //   if (this.filterScreeningsForm.valid) {
-   //     this.page = 1;
-   //     this.loadScreenings(this.page, this.pageSize);
-   //     this.closeFiltersModal();
-   //   }
-   // }
-   
+   filterAlbums() {
+     if (this.filterAlbumsForm.valid) {
+       this.page = 1;
+       this.loadAlbums(this.page, this.pageSize);
+       this.closeFiltersModal();
+     }
+   }
+
+   clearFilters() {
+    this.filterAlbumsForm.get('year')?.setValue('');
+    this.filterAlbumsForm.get('artist')?.setValue("00000000-0000-0000-0000-000000000000");
+    this.filterAlbumsForm.get('genre')?.setValue("00000000-0000-0000-0000-000000000000");
+  } 
  
    closeDeleteModal() {
      const modal = $('#deleteAlbumModal');
@@ -70,15 +114,14 @@ export class IndexAlbumComponent {
    }
  
    pageChange(newPage: number): void {
-     this.loadScreenings(newPage, this.pageSize);  
+     this.loadAlbums(newPage, this.pageSize);   
    }
  
-   loadScreenings(pageNumber: number, pageSize: number): void {
-     // const formValues = this.filterScreeningsForm.value;
-      this.albumService.getAlbums(pageNumber, pageSize)
+   loadAlbums(pageNumber: number, pageSize: number): void {
+      const formValues = this.filterAlbumsForm.value;
+       this.albumService.getAlbums(pageNumber, pageSize, this.searchAlbumForm.value.filter, formValues.artist, formValues.genre, formValues.year)
        .subscribe({
          next: (res) => {
-          
            this.albums = res.Items;
            this.totalPages = Math.ceil(res.TotalItems / pageSize);
            this.page = pageNumber;            

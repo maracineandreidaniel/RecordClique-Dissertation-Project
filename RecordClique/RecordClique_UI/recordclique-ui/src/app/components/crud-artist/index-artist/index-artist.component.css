@@ -1,0 +1,5 @@
+.form-inline{
+    max-width: 30%;
+    display: flex;
+    margin-bottom: 30px;
+}

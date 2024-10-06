@@ -194,7 +194,7 @@ namespace RecordClique_BusinessLogic.Services
             return new { Message = "Album was successfully deleted!" };
         }
 
-        public async Task<PaginatedResult<AlbumDto>> GetAlbums(int pageNumber, int pageSize, string? filterName)
+        public async Task<PaginatedResult<AlbumDto>> GetAlbums(int pageNumber, int pageSize, string? filterName, Guid? artistId, Guid? genreId, int? year)
         {
 
             var query = await _albumRepository.GetAll();
@@ -207,6 +207,21 @@ namespace RecordClique_BusinessLogic.Services
             if (!string.IsNullOrEmpty(filterName))
             {
                 query = query.Where(s => s.Title.ToLower().Contains(filterName.ToLower()));
+            }
+
+            if (artistId.HasValue && artistId != Guid.Empty)
+            {
+                query = query.Where(s => s.AlbumArtistLinks.Any(aa => aa.Artist.Id == artistId));
+            }
+
+            if (genreId.HasValue && genreId != Guid.Empty)
+            {
+                query = query.Where(s => s.AlbumGenreLinks.Any(ag => ag.Genre.Id == genreId));
+            }
+
+            if (year.HasValue)
+            {
+                query = query.Where(s => s.ReleaseDate.Year == year);
             }
 
             var totalItems = await query.CountAsync();

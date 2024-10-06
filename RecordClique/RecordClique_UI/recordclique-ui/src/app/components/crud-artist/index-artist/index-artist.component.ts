@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Artist } from 'src/app/models/artist.model';
 import { ArtistsService } from 'src/services/artists/artists.service';
@@ -10,7 +10,7 @@ import { ArtistsService } from 'src/services/artists/artists.service';
   styleUrls: ['./index-artist.component.css']
 })
 export class IndexArtistComponent {
-  // filterScreeningsForm!: FormGroup;
+  searchArtistForm!: FormGroup;
   artists: Artist[] = [];
   selectedArtistId! : string | ' ';
   page: number = 1;
@@ -22,11 +22,9 @@ export class IndexArtistComponent {
     private fb: FormBuilder,
     private toast: ToastrService
   ) {
-    // this.filterScreeningsForm = this.fb.group({
-    //   date: [''],
-    //   room: [''],
-    //   genre: [''],
-    // });
+    this.searchArtistForm = this.fb.group({
+      filter: ['']
+    });
   }
 
   ngOnInit(): void {
@@ -51,15 +49,14 @@ export class IndexArtistComponent {
     (modal as any).modal('hide');
   }
 
-  // filterScreenings() {
-  //   if (this.filterScreeningsForm.valid) {
-  //     this.page = 1;
-  //     this.loadScreenings(this.page, this.pageSize);
-  //     this.closeFiltersModal();
-  //   }
-  // }
+  searchArtist() {
+    if (this.searchArtistForm.valid) {
+      this.page = 1;
+      this.loadScreenings(this.page, this.pageSize);
+      this.closeFiltersModal();
+    }
+  }
   
-
   closeDeleteModal() {
     const modal = $('#deleteArtistModal');
     (modal as any).modal('hide');
@@ -74,8 +71,8 @@ export class IndexArtistComponent {
   }
 
   loadScreenings(pageNumber: number, pageSize: number): void {
-    // const formValues = this.filterScreeningsForm.value;
-     this.artistService.getArtists(pageNumber, pageSize)
+     const formValues = this.searchArtistForm.value;
+     this.artistService.getArtists(pageNumber, pageSize, formValues.filter)
       .subscribe({
         next: (res) => {
          

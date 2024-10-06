@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RecordClique.Models;
 using RecordClique_BusinessLogic.DTOs;
 using RecordClique_BusinessLogic.Services;
 using RecordClique_BusinessLogic.Services.Abstractions;
@@ -53,10 +54,10 @@ namespace RecordClique_API.Controllers
 
         [HttpGet("/albums")]
         //[Authorize(Policy = "AdminUserPolicy")]
-        public async Task<IActionResult> GetAlbums(int pageNumber, int pageSize, string? filterName)
+        public async Task<IActionResult> GetAlbums(int pageNumber, int pageSize, string? filterName, Guid? artistId, Guid? genreId, int? year)
 
         {
-            var albums = await _albumService.GetAlbums(pageNumber, pageSize, filterName);
+            var albums = await _albumService.GetAlbums(pageNumber, pageSize, filterName, artistId, genreId, year);
             return Ok(albums);
         }
 
