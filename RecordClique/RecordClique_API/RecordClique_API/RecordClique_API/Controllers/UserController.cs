@@ -175,5 +175,24 @@ namespace RecordClique_API.Controllers
                 return StatusCode(500, "An unexpected error occurred.");
             }
         }
+
+        [HttpGet("links")]
+        public async Task<IActionResult> GetUserAlbumLinks(int pageNumber, int pageSize, Guid? albumId, Guid? userId)
+        {
+
+            try
+            {
+                var links = await _userService.GetUserAlbumLinks(pageNumber, pageSize, albumId, userId);
+                return Ok(links);
+            }
+            catch (NotFoundException ex)
+            {
+                return StatusCode(404, ex.Message);
+            }
+            catch
+            {
+                return StatusCode(500, "An unexpected error occurred.");
+            }
+        }
     }
 }

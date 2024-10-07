@@ -1,6 +1,7 @@
 ﻿using RecordClique_BusinessLogic.DTOs;
 using RecordClique_BusinessLogic.TokenAuthentication;
 using RecordClique_DataAccess.Entities;
+using RecordClique_DataAccess.Helpers;
 using System.Security.Claims;
 
 namespace RecordClique_API.Services.Interfaces
@@ -20,5 +21,6 @@ namespace RecordClique_API.Services.Interfaces
         Task<object> ResetPassword(ResetPasswordDto resetPasswordDto);
         Task<UserDto> GetUserDetails(string username);
         Task<string> GetUserInitials(string username);
+        Task<PaginatedResult<UserAlbumLinkDTO>> GetUserAlbumLinks(int pageNumber, int pageSize, Guid? albumId, Guid? userId);
     }
 }

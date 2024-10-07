@@ -2,12 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using RecordClique.Models.DTOs;
 using RecordClique_API.Services.Interfaces;
 using RecordClique_BusinessLogic.DTOs;
 using RecordClique_BusinessLogic.Exceptions;
 using RecordClique_BusinessLogic.Services.Abstractions;
 using RecordClique_BusinessLogic.TokenAuthentication;
 using RecordClique_DataAccess.Entities;
+using RecordClique_DataAccess.Helpers;
 using RecordClique_DataAccess.Repository.Abstraction;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -20,12 +22,14 @@ namespace RecordClique_BusinessLogic.Services
     public class UserService : IUserService
     {
         private readonly IRepository<User> _userRepository;
+        private readonly IRepository<UserAlbumLink> _userAlbumLinkRepository;
         private readonly IEmailService _emailService;
         private readonly IMapper _mapper;
 
-        public UserService(IRepository<User> userRepository, IEmailService emailService, IMapper mapper) {
+        public UserService(IRepository<User> userRepository, IEmailService emailService, IMapper mapper, IRepository<UserAlbumLink> userAlbumLinkRepository) {
             this._userRepository = userRepository;
             this._emailService = emailService;
+            this._userAlbumLinkRepository = userAlbumLinkRepository;
             this._mapper = mapper;
         }
 
@@ -329,6 +333,44 @@ namespace RecordClique_BusinessLogic.Services
             {
                 return false;
             }
+        }
+
+        public async Task<PaginatedResult<UserAlbumLinkDTO>> GetUserAlbumLinks(int pageNumber, int pageSize, Guid? albumId, Guid? userId)
+        {
+            var query = await _userAlbumLinkRepository.GetAll();
+            query = query.Include(ag => ag.User!)
+                .Include(aa => aa.Album!);
+
+            if (albumId.HasValue || albumId == Guid.Empty)
+            {
+                query = query.Where(s => s.Album.Id == albumId);
+            }
+
+            if (userId.HasValue || userId == Guid.Empty)
+            {
+                query = query.Where(s => s.User.Id == userId);
+            }
+
+            var totalItems = await query.CountAsync();
+
+            var artists = await query
+             .Skip((pageNumber - 1) * pageSize)
+             .Take(pageSize)
+             .OrderBy(s => s.Album.Title)
+             .ToListAsync();
+
+            var links = artists.Select(s =>
+                _mapper.Map<UserAlbumLinkDTO>(s)
+            )
+                .ToList();
+
+            return new PaginatedResult<UserAlbumLinkDTO>
+            {
+                Items = links,
+                TotalItems = totalItems,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
         }
 
     }
