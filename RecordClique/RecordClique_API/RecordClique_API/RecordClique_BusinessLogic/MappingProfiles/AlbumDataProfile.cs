@@ -17,21 +17,6 @@ namespace RecordClique_BusinessLogic.MappingProfiles
                 .ReverseMap()
                 .ForMember(dest => dest.FK_RecordLabelId, opt => opt.MapFrom(src => src.RecordLabel))
                 .ForMember(dest => dest.RecordLabel, opt => opt.Ignore());
-                //            .ReverseMap()
-                //.ForMember(dest => dest.FK_RecordLabelId, opt => opt.MapFrom(src => src.RecordLabel))
-                //.ForMember(dest => dest.RecordLabel, opt => opt.Ignore());  // Optionally ignore the navigation property if not needed
-
-                //.ForMember(dest => dest.AlbumGenreLinks, opt => opt.MapFrom(src => src.Genres.Select(x => new AlbumGenreLink
-                //{
-                //    FK_AlbumId = src.Id,
-                //    FK_GenreId = x.Id
-                //})))
-                //.ForMember(dest => dest.AlbumArtistLinks, opt => opt.MapFrom(src => src.Artists.Select(artistId => new AlbumArtistLink
-                //{
-                //    FK_AlbumId = src.Id,
-                //    FK_ArtistId = artistId
-                //})))
-                //.ForMember(dest => dest.RecordLabel, opt => opt.Ignore())
         }
     }
 }

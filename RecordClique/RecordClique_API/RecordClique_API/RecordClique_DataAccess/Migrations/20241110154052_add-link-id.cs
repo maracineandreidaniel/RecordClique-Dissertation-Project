@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RecordClique_DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class first : Migration
+    public partial class addlinkid : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,7 +16,7 @@ namespace RecordClique_DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Picture = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Biography = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -43,7 +43,7 @@ namespace RecordClique_DataAccess.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Picture = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Picture = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Biography = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -98,7 +98,7 @@ namespace RecordClique_DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AlbumArtistLink",
+                name: "AlbumArtistLinks",
                 columns: table => new
                 {
                     FK_AlbumId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -106,15 +106,15 @@ namespace RecordClique_DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AlbumArtistLink", x => new { x.FK_AlbumId, x.FK_ArtistId });
+                    table.PrimaryKey("PK_AlbumArtistLinks", x => new { x.FK_AlbumId, x.FK_ArtistId });
                     table.ForeignKey(
-                        name: "FK_AlbumArtistLink_Albums_FK_AlbumId",
+                        name: "FK_AlbumArtistLinks_Albums_FK_AlbumId",
                         column: x => x.FK_AlbumId,
                         principalTable: "Albums",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AlbumArtistLink_Artists_FK_ArtistId",
+                        name: "FK_AlbumArtistLinks_Artists_FK_ArtistId",
                         column: x => x.FK_ArtistId,
                         principalTable: "Artists",
                         principalColumn: "Id",
@@ -177,6 +177,7 @@ namespace RecordClique_DataAccess.Migrations
                 name: "UserAlbumLinks",
                 columns: table => new
                 {
+                    UserAlbumLinkId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FK_UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FK_AlbumId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsListening = table.Column<bool>(type: "bit", nullable: false),
@@ -185,7 +186,7 @@ namespace RecordClique_DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserAlbumLinks", x => new { x.FK_AlbumId, x.FK_UserId });
+                    table.PrimaryKey("PK_UserAlbumLinks", x => x.UserAlbumLinkId);
                     table.ForeignKey(
                         name: "FK_UserAlbumLinks_Albums_FK_AlbumId",
                         column: x => x.FK_AlbumId,
@@ -201,8 +202,8 @@ namespace RecordClique_DataAccess.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AlbumArtistLink_FK_ArtistId",
-                table: "AlbumArtistLink",
+                name: "IX_AlbumArtistLinks_FK_ArtistId",
+                table: "AlbumArtistLinks",
                 column: "FK_ArtistId");
 
             migrationBuilder.CreateIndex(
@@ -226,6 +227,11 @@ namespace RecordClique_DataAccess.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserAlbumLinks_FK_AlbumId",
+                table: "UserAlbumLinks",
+                column: "FK_AlbumId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserAlbumLinks_FK_UserId",
                 table: "UserAlbumLinks",
                 column: "FK_UserId");
@@ -235,7 +241,7 @@ namespace RecordClique_DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AlbumArtistLink");
+                name: "AlbumArtistLinks");
 
             migrationBuilder.DropTable(
                 name: "AlbumGenreLinks");

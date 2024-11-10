@@ -1,8 +1,11 @@
-﻿using RecordClique.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using RecordClique.Models;
 using RecordClique_DataAccess.Entities;
 
 public class UserAlbumLink
 {
+    [Key]
+    public Guid UserAlbumLinkId { get; set; }
     public Guid FK_UserId { get; set; }
     public User User { get; set; }
 

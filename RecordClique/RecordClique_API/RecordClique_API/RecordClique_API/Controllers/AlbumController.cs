@@ -72,6 +72,27 @@ namespace RecordClique_API.Controllers
             return NotFound();
         }
 
-  
+        [HttpGet("userAllAlbums")]
+        public async Task<IActionResult> GetUserAllAlbums([FromQuery] Guid userId)
+        {
+            var albums = await _albumService.GetUserAllAlbums(userId);
+            if (albums != null)
+            {
+                return Ok(albums);
+            }
+            return NotFound();
+        }
+
+        [HttpPut("test-set")]
+        public async Task<IActionResult> UpdateUserAlbumLink(Guid albumId, Guid userId, Boolean ind, int type)
+        {
+            var link = await _albumService.UpdateUserAlbumLink(albumId, userId, ind, type);
+            if (link != null)
+            {
+                return Ok(link);
+            }
+            return NotFound();
+        }
+
     }
 }

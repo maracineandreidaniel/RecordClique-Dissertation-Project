@@ -12,8 +12,8 @@ using RecordClique_DataAccess.Context;
 namespace RecordClique_DataAccess.Migrations
 {
     [DbContext(typeof(RecordCliqueContext))]
-    [Migration("20240711193531_second")]
-    partial class second
+    [Migration("20241110154052_add-link-id")]
+    partial class addlinkid
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,8 +66,7 @@ namespace RecordClique_DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Picture")
                         .HasColumnType("nvarchar(max)");
@@ -122,7 +121,6 @@ namespace RecordClique_DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Picture")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -142,7 +140,7 @@ namespace RecordClique_DataAccess.Migrations
 
                     b.HasIndex("FK_ArtistId");
 
-                    b.ToTable("AlbumArtistLink");
+                    b.ToTable("AlbumArtistLinks");
                 });
 
             modelBuilder.Entity("RecordClique_DataAccess.Entities.AlbumGenreLink", b =>
@@ -233,6 +231,10 @@ namespace RecordClique_DataAccess.Migrations
 
             modelBuilder.Entity("UserAlbumLink", b =>
                 {
+                    b.Property<Guid>("UserAlbumLinkId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("FK_AlbumId")
                         .HasColumnType("uniqueidentifier");
 
@@ -248,7 +250,9 @@ namespace RecordClique_DataAccess.Migrations
                     b.Property<bool>("IsOnWishlist")
                         .HasColumnType("bit");
 
-                    b.HasKey("FK_AlbumId", "FK_UserId");
+                    b.HasKey("UserAlbumLinkId");
+
+                    b.HasIndex("FK_AlbumId");
 
                     b.HasIndex("FK_UserId");
 

@@ -63,8 +63,7 @@ namespace RecordClique_DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Picture")
                         .HasColumnType("nvarchar(max)");
@@ -119,7 +118,6 @@ namespace RecordClique_DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Picture")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -230,6 +228,10 @@ namespace RecordClique_DataAccess.Migrations
 
             modelBuilder.Entity("UserAlbumLink", b =>
                 {
+                    b.Property<Guid>("UserAlbumLinkId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("FK_AlbumId")
                         .HasColumnType("uniqueidentifier");
 
@@ -245,7 +247,9 @@ namespace RecordClique_DataAccess.Migrations
                     b.Property<bool>("IsOnWishlist")
                         .HasColumnType("bit");
 
-                    b.HasKey("FK_AlbumId", "FK_UserId");
+                    b.HasKey("UserAlbumLinkId");
+
+                    b.HasIndex("FK_AlbumId");
 
                     b.HasIndex("FK_UserId");
 

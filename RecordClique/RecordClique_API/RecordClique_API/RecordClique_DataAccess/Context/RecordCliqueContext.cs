@@ -58,7 +58,7 @@ namespace RecordClique_DataAccess.Context
 
             //M:M for Album-User
             modelBuilder.Entity<UserAlbumLink>()
-            .HasKey(ua => new { ua.FK_AlbumId, ua.FK_UserId });
+            .HasKey(ua => ua.UserAlbumLinkId );
             modelBuilder.Entity<UserAlbumLink>()
                 .HasOne(ua => ua.Album)
                 .WithMany(a => a.UserAlbumLinks)

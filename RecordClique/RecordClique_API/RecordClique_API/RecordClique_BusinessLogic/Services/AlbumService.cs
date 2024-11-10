@@ -9,6 +9,7 @@ using RecordClique.Models;
 using RecordClique.Models.DTOs;
 using RecordClique_BusinessLogic.DTOs;
 using RecordClique_BusinessLogic.Services.Abstractions;
+using RecordClique_BusinessLogic.Strategies.UserAlbumLinkUpdateStrategy;
 using RecordClique_DataAccess.Entities;
 using RecordClique_DataAccess.Helpers;
 using RecordClique_DataAccess.Repository.Abstraction;
@@ -22,16 +23,18 @@ namespace RecordClique_BusinessLogic.Services
         private readonly IRepository<AlbumArtistLink> _albumArtistLinkRepository;
         private readonly IRepository<AlbumGenreLink> _albumGenreLinkRepository;
         private readonly IRepository<Genre> _genreRepository;
+        private readonly IRepository<UserAlbumLink> _userAlbumLinkRepository;
         private readonly IMapper _mapper;
 
         public AlbumService(IRepository<Album> albumRepository, IRepository<Artist> artistRepository, IRepository<Genre> genreRepository, IRepository<AlbumArtistLink> albumArtistLinkRepository,
-            IRepository<AlbumGenreLink> albumGenreLinkRepository, IMapper mapper)
+            IRepository<AlbumGenreLink> albumGenreLinkRepository, IRepository<UserAlbumLink> userAlbumLinkRepository, IMapper mapper)
         {
             _albumRepository = albumRepository;
             _genreRepository = genreRepository;
             _artistRepository = artistRepository;
             _albumArtistLinkRepository = albumArtistLinkRepository;
             _albumGenreLinkRepository = albumGenreLinkRepository;
+            this._userAlbumLinkRepository = userAlbumLinkRepository;
             _mapper = mapper;
         }
 
@@ -256,6 +259,33 @@ namespace RecordClique_BusinessLogic.Services
             return _mapper.Map<AlbumDto>(album);
         }
 
-  
+        public async Task<IEnumerable<AlbumDto>> GetUserAllAlbums(Guid userId)
+        {
+            var query =  await _userAlbumLinkRepository.GetAll();
+            query = query.Where(s => s.FK_UserId == userId);
+            query = query
+                .Include(s => s.User) 
+                .Include(s => s.Album) 
+                    .ThenInclude(a => a.RecordLabel) 
+                .Include(s => s.Album)
+                    .ThenInclude(a => a.AlbumGenreLinks!) 
+                    .ThenInclude(link => link.Genre) 
+                .Include(s => s.Album)
+                    .ThenInclude(a => a.AlbumArtistLinks!) 
+                    .ThenInclude(link => link.Artist) 
+                .Include(s => s.Album)
+                    .ThenInclude(a => a.RecordLabel); 
+            var albums = await query.Select(s => s.Album).ToListAsync();
+            var albumDtos = albums
+                .Select(a => _mapper.Map<AlbumDto>(a)).ToList();
+            return albumDtos;
+        }
+
+        public async Task<UserAlbumLink> UpdateUserAlbumLink(Guid albumId, Guid userId, Boolean ind, int type)
+        {
+            var favouriteStrategy = new FavouriteUpdateStrategy(_userAlbumLinkRepository);
+            return await favouriteStrategy.UpdateAsync(userId, albumId, ind);
+        }
+
     }
 }
