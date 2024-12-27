@@ -39,6 +39,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { AddRecordLabelComponent } from './components/crud-record-label/add-record-label/add-record-label.component';
 import { IndexRecordLabelComponent } from './components/crud-record-label/index-record-label/index-record-label.component';
 import { UpdateRecordLabelComponent } from './components/crud-record-label/update-record-label/update-record-label.component';
+import { UserAlbumsComponent } from './components/user-albums/user-albums.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { UpdateRecordLabelComponent } from './components/crud-record-label/updat
     AddRecordLabelComponent,
     IndexRecordLabelComponent,
     UpdateRecordLabelComponent,
+    UserAlbumsComponent,
   ],
   imports: [
     BrowserModule,

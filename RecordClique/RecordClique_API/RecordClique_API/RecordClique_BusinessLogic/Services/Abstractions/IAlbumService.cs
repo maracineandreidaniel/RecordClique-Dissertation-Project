@@ -11,7 +11,7 @@ namespace RecordClique_BusinessLogic.Services.Abstractions
         Task<object> RemoveAlbum(Guid id);
         Task<PaginatedResult<AlbumDto>> GetAlbums(int pageNumber, int pageSize, string? filterName, Guid? artistId, Guid? genreId, int? year);
         Task<AlbumDto> GetAlbumById(Guid id);
-        Task<IEnumerable<AlbumDto>> GetUserAllAlbums(Guid userId);
+        Task<PaginatedResult<AlbumDto>> GetUserAllAlbums(int pageNumber, int pageSize, Guid userId, int? type);
         Task<UserAlbumLink> UpdateUserAlbumLink(Guid albumId, Guid userId, Boolean ind, int type);
     }
 }

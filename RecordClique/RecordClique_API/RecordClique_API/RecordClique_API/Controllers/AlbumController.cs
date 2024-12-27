@@ -73,9 +73,9 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpGet("userAllAlbums")]
-        public async Task<IActionResult> GetUserAllAlbums([FromQuery] Guid userId)
+        public async Task<IActionResult> GetUserAllAlbums(int pageNumber, int pageSize, Guid userId, int? type)
         {
-            var albums = await _albumService.GetUserAllAlbums(userId);
+            var albums = await _albumService.GetUserAllAlbums(pageNumber, pageSize,userId, type);
             if (albums != null)
             {
                 return Ok(albums);

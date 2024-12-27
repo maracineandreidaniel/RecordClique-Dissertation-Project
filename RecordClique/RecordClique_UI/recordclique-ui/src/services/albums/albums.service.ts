@@ -3,7 +3,7 @@ import { BaseService } from '../base/base.service';
 import { PaginatedResponse } from 'src/app/models/paginated-response.model';
 import { Album } from 'src/app/models/album.model';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -54,4 +54,18 @@ export class AlbumsService extends BaseService {
    getAlbumById(id: string):Observable<Album> {
     return this.http.get<Album>(`${this.apiUrl}/Album/`+ id);
   }  
+
+  getUserAllAlbums(pageNumber: number, pageSize: number, userId: string, type?: number): Observable<PaginatedResponse<Album>> {
+    let queryParams = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString())
+      .set('userId', userId);
+
+    if (type !== undefined) {
+      queryParams = queryParams.set('type', type.toString());
+    }
+
+    return this.http.get<PaginatedResponse<Album>>(this.apiUrl + '/Album/userAllAlbums', { params: queryParams });
+  }
+
 }

@@ -1,0 +1,39 @@
+<div class="tabs">
+    <button 
+      [routerLink]="['/users-page/favourites']" 
+      [class.active]="actionLabel === 'Favourite'">
+      Favourites
+    </button>
+    <button 
+      [routerLink]="['/users-page/listening']" 
+      [class.active]="actionLabel === 'Listening'">
+      Listening
+    </button>
+    <button 
+      [routerLink]="['/users-page/wishlist']" 
+      [class.active]="actionLabel === 'Wishlist'">
+      Wishlist
+    </button>
+  </div>
+  
+  <div class="grid">
+    <div class="album" *ngFor="let album of albums">
+      <img [src]="album.Cover" alt="{{ album.Title }}">
+      <div class="details">
+        <h3>{{ album.Title }}</h3>
+        <p>{{ album.Artists }}</p>
+        <button (click)="handleAction(album.Id)">{{ actionLabel }}</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="pagination">
+    <div *ngIf="totalPages > 0">
+      <ul class="pagination">
+        <li class="page-item" *ngFor="let pageNum of [].constructor(totalPages); let i = index"
+             [ngClass]="{'active': page === i + 1}"> 
+          <a class="page-link" (click)="pageChange(i+1)">{{ i + 1 }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
