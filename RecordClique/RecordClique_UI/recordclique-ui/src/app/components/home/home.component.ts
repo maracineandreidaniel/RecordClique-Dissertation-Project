@@ -31,5 +31,11 @@ export class HomeComponent implements OnInit {
       this.role = val || roleFromToken;
       });
 
+      this.userStore.getIdFromStore()
+      .subscribe( val => {
+      let idFromToken = this.auth.getIdFromToken();
+      this.role = val || idFromToken;
+      });
+
   }
 }

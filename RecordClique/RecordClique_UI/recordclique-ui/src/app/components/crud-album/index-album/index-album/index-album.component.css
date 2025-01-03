@@ -3,3 +3,19 @@
     display: flex;
     margin-bottom: 30px;
 }
+
+.albums-list .edit{
+    background-color: orange;
+}
+
+.albums-list .favourites{
+    background-color: #FFCDD2;
+}
+
+.albums-list .wishlist{
+    background-color: #BBDEFB;
+}
+
+.albums-list .listening{
+    background-color: #C8E6C9;
+}

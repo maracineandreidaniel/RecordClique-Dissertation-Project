@@ -55,7 +55,7 @@ export class UpdateAlbumComponent {
         ReleaseDate: this.updateAlbumForm.value.releaseDate,
         Genres: this.updateAlbumForm.value.genres,
         Artists: this.updateAlbumForm.value.artist,
-        RecordLabel: '7FA85F64-5717-4562-B3FC-2C963F66AFA6',
+        RecordLabel: '7FA85F64-5717-4562-B3FC-2C963F66AFA6'
       };
 
       this.albumService.updateAlbum(album).subscribe({

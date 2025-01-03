@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Album } from 'src/app/models/album.model';
 import { SelectOptionResult } from 'src/app/models/select-option-result.model';
 import { AlbumsService } from 'src/services/albums/albums.service';
 import { ArtistsService } from 'src/services/artists/artists.service';
+import { AuthenticationService } from 'src/services/authentication/authentication.service';
 import { GenresService } from 'src/services/genres/genres.service';
+import { UserStoreService } from 'src/services/user-store/user-store.service';
 
 @Component({
   selector: 'app-index-album',
@@ -24,13 +27,17 @@ export class IndexAlbumComponent {
    genreOptions: SelectOptionResult[] = [];
    defaultValueFilterArtist = "00000000-0000-0000-0000-000000000000";
    defaultValueFilterGenre = "00000000-0000-0000-0000-000000000000";
+   userId: string = '';
  
    constructor(
+     private router: Router,
      private albumService: AlbumsService,
      private fb: FormBuilder,
      private toast: ToastrService,
      private genreService: GenresService,
-     private artistService: ArtistsService
+     private artistService: ArtistsService,
+     private userStore: UserStoreService,
+     private auth: AuthenticationService
    ) {
      this.filterAlbumsForm = this.fb.group({
        artist: [''],
@@ -58,6 +65,11 @@ export class IndexAlbumComponent {
       error: (err) => {
         console.log(err);
       },
+    });
+
+    this.userStore.getIdFromStore().subscribe((val) => {
+      let idFromToken = this.auth.getIdFromToken();
+      this.userId = val || idFromToken;
     });
    }
  
@@ -119,7 +131,7 @@ export class IndexAlbumComponent {
  
    loadAlbums(pageNumber: number, pageSize: number): void {
       const formValues = this.filterAlbumsForm.value;
-       this.albumService.getAlbums(pageNumber, pageSize, this.searchAlbumForm.value.filter, formValues.artist, formValues.genre, formValues.year)
+       this.albumService.getAlbums(pageNumber, pageSize, this.searchAlbumForm.value.filter, formValues.artist, formValues.genre, formValues.year, this.userId)
        .subscribe({
          next: (res) => {
            this.albums = res.Items;
@@ -131,4 +143,10 @@ export class IndexAlbumComponent {
          }
        });
    }
+
+   updateAlbumLink(albumId: string, type: number): void {
+    this.albumService.updateUserAlbumLink(albumId, this.userId, true, type).subscribe((result) => {
+      this.router.navigate(['/users-page/favourites']);
+    });
+  }
 }

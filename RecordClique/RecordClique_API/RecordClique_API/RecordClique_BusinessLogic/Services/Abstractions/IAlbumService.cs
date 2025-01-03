@@ -1,5 +1,6 @@
 ﻿using RecordClique.Models.DTOs;
 using RecordClique_BusinessLogic.DTOs;
+using RecordClique_DataAccess.Entities;
 using RecordClique_DataAccess.Helpers;
 
 namespace RecordClique_BusinessLogic.Services.Abstractions
@@ -9,7 +10,7 @@ namespace RecordClique_BusinessLogic.Services.Abstractions
         Task<AlbumDto> AddAlbum(AlbumDto album);
         Task<AlbumDto> UpdateAlbum(AlbumDto albumRequest);
         Task<object> RemoveAlbum(Guid id);
-        Task<PaginatedResult<AlbumDto>> GetAlbums(int pageNumber, int pageSize, string? filterName, Guid? artistId, Guid? genreId, int? year);
+        Task<PaginatedResult<AlbumDto>> GetAlbums(int pageNumber, int pageSize, string? filterName, Guid? artistId, Guid? genreId, int? year, Guid? userId);
         Task<AlbumDto> GetAlbumById(Guid id);
         Task<PaginatedResult<AlbumDto>> GetUserAllAlbums(int pageNumber, int pageSize, Guid userId, int? type);
         Task<UserAlbumLink> UpdateUserAlbumLink(Guid albumId, Guid userId, Boolean ind, int type);

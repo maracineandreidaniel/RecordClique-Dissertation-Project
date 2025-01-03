@@ -14,7 +14,7 @@ export class AlbumsService extends BaseService {
     super();
    }
 
-  getAlbums(pageNumber: number, pageSize: number, filterName?: string, artistId?: string, genreId?: string, year?: number): Observable<PaginatedResponse<Album>> {
+  getAlbums(pageNumber: number, pageSize: number, filterName?: string, artistId?: string, genreId?: string, year?: number, userId?: string): Observable<PaginatedResponse<Album>> {
     let queryParams: any = {};
 
     queryParams.pageNumber = pageNumber;
@@ -34,6 +34,10 @@ export class AlbumsService extends BaseService {
 
     if (year) {
       queryParams.year = year;
+    }
+
+    if (userId) {
+      queryParams.userId = userId;
     }
     return this.http.get<PaginatedResponse<Album>>(this.apiUrl + '/albums', { params: queryParams });
   }
@@ -66,6 +70,16 @@ export class AlbumsService extends BaseService {
     }
 
     return this.http.get<PaginatedResponse<Album>>(this.apiUrl + '/Album/userAllAlbums', { params: queryParams });
+  }
+
+  updateUserAlbumLink(albumId: string, userId: string, ind: boolean, type: number): Observable<void> {
+    let queryParams = new HttpParams()
+      .set('albumId', albumId)
+      .set('ind', ind.toString())
+      .set('type', type.toString())
+      .set('userId', userId);
+
+    return this.http.put<void>(`${this.apiUrl}/Album/album-link`, {}, { params: queryParams });
   }
 
 }

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Album } from 'src/app/models/album.model';
 import { AlbumsService } from 'src/services/albums/albums.service';
+import { AuthenticationService } from 'src/services/authentication/authentication.service';
 import { UserStoreService } from 'src/services/user-store/user-store.service';
 
 @Component({
@@ -14,7 +16,7 @@ export class UserAlbumsComponent {
   albums: Album[] = [];
   userId: string = '';
   page: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 3;
   totalPages: number = 0;
   tabRoute: string = '';
   type: number = 1;
@@ -22,15 +24,19 @@ export class UserAlbumsComponent {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private userStore: UserStoreService,
-    private albumService: AlbumsService) {
-    this.route.params.subscribe(params => {
-    this.tabRoute = params['subtab'];
-      this.setParameters(this.tabRoute);
+    private albumService: AlbumsService,
+    private auth: AuthenticationService) {
+
+    this.userStore.getIdFromStore().subscribe((val) => {
+      let idFromToken = this.auth.getIdFromToken();
+      this.userId = val || idFromToken;
     });
 
-    this.userStore.getRoleFromStore().subscribe((val) => {
-      this.userId = val;
-    });
+    this.route.params.subscribe(params => {
+      this.tabRoute = params['subtab'];
+        this.setParameters(this.tabRoute);
+        
+      });
   }
 
   ngOnInit(): void {
@@ -61,18 +67,20 @@ export class UserAlbumsComponent {
 
   loadAlbums(pageNumber: number, pageSize: number): void {
 
-    this.albumService.getUserAllAlbums(pageNumber, pageSize, '88F905C0-27C3-4539-5596-08DCA0473827', this.type).subscribe(response => {
+    this.albumService.getUserAllAlbums(pageNumber, pageSize, this.userId, this.type).subscribe(response => {
       this.albums = response.Items;
       this.totalPages = Math.ceil(response.TotalItems / pageSize);
       this.page = pageNumber;  
     });
   }
 
-  handleAction(albumId: string): void {
-    console.log(`${this.actionLabel} clicked for Album ID: ${albumId}`);
-  }
-
   pageChange(newPage: number): void {
     this.loadAlbums(newPage, this.pageSize);   
+  }
+
+  updateAlbumLink(albumId: string): void {
+    this.albumService.updateUserAlbumLink(albumId, this.userId, false, this.type).subscribe((result) => {
+      window.location.reload();
+    });
   }
 }

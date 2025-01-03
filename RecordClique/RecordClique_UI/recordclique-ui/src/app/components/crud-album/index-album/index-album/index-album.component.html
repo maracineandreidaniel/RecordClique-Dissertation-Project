@@ -22,6 +22,9 @@
         <th>ReleaseDate</th>
         <th></th>
         <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody class="albums-list">
@@ -30,12 +33,27 @@
         <td>{{ album.Description }}</td>
         <td>{{ album.ReleaseDate }}</td>
         <td>
-          <button mat-raised-button [routerLink]="['/albums/update', album.Id]" style="background-color: orange">
+          <button class="button favourites" mat-raised-button (click)='updateAlbumLink(album.Id, 1)' [disabled]="album.IsFavourite">
+            <mat-icon>star</mat-icon> {{ album.IsFavourite ? 'Added to Favourites' : 'Add to Favourites' }}
+          </button>
+        </td>
+        <td>
+          <button class="button listening" mat-raised-button (click)='updateAlbumLink(album.Id, 2)' [disabled]="album.IsListening">
+            <mat-icon>headphones</mat-icon> {{ album.IsListening ? 'Added to Listening' : 'Add to Listening' }}
+          </button>
+        </td>
+        <td>
+          <button class="button wishlist" mat-raised-button (click)='updateAlbumLink(album.Id, 3)' [disabled]="album.IsOnWishlist">
+            <mat-icon>add_shopping_cart</mat-icon> {{ album.IsOnWishlist ? 'Added to Wishlist' : 'Add to Wishlist' }}
+          </button>
+        </td>
+        <td>
+          <button class="button edit" mat-raised-button [routerLink]="['/albums/update', album.Id]">
             <mat-icon>edit</mat-icon>Edit
           </button>
         </td>
         <td>
-          <button mat-raised-button data-bs-toggle="modal" data-bs-target="#deleteAlbumModal" (click)="setSelectedAlbumId(album.Id)" color="warn">
+          <button class="button delete" mat-raised-button data-bs-toggle="modal" data-bs-target="#deleteAlbumModal" (click)="setSelectedAlbumId(album.Id)" color="warn">
             <mat-icon>delete</mat-icon>Delete
           </button>
         </td>

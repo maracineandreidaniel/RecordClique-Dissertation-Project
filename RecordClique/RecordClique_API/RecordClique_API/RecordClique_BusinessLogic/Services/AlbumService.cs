@@ -197,7 +197,7 @@ namespace RecordClique_BusinessLogic.Services
             return new { Message = "Album was successfully deleted!" };
         }
 
-        public async Task<PaginatedResult<AlbumDto>> GetAlbums(int pageNumber, int pageSize, string? filterName, Guid? artistId, Guid? genreId, int? year)
+        public async Task<PaginatedResult<AlbumDto>> GetAlbums(int pageNumber, int pageSize, string? filterName, Guid? artistId, Guid? genreId, int? year, Guid? userId)
         {
 
             var query = await _albumRepository.GetAll();
@@ -238,6 +238,23 @@ namespace RecordClique_BusinessLogic.Services
             var albumDtos = albums
                 .Select(a => _mapper.Map<AlbumDto>(a)).ToList();
 
+            if (userId != null)
+            {
+                foreach (var album in albumDtos)
+                {
+                    var userAlbumLinks = await _userAlbumLinkRepository.GetAll();
+                    var userAlbumLink = await userAlbumLinks
+                        .Where(s => s.FK_AlbumId == album.Id && s.FK_UserId == userId)
+                        .FirstOrDefaultAsync();
+                    if (userAlbumLink != null)
+                    {
+                        album.IsFavourite = userAlbumLink.IsFavourite;
+                        album.IsListening = userAlbumLink.IsListening;
+                        album.IsOnWishlist = userAlbumLink.IsOnWishlist;
+                    }
+                }
+            }
+
             return new PaginatedResult<AlbumDto>
             {
                 Items = albumDtos,
@@ -275,26 +292,26 @@ namespace RecordClique_BusinessLogic.Services
                 .Include(s => s.Album)
                     .ThenInclude(a => a.UserAlbumLinks);
 
-            var totalItems = await query.CountAsync();
+            if (type == 1)
+            {
+                query = query.Where(a => a.IsFavourite == true);
+            }
+            else if (type == 2)
+            {
+                query = query.Where(a => a.IsListening == true);
+            }
+            else if(type == 3)
+            {
+                query = query.Where(a => a.IsOnWishlist == true);
+            }
+
+            var totalItems = query.Count();
 
             var albums = await query
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .Select(s => s.Album)
                 .ToListAsync();
-
-            if(type == 1)
-            {
-                albums = albums.Where(a => a.UserAlbumLinks.Find(ual => ual.FK_UserId == userId && ual.IsFavourite == true) != null).ToList();
-            }
-            else if (type == 2)
-            {
-                albums = albums.Where(a => a.UserAlbumLinks.Find(ual => ual.FK_UserId == userId && ual.IsListening == true) != null).ToList();
-            }
-            else if(type == 3)
-            {
-                albums = albums.Where(a => a.UserAlbumLinks.Find(ual => ual.FK_UserId == userId && ual.IsOnWishlist == true) != null).ToList();
-            }
 
             var albumDtos = albums
                 .Select(a => _mapper.Map<AlbumDto>(a)).ToList();

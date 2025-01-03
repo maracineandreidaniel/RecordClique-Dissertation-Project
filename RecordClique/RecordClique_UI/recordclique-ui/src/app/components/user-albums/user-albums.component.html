@@ -18,11 +18,11 @@
   
   <div class="grid">
     <div class="album" *ngFor="let album of albums">
-      <img [src]="album.Cover" alt="{{ album.Title }}">
+      <!-- <img [src]="album.Cover" alt="{{ album.Title }}"> -->
       <div class="details">
         <h3>{{ album.Title }}</h3>
-        <p>{{ album.Artists }}</p>
-        <button (click)="handleAction(album.Id)">{{ actionLabel }}</button>
+        <p>{{ album.Id }}</p>
+        <button (click)='updateAlbumLink(album.Id)'>Remove from {{ actionLabel }}</button>
       </div>
     </div>
   </div>

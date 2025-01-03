@@ -54,10 +54,10 @@ namespace RecordClique_API.Controllers
 
         [HttpGet("/albums")]
         //[Authorize(Policy = "AdminUserPolicy")]
-        public async Task<IActionResult> GetAlbums(int pageNumber, int pageSize, string? filterName, Guid? artistId, Guid? genreId, int? year)
+        public async Task<IActionResult> GetAlbums(int pageNumber, int pageSize, string? filterName, Guid? artistId, Guid? genreId, int? year, Guid? userId)
 
         {
-            var albums = await _albumService.GetAlbums(pageNumber, pageSize, filterName, artistId, genreId, year);
+            var albums = await _albumService.GetAlbums(pageNumber, pageSize, filterName, artistId, genreId, year, userId);
             return Ok(albums);
         }
 
@@ -83,7 +83,7 @@ namespace RecordClique_API.Controllers
             return NotFound();
         }
 
-        [HttpPut("test-set")]
+        [HttpPut("album-link")]
         public async Task<IActionResult> UpdateUserAlbumLink(Guid albumId, Guid userId, Boolean ind, int type)
         {
             var link = await _albumService.UpdateUserAlbumLink(albumId, userId, ind, type);
