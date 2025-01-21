@@ -82,4 +82,10 @@ export class AlbumsService extends BaseService {
     return this.http.put<void>(`${this.apiUrl}/Album/album-link`, {}, { params: queryParams });
   }
 
+  getPlaceholderText(text: string):Observable<any> {
+    let queryParams = new HttpParams()
+      .set('text', text);
+    return this.http.get<any>(`${this.apiUrl}/Album/placeholderText/`, { params: queryParams });
+  }  
+
 }

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
+using Lucene;
+using Lucene.Net.Analysis;
+using Lucene.Net.Analysis.Standard;
+using Lucene.Net.Index;
+using Lucene.Net.QueryParsers.Classic;
+using Lucene.Net.Search;
+using Lucene.Net.Store;
 using Microsoft.EntityFrameworkCore;
 using RecordClique.Models;
-using RecordClique.Models.DTOs;
 using RecordClique_BusinessLogic.DTOs;
 using RecordClique_BusinessLogic.Services.Abstractions;
 using RecordClique_BusinessLogic.Strategies.UserAlbumLinkUpdateStrategy;
@@ -199,7 +200,6 @@ namespace RecordClique_BusinessLogic.Services
 
         public async Task<PaginatedResult<AlbumDto>> GetAlbums(int pageNumber, int pageSize, string? filterName, Guid? artistId, Guid? genreId, int? year, Guid? userId)
         {
-
             var query = await _albumRepository.GetAll();
             query = query.Include(a => a.RecordLabel)
                 .Include(ag => ag.AlbumGenreLinks!)
@@ -207,10 +207,10 @@ namespace RecordClique_BusinessLogic.Services
                 .Include(aa => aa.AlbumArtistLinks!)
                 .ThenInclude(link => link.Artist);
 
-            if (!string.IsNullOrEmpty(filterName))
-            {
-                query = query.Where(s => s.Title.ToLower().Contains(filterName.ToLower()));
-            }
+            //if (!string.IsNullOrEmpty(filterName))
+            //{
+            //    query = query.Where(s => LuceneSearch(s.Title, filterName) == true);
+            //}
 
             if (artistId.HasValue && artistId != Guid.Empty)
             {
@@ -227,16 +227,22 @@ namespace RecordClique_BusinessLogic.Services
                 query = query.Where(s => s.ReleaseDate.Year == year);
             }
 
-            var totalItems = await query.CountAsync();
+            var albumsQuery = await query.ToListAsync();
 
-            var albums = await query
-             .Skip((pageNumber - 1) * pageSize)
-             .Take(pageSize)
-             .OrderByDescending(s => s.Title)
-             .ToListAsync();
-
-            var albumDtos = albums
+            var albumDtos = albumsQuery
                 .Select(a => _mapper.Map<AlbumDto>(a)).ToList();
+
+            if (!string.IsNullOrEmpty(filterName))
+            {
+                albumDtos = albumDtos.Where(s => LuceneSearch(s.Title, filterName) == true).ToList();
+            }
+
+            var totalItems = albumDtos.Count();
+
+            var albums = albumDtos
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .OrderByDescending(s => s.Title);
 
             if (userId != null)
             {
@@ -257,11 +263,36 @@ namespace RecordClique_BusinessLogic.Services
 
             return new PaginatedResult<AlbumDto>
             {
-                Items = albumDtos,
+                Items = albums,
                 TotalItems = totalItems,
                 PageNumber = pageNumber,
                 PageSize = pageSize
             };
+        }
+
+        private bool LuceneSearch(string title, string filterName)
+        {
+            var luceneVersion = Lucene.Net.Util.LuceneVersion.LUCENE_48;
+            using var directory = new RAMDirectory();
+            Analyzer standardAnalyzer = new StandardAnalyzer(luceneVersion);
+
+            using var writer = new IndexWriter(directory, new IndexWriterConfig(luceneVersion, standardAnalyzer));
+
+            var doc = new Lucene.Net.Documents.Document
+            {
+                new Lucene.Net.Documents.TextField("title", title, Lucene.Net.Documents.Field.Store.YES)
+            };
+            writer.AddDocument(doc);
+            writer.Flush(triggerMerge: false, applyAllDeletes: false);
+
+            var parser = new QueryParser(luceneVersion, "title", standardAnalyzer);
+            var query = parser.Parse(filterName);
+
+            using var reader = writer.GetReader(applyAllDeletes: true);
+            var searcher = new IndexSearcher(reader);
+            var hits = searcher.Search(query, 10).ScoreDocs;
+
+            return hits.Any();
         }
 
         public async Task<AlbumDto> GetAlbumById(Guid id)

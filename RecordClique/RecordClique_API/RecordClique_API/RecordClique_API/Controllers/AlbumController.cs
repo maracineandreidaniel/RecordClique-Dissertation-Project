@@ -94,5 +94,16 @@ namespace RecordClique_API.Controllers
             return NotFound();
         }
 
+        [HttpGet("placeholderText")]
+        public async Task<IActionResult> GetPlaceholderText(string text)
+        {
+             var newJsonObject = new
+            {
+                Message = "I'm glad you like: " + text
+            };
+
+            return Ok(newJsonObject);
+        }
+
     }
 }

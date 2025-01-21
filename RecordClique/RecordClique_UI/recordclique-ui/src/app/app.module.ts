@@ -40,6 +40,8 @@ import { AddRecordLabelComponent } from './components/crud-record-label/add-reco
 import { IndexRecordLabelComponent } from './components/crud-record-label/index-record-label/index-record-label.component';
 import { UpdateRecordLabelComponent } from './components/crud-record-label/update-record-label/update-record-label.component';
 import { UserAlbumsComponent } from './components/user-albums/user-albums.component';
+import { AssistantComponent } from './components/assistant/assistant.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,7 @@ import { UserAlbumsComponent } from './components/user-albums/user-albums.compon
     IndexRecordLabelComponent,
     UpdateRecordLabelComponent,
     UserAlbumsComponent,
+    AssistantComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,7 +91,8 @@ import { UserAlbumsComponent } from './components/user-albums/user-albums.compon
     BsDatepickerModule,
     NgxPaginationModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCardModule
   ],
   providers: [LoginComponent,
   {
