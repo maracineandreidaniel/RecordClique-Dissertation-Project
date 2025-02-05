@@ -26,6 +26,8 @@ namespace RecordClique.Models
         public List<AlbumGenreLink>? AlbumGenreLinks { get; set; }
         public List<UserAlbumLink>? UserAlbumLinks { get; set; }
         public List<AlbumArtistLink>? AlbumArtistLinks { get; set; }
+        public List<Review>? Reviews { get; set; }
+        public List<Track>? Tracks { get; set; }
 
     }
 

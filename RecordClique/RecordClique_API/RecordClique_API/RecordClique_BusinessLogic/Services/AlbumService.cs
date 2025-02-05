@@ -207,11 +207,6 @@ namespace RecordClique_BusinessLogic.Services
                 .Include(aa => aa.AlbumArtistLinks!)
                 .ThenInclude(link => link.Artist);
 
-            //if (!string.IsNullOrEmpty(filterName))
-            //{
-            //    query = query.Where(s => LuceneSearch(s.Title, filterName) == true);
-            //}
-
             if (artistId.HasValue && artistId != Guid.Empty)
             {
                 query = query.Where(s => s.AlbumArtistLinks.Any(aa => aa.Artist.Id == artistId));

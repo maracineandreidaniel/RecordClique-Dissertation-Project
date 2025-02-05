@@ -14,11 +14,12 @@ namespace RecordClique_DataAccess.Context
         public DbSet<Album> Albums { get; set; } 
         public DbSet<AlbumGenreLink> AlbumGenreLinks { get; set; } 
         public DbSet<AlbumArtistLink> AlbumArtistLinks { get; set; } 
-        public DbSet<Comment> Comments { get; set; } 
+        public DbSet<Review> Reviews { get; set; } 
         public DbSet<Genre> Genres { get; set; } 
         public DbSet<RecordLabel> RecordLabels { get; set; } 
         public DbSet<User> Users { get; set; } 
         public DbSet<UserAlbumLink> UserAlbumLinks { get; set; } 
+        public DbSet<Track> Tracks { get; set; } 
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

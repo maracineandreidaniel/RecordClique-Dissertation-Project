@@ -73,37 +73,6 @@ namespace RecordClique_DataAccess.Migrations
                     b.ToTable("Artists");
                 });
 
-            modelBuilder.Entity("RecordClique.Models.Comment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AlbumId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("FK_AlbumId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("FK_UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AlbumId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Comments");
-                });
-
             modelBuilder.Entity("RecordClique.Models.RecordLabel", b =>
                 {
                     b.Property<Guid>("Id")
@@ -123,6 +92,34 @@ namespace RecordClique_DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RecordLabels");
+                });
+
+            modelBuilder.Entity("RecordClique.Models.Review", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("FK_AlbumId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("FK_UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Stars")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FK_AlbumId");
+
+                    b.HasIndex("FK_UserId");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("RecordClique_DataAccess.Entities.AlbumArtistLink", b =>
@@ -168,6 +165,26 @@ namespace RecordClique_DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genres");
+                });
+
+            modelBuilder.Entity("RecordClique_DataAccess.Entities.Track", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("FK_AlbumId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FK_AlbumId");
+
+                    b.ToTable("Tracks");
                 });
 
             modelBuilder.Entity("RecordClique_DataAccess.Entities.User", b =>
@@ -267,17 +284,17 @@ namespace RecordClique_DataAccess.Migrations
                     b.Navigation("RecordLabel");
                 });
 
-            modelBuilder.Entity("RecordClique.Models.Comment", b =>
+            modelBuilder.Entity("RecordClique.Models.Review", b =>
                 {
                     b.HasOne("RecordClique.Models.Album", "Album")
-                        .WithMany()
-                        .HasForeignKey("AlbumId")
+                        .WithMany("Reviews")
+                        .HasForeignKey("FK_AlbumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("RecordClique_DataAccess.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .WithMany("Reviews")
+                        .HasForeignKey("FK_UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -324,6 +341,17 @@ namespace RecordClique_DataAccess.Migrations
                     b.Navigation("Genre");
                 });
 
+            modelBuilder.Entity("RecordClique_DataAccess.Entities.Track", b =>
+                {
+                    b.HasOne("RecordClique.Models.Album", "Album")
+                        .WithMany("Tracks")
+                        .HasForeignKey("FK_AlbumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Album");
+                });
+
             modelBuilder.Entity("UserAlbumLink", b =>
                 {
                     b.HasOne("RecordClique.Models.Album", "Album")
@@ -349,6 +377,10 @@ namespace RecordClique_DataAccess.Migrations
 
                     b.Navigation("AlbumGenreLinks");
 
+                    b.Navigation("Reviews");
+
+                    b.Navigation("Tracks");
+
                     b.Navigation("UserAlbumLinks");
                 });
 
@@ -369,6 +401,8 @@ namespace RecordClique_DataAccess.Migrations
 
             modelBuilder.Entity("RecordClique_DataAccess.Entities.User", b =>
                 {
+                    b.Navigation("Reviews");
+
                     b.Navigation("UserAlbumLinks");
                 });
 #pragma warning restore 612, 618

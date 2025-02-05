@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RecordClique_DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class addlinkid : Migration
+    public partial class first : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -146,29 +146,47 @@ namespace RecordClique_DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comments",
+                name: "Reviews",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Stars = table.Column<int>(type: "int", nullable: false),
                     FK_UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FK_AlbumId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AlbumId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    FK_AlbumId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comments_Albums_AlbumId",
-                        column: x => x.AlbumId,
+                        name: "FK_Reviews_Albums_FK_AlbumId",
+                        column: x => x.FK_AlbumId,
                         principalTable: "Albums",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Comments_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Reviews_Users_FK_UserId",
+                        column: x => x.FK_UserId,
                         principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tracks",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Path = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FK_AlbumId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tracks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tracks_Albums_FK_AlbumId",
+                        column: x => x.FK_AlbumId,
+                        principalTable: "Albums",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -217,14 +235,19 @@ namespace RecordClique_DataAccess.Migrations
                 column: "FK_RecordLabelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_AlbumId",
-                table: "Comments",
-                column: "AlbumId");
+                name: "IX_Reviews_FK_AlbumId",
+                table: "Reviews",
+                column: "FK_AlbumId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_UserId",
-                table: "Comments",
-                column: "UserId");
+                name: "IX_Reviews_FK_UserId",
+                table: "Reviews",
+                column: "FK_UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tracks_FK_AlbumId",
+                table: "Tracks",
+                column: "FK_AlbumId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserAlbumLinks_FK_AlbumId",
@@ -247,7 +270,10 @@ namespace RecordClique_DataAccess.Migrations
                 name: "AlbumGenreLinks");
 
             migrationBuilder.DropTable(
-                name: "Comments");
+                name: "Reviews");
+
+            migrationBuilder.DropTable(
+                name: "Tracks");
 
             migrationBuilder.DropTable(
                 name: "UserAlbumLinks");
