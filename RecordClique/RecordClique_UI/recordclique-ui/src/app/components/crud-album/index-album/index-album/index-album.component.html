@@ -25,6 +25,7 @@
         <th></th>
         <th></th>
         <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody class="albums-list">
@@ -56,6 +57,10 @@
           <button class="button delete" mat-raised-button data-bs-toggle="modal" data-bs-target="#deleteAlbumModal" (click)="setSelectedAlbumId(album.Id)" color="warn">
             <mat-icon>delete</mat-icon>Delete
           </button>
+        </td>
+        <td>
+          <button class="button" mat-raised-button [routerLink]="['/album-details', album.Id]">
+            <mat-icon>more_horiz</mat-icon> Details</button>
         </td>
       </tr>
     </tbody>

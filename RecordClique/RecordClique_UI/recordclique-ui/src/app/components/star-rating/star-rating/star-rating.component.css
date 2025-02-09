@@ -1,0 +1,15 @@
+.star-rating {
+    font-size: 30px;
+    cursor: pointer;
+    display: flex;
+  }
+  
+  .star-rating span {
+    color: gray;
+    transition: color 0.2s;
+  }
+  
+  .star-rating span.filled {
+    color: gold;
+  }
+  

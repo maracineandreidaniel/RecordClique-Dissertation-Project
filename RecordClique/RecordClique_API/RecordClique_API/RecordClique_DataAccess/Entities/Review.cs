@@ -9,8 +9,8 @@ namespace RecordClique.Models
         [Key]
         public Guid Id { get; set; }
         [Required(ErrorMessage = "You need to write some text!")]
-        public string Text { get; set; }
-        public int Stars { get; set; }
+        public string Comment { get; set; }
+        public int Rating { get; set; }
 
         [ForeignKey("User")]
         public Guid FK_UserId { get; set; }

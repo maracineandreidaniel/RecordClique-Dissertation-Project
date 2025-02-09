@@ -9,6 +9,7 @@ namespace RecordClique_DataAccess.Entities
         [Key]
         public Guid Id { get; set; }
         public string Path { get; set; }
+        public string Title { get; set; }
 
         [ForeignKey("Album")]
         public Guid FK_AlbumId { get; set; }

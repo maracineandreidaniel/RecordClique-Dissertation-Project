@@ -6,5 +6,7 @@ namespace RecordClique_BusinessLogic.Services.Abstractions
     public interface IReviewService
     {
         Task<PaginatedResult<ReviewDTO>> GetReviews(int pageNumber, int pageSize, Guid? albumId);
+        Task<ReviewDTO> CreateReview(ReviewDTO reviewDto);
+        Task<object> DeleteReview(Guid id);
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecordClique_DataAccess.Context;
 
@@ -11,9 +12,11 @@ using RecordClique_DataAccess.Context;
 namespace RecordClique_DataAccess.Migrations
 {
     [DbContext(typeof(RecordCliqueContext))]
-    partial class RecordCliqueContextModelSnapshot : ModelSnapshot
+    [Migration("20250209164724_title-track")]
+    partial class titletrack
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,18 +103,18 @@ namespace RecordClique_DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid>("FK_AlbumId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("FK_UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Rating")
+                    b.Property<int>("Stars")
                         .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

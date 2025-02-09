@@ -14,7 +14,7 @@ namespace RecordClique_API.Controllers
             this._trackService = trackService;
         }
 
-        [HttpGet("/tracks")]
+        [HttpGet]
         public async Task<IActionResult> GetTracks(Guid albumId)
         {
             var tracks = await _trackService.GetTracks(albumId);

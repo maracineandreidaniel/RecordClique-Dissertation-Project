@@ -43,5 +43,24 @@ namespace RecordClique_BusinessLogic.Services
                 PageSize = pageSize
             };
         }
+
+        public async Task<ReviewDTO> CreateReview(ReviewDTO reviewDto)
+        {
+            var review = _mapper.Map<Review>(reviewDto);
+            review.Id = Guid.NewGuid(); 
+            await _reviewRepository.AddAsync(review);
+            return _mapper.Map<ReviewDTO>(review);
+        }
+
+        public async Task<object> DeleteReview(Guid id)
+        {
+            var review = await _reviewRepository.GetByIdAsync(id);
+            if (review == null)
+            {
+                throw new Exception("Review was not found!");
+            }
+            await _reviewRepository.RemoveAsync(review);
+            return new { Message = "Review was successfully deleted!" };
+        }
     }
 }

@@ -42,6 +42,8 @@ import { UpdateRecordLabelComponent } from './components/crud-record-label/updat
 import { UserAlbumsComponent } from './components/user-albums/user-albums.component';
 import { AssistantComponent } from './components/assistant/assistant.component';
 import { MatCardModule } from '@angular/material/card';
+import { AlbumDetailsComponent } from './components/album-details/album-details/album-details.component';
+import { StarRatingComponent } from './components/star-rating/star-rating/star-rating.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +66,8 @@ import { MatCardModule } from '@angular/material/card';
     UpdateRecordLabelComponent,
     UserAlbumsComponent,
     AssistantComponent,
+    AlbumDetailsComponent,
+    StarRatingComponent,
   ],
   imports: [
     BrowserModule,
