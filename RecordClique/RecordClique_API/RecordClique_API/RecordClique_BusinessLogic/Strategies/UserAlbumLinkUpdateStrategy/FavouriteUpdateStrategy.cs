@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RecordClique_BusinessLogic.Strategies.UserAlbumLinkUpdateStrategy.Abstractions;
+﻿using RecordClique_BusinessLogic.Strategies.UserAlbumLinkUpdateStrategy.Abstractions;
 using RecordClique_DataAccess.Repository.Abstraction;
 
 namespace RecordClique_BusinessLogic.Strategies.UserAlbumLinkUpdateStrategy
