@@ -13,7 +13,7 @@ export class ReportingPageComponent {
   }
 
   printBoxOffice(){
-    this.statisticService.generateBoxOfficePDF(this.selectedTime).subscribe( res => {
+    this.statisticService.generateStatisticsReport().subscribe( res => {
       let blob: Blob = res.body as Blob;
       let url = window.URL.createObjectURL(blob);
       window.open(url);
@@ -21,12 +21,12 @@ export class ReportingPageComponent {
   }
 
   downloadBoxOffice(){
-    const today = new Date();
-    this.statisticService.generateBoxOfficePDF(this.selectedTime).subscribe( res => {
+    const today = new Date().toISOString().slice(0, 10);
+    this.statisticService.generateStatisticsReport().subscribe( res => {
       let blob: Blob = res.body as Blob;
       let url = window.URL.createObjectURL(blob);
       let anchor = document.createElement('a');
-      anchor.download = 'BoxOffice_' + today;
+      anchor.download = 'Report_RecordClique_' + today;
       anchor.href = url;
       anchor.click();
     });
