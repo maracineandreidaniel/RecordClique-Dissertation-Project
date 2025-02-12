@@ -30,9 +30,9 @@ namespace RecordClique_BusinessLogic.Strategies.StatisticsStrategy
                 .Select(a => new StatisticDTO
                 {
                     AlbumTitle = a.Title,
-                    ArtistName = string.Join(",", a.AlbumArtistLinks.Select(aa => aa.Artist.Name)),
+                    ArtistName = a.AlbumArtistLinks.Any() == true ? string.Join(",", a.AlbumArtistLinks.Select(aa => aa.Artist.Name)): "",
                     Result = a.Reviews.Select(r => r.Rating).Count() > 0 ? a.Reviews.Select(r => r.Rating).Sum() / a.Reviews.Select(r => r.Rating).Count() : 0,
-                    Type = Constants.Statistic.BestRatedAlbumsStrategy
+                    Type = Constants.Statistic.Type.BestRatedAlbumsStrategyType
                 })
                 .Take(3)
                 .OrderByDescending(a => a.Result)

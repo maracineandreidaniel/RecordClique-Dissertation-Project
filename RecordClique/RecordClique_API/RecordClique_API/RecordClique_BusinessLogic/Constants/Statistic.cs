@@ -4,11 +4,23 @@
     {
         internal static class Statistic
         {
-            public const int BestRatedAlbumsStrategy = 1;
-            public const int WorstRatedAlbumsStrategy = 2;
-            public const int TopFavouriteAlbumsStrategy = 3;
-            public const int TopListeningAlbumsStrategy = 4;
-            public const int TopWishlistAlbumsStrategy = 5;
+            internal static class Type
+            {
+                public const int BestRatedAlbumsStrategyType = 1;
+                public const int WorstRatedAlbumsStrategyType = 2;
+                public const int TopFavouriteAlbumsStrategyType = 3;
+                public const int TopListeningAlbumsStrategyType = 4;
+                public const int TopWishlistAlbumsStrategyType = 5;
+            }
+
+            internal static class Label
+            {
+                public const string BestRatedAlbumsStrategyLabel = "Best Rated Albums";
+                public const string WorstRatedAlbumsStrategyLabel = "Worst Rated Albums";
+                public const string TopFavouriteAlbumsStrategyLabel = "Top Favourite Albums";
+                public const string TopListeningAlbumsStrategyLabel = "Top Listening Albums";
+                public const string TopWishlistAlbumsStrategyLabel = "Top Wishlist Albums";
+            }
         }
     }
 }

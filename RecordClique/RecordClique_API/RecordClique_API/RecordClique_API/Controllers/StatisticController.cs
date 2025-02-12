@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RecordClique_BusinessLogic.Services.Abstractions;
 
 namespace RecordClique_API.Controllers
@@ -19,6 +20,15 @@ namespace RecordClique_API.Controllers
         {
             var statistics = await _statisticService.GetStatisticsAsync();
             return Ok(statistics);
+        }
+
+        [HttpGet("generate-report")]
+        //[Authorize(Policy = "AdminUserPolicy")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileContentResult))]
+        public async Task<IActionResult> GenerateReport()
+        {
+            var pdf = await _statisticService.GenerateAlbumReport();
+            return pdf;
         }
     }
 }

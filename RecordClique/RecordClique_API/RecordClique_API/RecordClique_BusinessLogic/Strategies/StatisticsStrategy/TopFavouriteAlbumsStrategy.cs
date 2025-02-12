@@ -26,9 +26,9 @@ namespace RecordClique_BusinessLogic.Strategies.StatisticsStrategy
                 .Select(a => new StatisticDTO
                 {
                     AlbumTitle = a.Title,
-                    ArtistName = string.Join(",", a.AlbumArtistLinks.Select(aa => aa.Artist.Name)),
-                    Result = a.UserAlbumLinks.Select(l => l.IsFavourite).Count(),
-                    Type = Constants.Statistic.TopFavouriteAlbumsStrategy
+                    ArtistName = a.AlbumArtistLinks.Any() == true ? string.Join(",", a.AlbumArtistLinks.Select(aa => aa.Artist.Name)) : "",
+                    Result = a.UserAlbumLinks.Where(l => l.IsFavourite == true).Count(),
+                    Type = Constants.Statistic.Type.TopFavouriteAlbumsStrategyType
                 })
                 .Take(3)
                 .OrderByDescending(a => a.Result)
