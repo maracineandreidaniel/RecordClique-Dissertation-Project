@@ -1,0 +1,35 @@
+import { Component } from '@angular/core';
+import { StatisticsService } from 'src/services/statistics/statistics.service';
+
+@Component({
+  selector: 'app-reporting-page',
+  templateUrl: './reporting-page.component.html',
+  styleUrls: ['./reporting-page.component.css']
+})
+export class ReportingPageComponent {
+
+  constructor(private statisticService: StatisticsService){
+
+  }
+
+  printBoxOffice(){
+    this.statisticService.generateBoxOfficePDF(this.selectedTime).subscribe( res => {
+      let blob: Blob = res.body as Blob;
+      let url = window.URL.createObjectURL(blob);
+      window.open(url);
+    });
+  }
+
+  downloadBoxOffice(){
+    const today = new Date();
+    this.statisticService.generateBoxOfficePDF(this.selectedTime).subscribe( res => {
+      let blob: Blob = res.body as Blob;
+      let url = window.URL.createObjectURL(blob);
+      let anchor = document.createElement('a');
+      anchor.download = 'BoxOffice_' + today;
+      anchor.href = url;
+      anchor.click();
+    });
+  }
+
+}

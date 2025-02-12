@@ -19,6 +19,7 @@ import { UpdateRecordLabelComponent } from './components/crud-record-label/updat
 import { UserAlbumsComponent } from './components/user-albums/user-albums.component';
 import { AssistantComponent } from './components/assistant/assistant.component';
 import { AlbumDetailsComponent } from './components/album-details/album-details/album-details.component';
+import { ReportingPageComponent } from './components/reporting-page/reporting-page/reporting-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -39,7 +40,8 @@ const routes: Routes = [
   { path: 'record-labels/update/:id', component: UpdateRecordLabelComponent},
   { path: 'users-page/:subtab', component: UserAlbumsComponent },
   { path: 'assistant', component: AssistantComponent},
-  { path: 'album-details/:id', component: AlbumDetailsComponent}
+  { path: 'album-details/:id', component: AlbumDetailsComponent},
+  { path: 'reporting', component: ReportingPageComponent}
 ];
 
 @NgModule({

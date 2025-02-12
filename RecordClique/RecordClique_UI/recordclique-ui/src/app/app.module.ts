@@ -44,6 +44,7 @@ import { AssistantComponent } from './components/assistant/assistant.component';
 import { MatCardModule } from '@angular/material/card';
 import { AlbumDetailsComponent } from './components/album-details/album-details/album-details.component';
 import { StarRatingComponent } from './components/star-rating/star-rating/star-rating.component';
+import { ReportingPageComponent } from './components/reporting-page/reporting-page/reporting-page.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { StarRatingComponent } from './components/star-rating/star-rating/star-r
     AssistantComponent,
     AlbumDetailsComponent,
     StarRatingComponent,
+    ReportingPageComponent,
   ],
   imports: [
     BrowserModule,
