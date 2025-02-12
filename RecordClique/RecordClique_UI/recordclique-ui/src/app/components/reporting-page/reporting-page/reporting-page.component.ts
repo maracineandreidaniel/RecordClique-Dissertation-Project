@@ -12,7 +12,7 @@ export class ReportingPageComponent {
 
   }
 
-  printBoxOffice(){
+  printReport(){
     this.statisticService.generateStatisticsReport().subscribe( res => {
       let blob: Blob = res.body as Blob;
       let url = window.URL.createObjectURL(blob);
@@ -20,7 +20,7 @@ export class ReportingPageComponent {
     });
   }
 
-  downloadBoxOffice(){
+  downloadReport(){
     const today = new Date().toISOString().slice(0, 10);
     this.statisticService.generateStatisticsReport().subscribe( res => {
       let blob: Blob = res.body as Blob;
