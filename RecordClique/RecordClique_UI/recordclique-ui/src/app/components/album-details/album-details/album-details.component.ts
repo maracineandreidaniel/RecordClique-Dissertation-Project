@@ -16,7 +16,6 @@ import { UserStoreService } from 'src/services/user-store/user-store.service';
 })
 export class AlbumDetailsComponent {
 
-
   tracks: Track[] = [];
   reviews: Review[] = [];
   page: number = 1;
@@ -26,7 +25,9 @@ export class AlbumDetailsComponent {
   addReviewForm!: FormGroup;
   albumId!: string;
   userId: string = '';
-
+  audio = new Audio();
+  isPlaying = false;
+  currentTrack: Track | null = null;
 
   constructor( private fb: FormBuilder, 
       private router: Router,  
@@ -131,6 +132,31 @@ export class AlbumDetailsComponent {
         this.toast.error('Form is invalid', 'ERROR', {
           timeOut: 5000
         });
+      }
+    }
+
+    togglePlayPause(track: Track) {
+      if (this.currentTrack && this.currentTrack.Id === track.Id) {
+        if (this.isPlaying) {
+          this.audio.pause();
+        } else {
+          this.audio.play();
+        }
+        this.isPlaying = !this.isPlaying;
+      } else {
+        if (!this.audio.paused) {
+          this.audio.pause();
+        }
+        this.audio.src = track.Path;
+        this.audio.load();
+        this.audio.play();
+        this.currentTrack = track;
+        this.isPlaying = true;
+  
+        this.audio.onended = () => {
+          this.isPlaying = false;
+          this.currentTrack = null;
+        };
       }
     }
 }

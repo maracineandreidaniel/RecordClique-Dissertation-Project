@@ -1,12 +1,18 @@
 <p>album-details works!</p>
 
-<table class="table">
+  <table class="table">
     <tbody class="track-list">
       <tr *ngFor="let track of tracks">
         <td>{{ track.Title }}</td>
+        <td>
+          <button (click)="togglePlayPause(track)">
+            {{ currentTrack?.Id === track.Id && isPlaying ? '⏸ Pause' : '▶ Play' }}
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
+  
 
   <button mat-raised-button data-bs-toggle="modal" data-bs-target="#addReviewModal" color="primary">
 
