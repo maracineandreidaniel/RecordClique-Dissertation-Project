@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RecordClique.Models;
 using RecordClique_BusinessLogic.DTOs;
 using RecordClique_BusinessLogic.Strategies.StatisticsStrategy.Abstractions;

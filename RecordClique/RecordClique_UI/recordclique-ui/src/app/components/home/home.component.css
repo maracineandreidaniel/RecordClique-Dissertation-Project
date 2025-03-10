@@ -1,0 +1,137 @@
+/* General Styles */
+body {
+    background-color: #F8F9FA; /* Light Background */
+    color: #212A31;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* Header */
+header {
+    padding: 20px 0;
+}
+
+h1 {
+    color: #124E66;
+    font-size: 2.8em;
+}
+
+p {
+    color: #2E3944;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+/* Content Cards */
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+.card.left {
+    flex-direction: row;
+}
+
+.card.right {
+    flex-direction: row;
+}
+
+/* Text */
+.text {
+    flex: 1;
+    text-align: left;
+    padding: 20px;
+}
+
+.text h2 {
+    color: #124E66;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.text p {
+    color: #2E3944;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+/* Image Placeholder */
+.image {
+    flex: 1;
+    height: 200px;
+    background: #748D92;
+    border-radius: 10px;
+}
+
+/* Call-to-Action Button */
+.cta-button {
+    display: inline-block;
+    background-color: #124E66;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    font-size: 1.2em;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: background-color 0.3s, transform 2s;
+}
+
+.cta-button:hover {
+    background-color: #2E3944;
+    transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+    margin-top: 50px;
+    font-size: 0.9em;
+    color: #748D92;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .card.right {
+        flex-direction: column;
+    }
+    
+    .text {
+        text-align: center;
+    }
+}
