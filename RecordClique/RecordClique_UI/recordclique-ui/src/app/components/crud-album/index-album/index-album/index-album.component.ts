@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -21,7 +21,7 @@ export class IndexAlbumComponent {
    albums: Album[] = [];
    selectedAlbumId! : string | ' ';
    page: number = 1;
-   pageSize: number = 5;
+   pageSize: number = 4;
    totalPages: number = 0;
    artistOptions: SelectOptionResult[] = [];
    genreOptions: SelectOptionResult[] = [];
@@ -148,5 +148,13 @@ export class IndexAlbumComponent {
     this.albumService.updateUserAlbumLink(albumId, this.userId, true, type).subscribe((result) => {
       this.router.navigate(['/users-page/favourites']);
     });
+  }
+
+  @HostListener('document:click', ['$event'])
+  closeDropdown(event: Event) {
+    const targetElement = event.target as HTMLElement;
+    if (!targetElement.closest('.buttons-trigger') && !targetElement.closest('.buttons-wrapper')) {
+      this.selectedAlbumId = '';
+    }
   }
 }

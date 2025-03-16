@@ -1,0 +1,19 @@
+/* Apply border-radius to all mat-form-fields */
+::ng-deep mat-form-field {
+    border-radius: 10px; 
+    overflow: hidden; 
+}
+
+/* Style for input and textarea inside mat-form-field */
+::ng-deep input.mat-input-element,
+::ng-deep textarea.mat-input-element {
+    border-radius: 10px !important;
+    padding: 10px;
+    overflow: hidden; 
+}
+
+/* Add border-radius to dropdown panel */
+::ng-deep .mat-select-panel {
+    border-radius: 10px !important;
+    overflow: hidden; 
+}

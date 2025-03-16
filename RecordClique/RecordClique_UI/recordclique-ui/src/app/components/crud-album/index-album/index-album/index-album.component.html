@@ -1,146 +1,149 @@
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
-  </head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
+</head>
 
-  <form class="form-inline" aform="ngForm" [formGroup]="searchAlbumForm">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" formControlName="filter">
-    <button (click)="searchAlbum()" class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
-    <button class="btn btn-warning my-2 my-sm-0" type="button" data-bs-toggle="modal" data-bs-target="#filtersModal"><i class="bi bi-filter"></i>Filter</button>
-  </form>
-  
-  <button class="btn btn-warning my-2 my-sm-0" type="button" data-bs-toggle="modal" data-bs-target="#filtersModal">
-    <i class="bi bi-filter"></i>
-  </button>
-  <table class="table">
-    <thead class="table-dark">
-      <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>ReleaseDate</th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody class="albums-list">
-      <tr *ngFor="let album of albums">
-        <td>{{ album.Title }}</td>
-        <td>{{ album.Description }}</td>
-        <td>{{ album.ReleaseDate }}</td>
-        <td>
-          <button class="button favourites" mat-raised-button (click)='updateAlbumLink(album.Id, 1)' [disabled]="album.IsFavourite">
-            <mat-icon>star</mat-icon> {{ album.IsFavourite ? 'Added to Favourites' : 'Add to Favourites' }}
-          </button>
-        </td>
-        <td>
-          <button class="button listening" mat-raised-button (click)='updateAlbumLink(album.Id, 2)' [disabled]="album.IsListening">
-            <mat-icon>headphones</mat-icon> {{ album.IsListening ? 'Added to Listening' : 'Add to Listening' }}
-          </button>
-        </td>
-        <td>
-          <button class="button wishlist" mat-raised-button (click)='updateAlbumLink(album.Id, 3)' [disabled]="album.IsOnWishlist">
-            <mat-icon>add_shopping_cart</mat-icon> {{ album.IsOnWishlist ? 'Added to Wishlist' : 'Add to Wishlist' }}
-          </button>
-        </td>
-        <td>
-          <button class="button edit" mat-raised-button [routerLink]="['/albums/update', album.Id]">
-            <mat-icon>edit</mat-icon>Edit
-          </button>
-        </td>
-        <td>
-          <button class="button delete" mat-raised-button data-bs-toggle="modal" data-bs-target="#deleteAlbumModal" (click)="setSelectedAlbumId(album.Id)" color="warn">
-            <mat-icon>delete</mat-icon>Delete
-          </button>
-        </td>
-        <td>
-          <button class="button" mat-raised-button [routerLink]="['/album-details', album.Id]">
-            <mat-icon>more_horiz</mat-icon> Details</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div *ngIf="totalPages > 0">
-    <ul class="pagination">
-      <li class="page-item" *ngFor="let pageNum of [].constructor(totalPages); let i = index"
-           [ngClass]="{'active': page === i + 1}"> 
-        <a class="page-link" (click)="pageChange(i+1)">{{ i + 1 }}</a>
-      </li>
-    </ul>
-  </div>
-  
-  <div class="modal fade" id="filtersModal" tabindex="-1" aria-labelledby="filtersModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <p class="modal-title" id="filtersModal">
-            <span style="font-size: 25px; font-weight: 700">Filter Albums</span><br />
-            <small> Choose filters for available albums </small>
-          </p>
-          <button type="button" (click)="closeFiltersModal()" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+<form class="form-inline" aform="ngForm" [formGroup]="searchAlbumForm">
+  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" formControlName="filter">
+  <button (click)="searchAlbum()" class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
+  <button class="btn btn-warning my-2 my-sm-0" type="button" data-bs-toggle="modal" data-bs-target="#filtersModal"><i
+      class="bi bi-filter"></i>Filter</button>
+</form>
+
+<button class="btn btn-warning my-2 my-sm-0" type="button" data-bs-toggle="modal" data-bs-target="#filtersModal">
+  <i class="bi bi-filter"></i>
+</button>
+
+<div class="container my-5">
+  <div class="row">
+    <div class="col-md-6 mb-4" *ngFor="let album of albums">
+      <div class="card shadow-sm position-relative p-3 d-flex flex-row">
+
+        <div class="image">
+          <img [src]="album.Cover" class="" alt="Album Cover" *ngIf="album.Cover">
         </div>
-        <div class="modal-body">
-          <div class="container my-9">
-            <div class="row">
-              <div class="col-9">
-                <form aform="ngForm" [formGroup]="filterAlbumsForm">
-                  <div class="mb-3">
-                      <label for="year" class="form-label">Year</label>
-                      <input type="number" class="form-control" id="year" formControlName="year" >
-                  </div>
-                  <div class="mb-3">
-                    <label for="artist" class="form-label">Artist</label>
-                    <select class="form-control" id="artist" formControlName="artist" [ngModel]="defaultValueFilterArtist">
-                      <option *ngFor="let artistOption of artistOptions" [value]="artistOption.Id">
-                        {{ artistOption.Value }}
-                      </option>
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label for="genre" class="form-label">Genre</label>
-                    <select class="form-control" id="genre" formControlName="genre" [ngModel]="defaultValueFilterGenre">
-                      <option *ngFor="let genreOption of genreOptions" [value]="genreOption.Id">
-                        {{ genreOption.Value }}
-                      </option>
-                    </select>
-                  </div>
-                  <button type="submit" class="btn btn-warning" [disabled]="!(filterAlbumsForm.valid && filterAlbumsForm.dirty)" (click)="filterAlbums()">
-                    Filter
-                  </button>
-                  <button type="submit" class="btn btn-danger" (click)="clearFilters()">
-                    Clear
-                  </button>
-                </form>
-              </div>
+
+        <div class="data col-md-8">
+            <h5 class="card-title">{{ album.Title }}</h5>
+            <p class="card-text description"><strong>Description:</strong> {{ album.Description }}</p>
+            <p class="card-text"><strong>Release Date:</strong> {{ album.ReleaseDate }}</p>
+            <div class="buttons-trigger text-center mt-3" (click)="setSelectedAlbumId(album.Id)">
+              Buttons
+            </div>
+
+          <div class="floating-menu d-flex flex-column" *ngIf="selectedAlbumId === album.Id">
+            <button class="btn btn-outline-warning btn-sm mb-1" (click)="updateAlbumLink(album.Id, 1)"
+              [disabled]="album.IsFavourite">
+              <i class="bi bi-star"></i> Favourites
+            </button>
+            <button class="btn btn-outline-info btn-sm mb-1" (click)="updateAlbumLink(album.Id, 2)"
+              [disabled]="album.IsListening">
+              <i class="bi bi-headphones"></i> Listening
+            </button>
+            <button class="btn btn-outline-success btn-sm mb-1" (click)="updateAlbumLink(album.Id, 3)"
+              [disabled]="album.IsOnWishlist">
+              <i class="bi bi-cart-plus"></i> Wishlist
+            </button>
+            <button class="btn btn-primary btn-sm mb-1" [routerLink]="['/albums/update', album.Id]">
+              <i class="bi bi-pencil"></i> Edit
+            </button>
+            <button class="btn btn-danger btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#deleteAlbumModal"
+              (click)="setSelectedAlbumId(album.Id)">
+              <i class="bi bi-trash"></i> Delete
+            </button>
+            <button class="btn btn-dark btn-sm" [routerLink]="['/album-details', album.Id]">
+              <i class="bi bi-info-circle"></i> Details
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="totalPages > 0">
+  <ul class="pagination">
+    <li class="page-item" *ngFor="let pageNum of [].constructor(totalPages); let i = index"
+      [ngClass]="{'active': page === i + 1}">
+      <a class="page-link" (click)="pageChange(i+1)">{{ i + 1 }}</a>
+    </li>
+  </ul>
+</div>
+
+<div class="modal fade" id="filtersModal" tabindex="-1" aria-labelledby="filtersModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="modal-title" id="filtersModal">
+          <span style="font-size: 25px; font-weight: 700">Filter Albums</span><br />
+          <small> Choose filters for available albums </small>
+        </p>
+        <button type="button" (click)="closeFiltersModal()" class="btn-close" data-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container my-9">
+          <div class="row">
+            <div class="col-9">
+              <form aform="ngForm" [formGroup]="filterAlbumsForm">
+                <div class="mb-3">
+                  <label for="year" class="form-label">Year</label>
+                  <input type="number" class="form-control" id="year" formControlName="year">
+                </div>
+                <div class="mb-3">
+                  <label for="artist" class="form-label">Artist</label>
+                  <select class="form-control" id="artist" formControlName="artist"
+                    [ngModel]="defaultValueFilterArtist">
+                    <option *ngFor="let artistOption of artistOptions" [value]="artistOption.Id">
+                      {{ artistOption.Value }}
+                    </option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="genre" class="form-label">Genre</label>
+                  <select class="form-control" id="genre" formControlName="genre" [ngModel]="defaultValueFilterGenre">
+                    <option *ngFor="let genreOption of genreOptions" [value]="genreOption.Id">
+                      {{ genreOption.Value }}
+                    </option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-warning"
+                  [disabled]="!(filterAlbumsForm.valid && filterAlbumsForm.dirty)" (click)="filterAlbums()">
+                  Filter
+                </button>
+                <button type="submit" class="btn btn-danger" (click)="clearFilters()">
+                  Clear
+                </button>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
-  <div class="modal fade" id="deleteAlbumModal" tabindex="-1" aria-labelledby="deleteAlbumModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <p class="modal-title" id="deleteAlbumModal"><span style="font-size: 25px; font-weight: 700">Deleting
-              Confirmation</span><br>
-            <small> Are you sure you want to delete this album? </small>
-          </p>
-          <button type="button" (click)="closeDeleteModal()" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>If yes, press "Delete Album" button!</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeDeleteModal()">Close</button>
-          <button type="button" (click)="deleteAlbum(selectedAlbumId)" class="btn btn-primary" style="background-color: red" >Delete Album </button>
-        </div>
+</div>
+
+<div class="modal fade" id="deleteAlbumModal" tabindex="-1" aria-labelledby="deleteAlbumModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="modal-title" id="deleteAlbumModal"><span style="font-size: 25px; font-weight: 700">Deleting
+            Confirmation</span><br>
+          <small> Are you sure you want to delete this album? </small>
+        </p>
+        <button type="button" (click)="closeDeleteModal()" class="btn-close" data-dismiss="modal"
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>If yes, press "Delete Album" button!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeDeleteModal()">Close</button>
+        <button type="button" (click)="deleteAlbum(selectedAlbumId)" class="btn btn-primary"
+          style="background-color: red">Delete Album </button>
       </div>
     </div>
   </div>
+</div>
