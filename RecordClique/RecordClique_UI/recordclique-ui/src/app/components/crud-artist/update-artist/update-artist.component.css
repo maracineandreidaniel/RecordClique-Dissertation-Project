@@ -1,0 +1,12 @@
+.container{
+    margin-top: 200px;
+    border-radius: 20px;
+}
+
+input, textarea{
+    border-radius: 10px;
+}
+
+.text-field{
+    width: 80%;
+}

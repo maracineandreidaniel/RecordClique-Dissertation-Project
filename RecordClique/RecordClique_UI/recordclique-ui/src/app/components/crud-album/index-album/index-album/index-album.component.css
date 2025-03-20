@@ -114,3 +114,18 @@
     bottom: 10px;
     right: 20px;
 }
+
+#deleteAlbumModal .modal-dialog .modal-content{
+    border-radius: 20px;
+}
+
+#deleteAlbumModal .modal-dialog .modal-header button{
+    background-color: white;
+}
+
+#deleteAlbumModal .modal-dialog .modal-header{
+    color: white;
+    background-color:#124E66;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}

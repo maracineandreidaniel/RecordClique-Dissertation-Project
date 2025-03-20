@@ -1,0 +1,14 @@
+#deleteRecordLabelModal .modal-dialog .modal-content{
+    border-radius: 20px;
+}
+
+#deleteRecordLabelModal .modal-dialog .modal-header button{
+    background-color: white;
+}
+
+#deleteRecordLabelModal .modal-dialog .modal-header{
+    color: white;
+    background-color:#124E66;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}

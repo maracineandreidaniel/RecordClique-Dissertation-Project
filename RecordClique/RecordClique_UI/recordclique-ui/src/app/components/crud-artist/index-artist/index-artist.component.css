@@ -3,3 +3,18 @@
     display: flex;
     margin-bottom: 30px;
 }
+
+#deleteArtistModal .modal-dialog .modal-content{
+    border-radius: 20px;
+}
+
+#deleteArtistModal .modal-dialog .modal-header button{
+    background-color: white;
+}
+
+#deleteArtistModal .modal-dialog .modal-header{
+    color: white;
+    background-color:#124E66;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}

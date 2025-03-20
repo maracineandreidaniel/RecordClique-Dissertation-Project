@@ -1,23 +1,22 @@
+<body>
 
-<div class="container my-5">
-    <h1 class = "mb-3">Add New Screening</h1>
-    <div class="row">
-        <div class="col-6">
-            <form aform="ngForm" [formGroup]="updateArtistForm">
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" formControlName="name">
-                  </div>
-                  <div class="mb-3">
-                    <label for="biography" class="form-label">Biography</label>
-                    <textarea class="form-control" id="biography" formControlName="biography" rows="5"></textarea>
-                  </div>
-                  <div class="mb-3">
-                    <label for="picture" class="form-label">Picture</label>
-                    <textarea class="form-control" id="picture" formControlName="picture" rows="5"></textarea>
-                  </div>
-                <button type="submit" class="btn btn-primary" (click)="updateArtist()">Save</button>
-              </form>
-        </div>
-    </div>
-</div>
+  <div class="container col-md-6 col-lg-4 shadow p-4 text-center">
+      <h1 class = "mb-3">Update Artist</h1>
+              <form aform="ngForm" [formGroup]="updateArtistForm" class="w-100 align-items-center">
+                <div class="data d-flex flex-column align-items-center">
+                  <div class="mb-3 text-field">
+                      <input class="form-control text-center" id="name" formControlName="name" placeholder="Enter Name...">
+                    </div>
+                    <div class="mb-3 text-field">
+                      <input class="form-control text-center" id="picture" formControlName="picture" placeholder="Enter URL..."> 
+                    </div>
+                    <div class="mb-3 text-field">
+                      <textarea class="form-control text-center" id="biography" formControlName="biography" rows="5" placeholder="Enter Biography..."></textarea>
+                    </div>
+                  <button type="submit" class="btn btn-primary w-50" (click)="updateArtist()">Save</button>
+                </div>
+                </form>
+          </div>
+  
+  </body>
+  
