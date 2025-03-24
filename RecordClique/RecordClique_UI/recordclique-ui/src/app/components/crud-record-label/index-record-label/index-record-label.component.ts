@@ -10,24 +10,17 @@ import { RecordLabelsService } from 'src/services/record-labels/record-labels.se
   styleUrls: ['./index-record-label.component.css']
 })
 export class IndexRecordLabelComponent {
-    // filterScreeningsForm!: FormGroup;
     recordLabels: RecordLabel[] = [];
     selectedRecordLabelId! : string | ' ';
     page: number = 1;
-    pageSize: number = 5;
+    pageSize: number = 4;
     totalPages: number = 0;
   
     constructor(
       private recordLabelService: RecordLabelsService,
       private fb: FormBuilder,
       private toast: ToastrService
-    ) {
-      // this.filterScreeningsForm = this.fb.group({
-      //   date: [''],
-      //   room: [''],
-      //   genre: [''],
-      // });
-    }
+    ) {}
   
     ngOnInit(): void {
       this.loadRecordLabels(this.page, this.pageSize);  
@@ -50,14 +43,6 @@ export class IndexRecordLabelComponent {
       const modal = $('#filtersModal');
       (modal as any).modal('hide');
     }
-  
-    // filterScreenings() {
-    //   if (this.filterScreeningsForm.valid) {
-    //     this.page = 1;
-    //     this.loadScreenings(this.page, this.pageSize);
-    //     this.closeFiltersModal();
-    //   }
-    // }
     
   
     closeDeleteModal() {
@@ -74,7 +59,6 @@ export class IndexRecordLabelComponent {
     }
   
     loadRecordLabels(pageNumber: number, pageSize: number): void {
-      // const formValues = this.filterScreeningsForm.value;
        this.recordLabelService.getRecordLabels(pageNumber, pageSize)
         .subscribe({
           next: (res) => {

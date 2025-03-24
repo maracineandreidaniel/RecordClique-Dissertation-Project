@@ -1,4 +1,21 @@
-<div>
-    <button type="submit" class="btn btn-primary" (click)="printReport()">Print</button>
-    <button type="submit" class="btn btn-primary" (click)="downloadReport()">Download</button>
-</div>
+<body>
+    
+    <div class="container shadow">
+        <h1>Reporting</h1>
+        <div class="description">
+            <p>Here you can see statistics about the following topics:</p>
+            <ul>
+                <li><p>Best Rated Albums</p></li>     
+                <li><p>Worst Rated Albums</p></li> 
+                <li><p>Top Albums marked as Favourite</p></li>  
+                <li><p>Top Albums added in Wishlist</p></li>      
+                <li><p>Top Albums marked as Listening</p></li>           
+            </ul>
+        </div>
+        <div class="buttons">
+            <button type="submit" class="btn btn-primary" (click)="printReport()">Print</button>
+            <button type="submit" class="btn btn-primary" (click)="downloadReport()">Download</button>
+        </div>
+    </div>
+
+</body>
