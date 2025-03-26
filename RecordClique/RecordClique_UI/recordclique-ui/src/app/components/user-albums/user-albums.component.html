@@ -16,13 +16,21 @@
     </button>
   </div>
   
-  <div class="grid">
-    <div class="album" *ngFor="let album of albums">
-      <!-- <img [src]="album.Cover" alt="{{ album.Title }}"> -->
-      <div class="details">
-        <h3>{{ album.Title }}</h3>
-        <p>{{ album.Id }}</p>
-        <button (click)='updateAlbumLink(album.Id)'>Remove from {{ actionLabel }}</button>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 mb-4" *ngFor="let album of albums">
+        <div class="card shadow-sm position-relative d-flex flex-column">
+
+          <div class="image">
+            <img [src]="album.Cover" class="" alt="Album Cover" *ngIf="album.Cover">
+          </div>
+
+          <div class="data col-md-8">
+            <h5 class="card-text card-title title">{{ album.Title }}</h5>
+            <p class="card-text biography shadow-sm">{{ album.Description }}</p>
+            <button (click)='updateAlbumLink(album.Id)'>Remove from {{ actionLabel }}</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

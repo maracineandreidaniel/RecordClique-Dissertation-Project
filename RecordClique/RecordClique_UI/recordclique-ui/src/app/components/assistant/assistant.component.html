@@ -1,25 +1,20 @@
-<div class="col-6">
-    <form [formGroup]="assistantFormGroup" (ngSubmit)="displayText()" class="d-flex flex-column gap-3">
-      <!-- Input Field -->
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Enter a Title</mat-label>
-        <input matInput type="text" formControlName="message" placeholder="Type your title here">
-      </mat-form-field>
+<body>
   
-      <!-- Submit Button -->
-      <button mat-raised-button color="primary" type="submit" class="align-self-start">
-        Generate Message
-      </button>
+<div class="page-wrapper">
+  <div class="bubble input-bubble">
+    <h2 class="bubble-title">Assistant</h2>
+    <p class="bubble-description">I am the RecordClique Assistant. Tell me an album and I will give you similar suggestions.</p>
+
+    <form [formGroup]="assistantFormGroup" (ngSubmit)="displayText()" class="form">
+      <input matInput type="text" formControlName="message" placeholder="Type your title here" class="custom-input">
+      <button type="submit" class="submit-button">Generate Message</button>
     </form>
-  
-    <!-- Message Display Section -->
-    <div *ngIf="generatedMessage" class="message-box mt-4">
-      <mat-card>
-        <mat-card-title>Generated Message</mat-card-title>
-        <mat-card-content>
-          <p>{{ generatedMessage }}</p>
-        </mat-card-content>
-      </mat-card>
-    </div>
   </div>
-  
+
+  <div *ngIf="generatedMessage" class="bubble response-bubble">
+    <h3 class="response-title">Assistant:</h3>
+    <p class="response-text">{{ generatedMessage }}</p>
+  </div>
+</div>
+
+</body>

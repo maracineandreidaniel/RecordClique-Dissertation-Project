@@ -1,7 +1,31 @@
-<h1>My Profile</h1>
-<h4>First name: {{user?.FirstName}}</h4>
-<h4>Last name: {{user?.LastName}}</h4>
-<h4>Username: {{user?.UserName}}</h4>
-<h4>Email: {{user?.Email}}</h4>
-<h4>Role: {{user?.Role}}</h4>
-<h4>MoneyBalance: {{user?.MoneyBalance}}</h4>
+<div class="profile-wrapper">
+    <div class="profile-card">
+      <h2 class="profile-title">My Profile</h2>
+  
+      <div class="profile-item">
+        <span class="label">First name:</span>
+        <span class="value">{{ user?.FirstName }}</span>
+      </div>
+  
+      <div class="profile-item">
+        <span class="label">Last name:</span>
+        <span class="value">{{ user?.LastName }}</span>
+      </div>
+  
+      <div class="profile-item">
+        <span class="label">Username:</span>
+        <span class="value">{{ user?.UserName }}</span>
+      </div>
+  
+      <div class="profile-item">
+        <span class="label">Email:</span>
+        <span class="value">{{ user?.Email }}</span>
+      </div>
+  
+      <div class="profile-item">
+        <span class="label">Role:</span>
+        <span class="value">{{ user?.Role }}</span>
+      </div>
+    </div>
+  </div>
+  
