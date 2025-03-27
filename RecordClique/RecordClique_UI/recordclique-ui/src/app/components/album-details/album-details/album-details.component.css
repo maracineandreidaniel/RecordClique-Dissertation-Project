@@ -1,0 +1,48 @@
+.track-list-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 70px;
+}
+
+.track-list{
+    width: 50%;
+    max-width: 200px;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+.track{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    column-gap: 30px;
+}
+
+.track button{
+    border-radius: 10px;
+}
+
+.reviews{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reviews .add-review{
+    position: absolute;
+    right: 100px;
+    bottom: 100px;
+    display: flex;
+    align-items: center;
+    font-size: 40px;
+}
+
+.pagination{
+    position: absolute;
+    bottom: 1px;
+}
+
+#addReviewModal{
+    padding: 20px;
+}

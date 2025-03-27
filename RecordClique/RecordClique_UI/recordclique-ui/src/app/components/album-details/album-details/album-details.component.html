@@ -1,24 +1,17 @@
-<p>album-details works!</p>
+  <body>
 
-  <table class="table">
-    <tbody class="track-list">
-      <tr *ngFor="let track of tracks">
-        <td>{{ track.Title }}</td>
-        <td>
-          <button (click)="togglePlayPause(track)">
-            {{ currentTrack?.Id === track.Id && isPlaying ? '⏸ Pause' : '▶ Play' }}
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  
+  <div class="track-list-wrapper">
+    <div class="track-list shadow">
+      <div class="track" *ngFor="let track of tracks">
+        <div>{{ track.Title }}</div>
+        <button (click)="togglePlayPause(track)">
+          {{ currentTrack?.Id === track.Id && isPlaying ? '⏸ Pause' : '▶ Play' }}
+        </button>
+      </div>
+    </div>
+  </div>
 
-  <button mat-raised-button data-bs-toggle="modal" data-bs-target="#addReviewModal" color="primary">
-
-    <mat-icon>add</mat-icon>Add Review
-  </button>
-
+<div class="reviews">
   <table class="table">
     <thead class="table-dark">
       <tr>
@@ -53,6 +46,15 @@
       </li>
     </ul>
   </div>
+
+  <button class="add-review" mat-raised-button data-bs-toggle="modal" data-bs-target="#addReviewModal" color="primary">
+    +
+    </button>
+
+</div>
+
+</body>
+
 
   <div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="deleteReviewModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

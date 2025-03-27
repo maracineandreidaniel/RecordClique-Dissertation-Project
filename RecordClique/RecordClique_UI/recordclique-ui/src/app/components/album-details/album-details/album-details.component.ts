@@ -19,7 +19,7 @@ export class AlbumDetailsComponent {
   tracks: Track[] = [];
   reviews: Review[] = [];
   page: number = 1;
-  pageSize: number = 2;
+  pageSize: number = 10;
   totalPages: number = 0;
   selectedReviewId! : string | ' ';
   addReviewForm!: FormGroup;
