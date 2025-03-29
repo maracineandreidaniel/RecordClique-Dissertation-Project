@@ -1,8 +1,15 @@
+body{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
 .tabs {
     display: flex;
-    justify-content: space-around;
     margin-bottom: 16px;
     padding: 20px;
+    column-gap: 30px;
   }
   
   .tabs button {
@@ -70,11 +77,6 @@
     overflow-y: hidden;
 }
 
-.pagination{
-    position: absolute;
-    bottom: 10px;
-    right: 20px;
-}
  .card button{
     width: 50%;
     border-radius: 20px;

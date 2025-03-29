@@ -1,3 +1,11 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
 .form-inline{
     max-width: 30%;
     display: flex;
@@ -24,6 +32,44 @@
     width: 100%;
     margin-top: 100px;
 }
+
+#filtersModal .modal-dialog .modal-content {
+    border-radius: 20px;
+  }
+  
+  #filtersModal .modal-dialog .modal-header {
+    background-color: #124E66;
+    color: white;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  
+  #filtersModal .modal-dialog .modal-header .btn-close {
+    background-color: white;
+  }
+  
+  #filtersModal .modal-body .form-label {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  #filtersModal .modal-body .form-control {
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 1rem;
+  }
+  
+  #filtersModal .modal-footer .btn-warning {
+    background-color: #f0ad4e;
+    border: none;
+    font-weight: 600;
+  }
+  
+  #filtersModal .modal-footer .btn-danger {
+    background-color: #d9534f;
+    border: none;
+    font-weight: 600;
+  }
 
 .floating-menu {
     position: absolute;
@@ -107,12 +153,6 @@
 .card .card-text{
     max-height: 80px;
     overflow-y: hidden;
-}
-
-.pagination{
-    position: absolute;
-    bottom: 10px;
-    right: 20px;
 }
 
 #deleteAlbumModal .modal-dialog .modal-content{

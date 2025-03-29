@@ -1,21 +1,16 @@
-<div class="tabs">
-    <button 
-      [routerLink]="['/users-page/favourites']" 
-      [class.active]="actionLabel === 'Favourite'">
+<body>
+  <div class="tabs">
+    <button [routerLink]="['/users-page/favourites']" [class.active]="actionLabel === 'Favourite'">
       Favourites
     </button>
-    <button 
-      [routerLink]="['/users-page/listening']" 
-      [class.active]="actionLabel === 'Listening'">
+    <button [routerLink]="['/users-page/listening']" [class.active]="actionLabel === 'Listening'">
       Listening
     </button>
-    <button 
-      [routerLink]="['/users-page/wishlist']" 
-      [class.active]="actionLabel === 'Wishlist'">
+    <button [routerLink]="['/users-page/wishlist']" [class.active]="actionLabel === 'Wishlist'">
       Wishlist
     </button>
   </div>
-  
+
   <div class="container">
     <div class="row">
       <div class="col-md-3 mb-4" *ngFor="let album of albums">
@@ -34,14 +29,15 @@
       </div>
     </div>
   </div>
-  
+
   <div class="pagination">
-    <div *ngIf="totalPages > 0">
+    <div *ngIf="totalPages > 1">
       <ul class="pagination">
         <li class="page-item" *ngFor="let pageNum of [].constructor(totalPages); let i = index"
-             [ngClass]="{'active': page === i + 1}"> 
+          [ngClass]="{'active': page === i + 1}">
           <a class="page-link" (click)="pageChange(i+1)">{{ i + 1 }}</a>
         </li>
       </ul>
     </div>
   </div>
+</body>

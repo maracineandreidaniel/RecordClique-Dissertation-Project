@@ -1,3 +1,58 @@
+.body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#deleteReviewModal .modal-dialog .modal-content{
+    border-radius: 20px;
+}
+
+#deleteReviewModal .modal-dialog .modal-header button{
+    background-color: white;
+}
+
+#deleteReviewModal .modal-dialog .modal-header{
+    color: white;
+    background-color:#124E66;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+  #addReviewModal .modal-dialog .modal-content {
+    border-radius: 20px;
+  }
+  
+  #addReviewModal .modal-dialog .modal-header {
+    background-color: #124E66;
+    color: white;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  
+  #addReviewModal .modal-dialog .modal-header .btn-close {
+    background-color: white;
+  }
+  
+  #addReviewModal textarea.form-control {
+    resize: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+  }
+  
+  #addReviewModal .modal-footer .btn-primary {
+    background-color: #124E66;
+    border-color: #124E66;
+  }
+  
+  #addReviewModal .modal-footer .btn-primary:disabled {
+    background-color: #b3c6cc;
+    border-color: #b3c6cc;
+    cursor: not-allowed;
+  }
+  
 .track-list-wrapper{
     display: flex;
     flex-direction: column;
@@ -46,3 +101,55 @@
 #addReviewModal{
     padding: 20px;
 }
+
+
+.review-list-full {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 16px;
+  }
+  
+  .review-line {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid #e2e2e2;
+    padding: 12px 0;
+  }
+  
+  .left {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: calc(100% - 48px);
+  }
+  
+  .commenter-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #2c3e50;
+  }
+  
+  .comment {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+    word-break: break-word;
+  }
+  
+  .rating {
+    color: #fbc02d;
+    font-size: 1.1rem;
+  }
+
+  .buttons{
+    position: relative;
+    min-height: 120px; 
+    width: 100%;
+    margin-top: 50px;
+  }
+  
+  

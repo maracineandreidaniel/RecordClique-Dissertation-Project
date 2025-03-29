@@ -7,11 +7,10 @@
 
 <body>
 
-  <form class="form-inline" aform="ngForm" [formGroup]="searchAlbumForm">
+  <form class="form-inline search-filter" aform="ngForm" [formGroup]="searchAlbumForm">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" formControlName="filter">
-    <button (click)="searchAlbum()" class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
-    <button class="btn btn-warning my-2 my-sm-0" type="button" data-bs-toggle="modal" data-bs-target="#filtersModal"><i
-        class="bi bi-filter"></i>Filter</button>
+    <button (click)="searchAlbum()" class="btn btn-outline-success my-2 my-sm-0" type="button"><i class="bi bi-search"></i></button>
+    <button class="btn btn-warning my-2 my-sm-0" type="button" data-bs-toggle="modal" data-bs-target="#filtersModal"><i class="bi bi-filter"></i></button>
   </form>
 
   <div class="container">
@@ -62,7 +61,7 @@
     </div>
   </div>
 
-  <div *ngIf="totalPages > 0">
+  <div class="pagination-wrapper" *ngIf="totalPages > 1">
     <ul class="pagination">
       <li class="page-item" *ngFor="let pageNum of [].constructor(totalPages); let i = index"
         [ngClass]="{'active': page === i + 1}">
@@ -73,58 +72,54 @@
 
 </body>
 
-<div class="modal fade" id="filtersModal" tabindex="-1" aria-labelledby="filtersModal" aria-hidden="true">
+<div class="modal fade" id="filtersModal" tabindex="-1" aria-labelledby="filtersModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <p class="modal-title" id="filtersModal">
-          <span style="font-size: 25px; font-weight: 700">Filter Albums</span><br />
-          <small> Choose filters for available albums </small>
-        </p>
-        <button type="button" (click)="closeFiltersModal()" class="btn-close" data-dismiss="modal"
-          aria-label="Close"></button>
+        <h5 class="modal-title fw-bold">Filter Albums</h5>
+        <button type="button" (click)="closeFiltersModal()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
       <div class="modal-body">
-        <div class="container my-9">
-          <div class="row">
-            <div class="col-9">
-              <form aform="ngForm" [formGroup]="filterAlbumsForm">
-                <div class="mb-3">
-                  <label for="year" class="form-label">Year</label>
-                  <input type="number" class="form-control" id="year" formControlName="year">
-                </div>
-                <div class="mb-3">
-                  <label for="artist" class="form-label">Artist</label>
-                  <select class="form-control" id="artist" formControlName="artist"
-                    [ngModel]="defaultValueFilterArtist">
-                    <option *ngFor="let artistOption of artistOptions" [value]="artistOption.Id">
-                      {{ artistOption.Value }}
-                    </option>
-                  </select>
-                </div>
-                <div class="mb-3">
-                  <label for="genre" class="form-label">Genre</label>
-                  <select class="form-control" id="genre" formControlName="genre" [ngModel]="defaultValueFilterGenre">
-                    <option *ngFor="let genreOption of genreOptions" [value]="genreOption.Id">
-                      {{ genreOption.Value }}
-                    </option>
-                  </select>
-                </div>
-                <button type="submit" class="btn btn-warning"
-                  [disabled]="!(filterAlbumsForm.valid && filterAlbumsForm.dirty)" (click)="filterAlbums()">
-                  Filter
-                </button>
-                <button type="submit" class="btn btn-danger" (click)="clearFilters()">
-                  Clear
-                </button>
-              </form>
-            </div>
+        <form aform="ngForm" [formGroup]="filterAlbumsForm" class="d-flex flex-column gap-3">
+          <div>
+            <label for="year" class="form-label">Year</label>
+            <input type="number" class="form-control" id="year" formControlName="year">
           </div>
-        </div>
+
+          <div>
+            <label for="artist" class="form-label">Artist</label>
+            <select class="form-control" id="artist" formControlName="artist" [ngModel]="defaultValueFilterArtist">
+              <option *ngFor="let artistOption of artistOptions" [value]="artistOption.Id">
+                {{ artistOption.Value }}
+              </option>
+            </select>
+          </div>
+
+          <div>
+            <label for="genre" class="form-label">Genre</label>
+            <select class="form-control" id="genre" formControlName="genre" [ngModel]="defaultValueFilterGenre">
+              <option *ngFor="let genreOption of genreOptions" [value]="genreOption.Id">
+                {{ genreOption.Value }}
+              </option>
+            </select>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer border-0 d-flex justify-content-center gap-3">
+        <button type="button" class="btn btn-warning"
+          [disabled]="!(filterAlbumsForm.valid && filterAlbumsForm.dirty)" (click)="filterAlbums()">
+          Filter
+        </button>
+        <button type="button" class="btn btn-danger" (click)="clearFilters()">
+          Clear
+        </button>
       </div>
     </div>
   </div>
 </div>
+
 
 <div class="modal fade" id="deleteAlbumModal" tabindex="-1" aria-labelledby="deleteAlbumModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
