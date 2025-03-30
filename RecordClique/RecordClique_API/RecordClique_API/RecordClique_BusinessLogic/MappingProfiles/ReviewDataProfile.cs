@@ -8,7 +8,10 @@ namespace RecordClique_BusinessLogic.MappingProfiles
     {
         public ReviewDataProfile()
         {
-            CreateMap<Review, ReviewDTO>().ReverseMap();
+            CreateMap<Review, ReviewDTO>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName))
+                .ReverseMap()
+                .ForMember(dest => dest.User, opt => opt.Ignore());
         }
     }
 }

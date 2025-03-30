@@ -54,7 +54,7 @@ export class UpdateAlbumComponent {
         Description: this.updateAlbumForm.value.description,
         ReleaseDate: this.updateAlbumForm.value.releaseDate,
         Genres: this.updateAlbumForm.value.genres,
-        Artists: this.updateAlbumForm.value.artist,
+        Artists: this.updateAlbumForm.value.artists,
         RecordLabel: '7FA85F64-5717-4562-B3FC-2C963F66AFA6'
       };
 

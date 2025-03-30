@@ -24,9 +24,9 @@
 
           <div class="data col-md-8">
             <h5 class="card-text card-title title">{{ album.Title }}</h5>
-            <p class="card-text release-date"><strong>Release Date:</strong> {{ album.ReleaseDate }}</p>
-            <p class="card-text artists"><strong>Artist:</strong> {{ album.Artists }}</p>
-            <p class="card-text genres"><strong>Genre:</strong> {{ album.Genres }}</p>
+            <p class="card-text release-date"><strong>Release Date:</strong> {{ album.ReleaseDate | date:'yyyy-MM-dd' }} </p>
+            <p class="card-text artists"><strong>Artist:</strong> {{ album.ArtistsNames }}</p>
+            <p class="card-text genres"><strong>Genre:</strong> {{ album.GenresNames }}</p>
             <div class="buttons-trigger text-center mt-3" (click)="setSelectedAlbumId(album.Id)">
               More...
             </div>

@@ -78,6 +78,7 @@ export class IndexAlbumComponent {
    }
  
    deleteAlbum(id: string) {
+    console.log(this.selectedAlbumId);
      this.albumService.deleteAlbum(id).subscribe({
        next: (response) => {
          this.toast.success("Album was sucesfully deleted!", "SUCESS");
@@ -123,6 +124,7 @@ export class IndexAlbumComponent {
  
    setSelectedAlbumId(albumId: string) : void{
      this.selectedAlbumId = albumId;
+     console.log(this.selectedAlbumId);
    }
  
    pageChange(newPage: number): void {
@@ -151,10 +153,17 @@ export class IndexAlbumComponent {
   }
 
   @HostListener('document:click', ['$event'])
-  closeDropdown(event: Event) {
-    const targetElement = event.target as HTMLElement;
-    if (!targetElement.closest('.buttons-trigger') && !targetElement.closest('.buttons-wrapper')) {
-      this.selectedAlbumId = '';
-    }
+closeDropdown(event: Event) {
+  const targetElement = event.target as HTMLElement;
+
+  const isInsideTriggerOrMenu =
+    targetElement.closest('.buttons-trigger') ||
+    targetElement.closest('.floating-menu') || 
+    targetElement.closest('.modal'); 
+
+  if (!isInsideTriggerOrMenu) {
+    this.selectedAlbumId = '';
   }
+}
+
 }

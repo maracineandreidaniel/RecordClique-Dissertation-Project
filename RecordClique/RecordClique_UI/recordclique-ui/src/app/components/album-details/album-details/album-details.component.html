@@ -16,7 +16,7 @@
     <div class="review-list-full">
       <div *ngFor="let review of reviews" class="review-line">
         <div class="left">
-          <span class="commenter-name">John Doe</span> <!-- placeholder name -->
+          <span class="commenter-name">{{review.UserName}}</span> 
           <div class="rating">
             <span *ngFor="let star of [].constructor(review.Rating)">★</span>
           </div>

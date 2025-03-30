@@ -7,6 +7,8 @@ export interface Album {
     RecordLabel: string;
     Genres: string[];
     Artists: string[];
+    ArtistsNames?: string;
+    GenresNames?: string;
     IsFavourite?: boolean;
     IsListening?: boolean;
     IsOnWishlist?: boolean;

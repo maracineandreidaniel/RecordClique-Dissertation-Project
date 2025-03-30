@@ -22,7 +22,8 @@ namespace RecordClique_BusinessLogic.Services
         public async Task<PaginatedResult<ReviewDTO>> GetReviews(int pageNumber, int pageSize, Guid? albumId)
         {
             var query = await _reviewRepository.GetAll();
-             query = query.Where(r => r.FK_AlbumId == albumId);
+             query = query.Include(r => r.User)
+                .Where(r => r.FK_AlbumId == albumId);
 
             var totalItems = await query.CountAsync();
 
