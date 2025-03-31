@@ -37,6 +37,15 @@
                     </mat-select>
                   </mat-form-field>
               </div>
+
+              <div class="row">
+                <mat-form-field appearance="fill" class="col-12">
+                  <mat-label>Record Label</mat-label>
+                  <mat-select formControlName="recordLabel">
+                    <mat-option *ngFor="let label of recordLabelOptions" [value]="label.Id">{{ label.Value }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
     
               <mat-form-field appearance="fill" class="w-100 mb-3">
                 <mat-label>Description</mat-label>

@@ -1,7 +1,6 @@
 body{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
     padding: 20px;
 }
@@ -12,19 +11,19 @@ body{
     margin-bottom: 30px;
 }
 
-.albums-list .edit{
+ .edit{
     background-color: orange;
 }
 
-.albums-list .favourites{
+ .favourites{
     background-color: #FFCDD2;
 }
 
-.albums-list .wishlist{
+ .wishlist{
     background-color: #BBDEFB;
 }
 
-.albums-list .listening{
+ .listening{
     background-color: #C8E6C9;
 }
 
@@ -168,4 +167,8 @@ body{
     background-color:#124E66;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
+}
+
+.pagination-wrapper {
+    margin-top: auto;
 }

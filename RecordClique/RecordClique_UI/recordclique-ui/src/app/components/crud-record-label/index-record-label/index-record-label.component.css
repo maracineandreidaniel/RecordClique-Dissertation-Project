@@ -1,7 +1,6 @@
 body{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
 }
 
@@ -81,4 +80,8 @@ body{
 }
 .buttons button{
     width: 50%;
+}
+
+.pagination-wrapper {
+    margin-top: auto;
 }

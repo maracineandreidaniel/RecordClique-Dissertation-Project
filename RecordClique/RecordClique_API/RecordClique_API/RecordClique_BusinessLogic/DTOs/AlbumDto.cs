@@ -14,6 +14,7 @@ namespace RecordClique_BusinessLogic.DTOs
         public List<Guid>? Artists { get; set; }
         public string? ArtistsNames { get; set; }
         public string? GenresNames { get; set; }
+        public string? RecordLabelName { get; set; }
         public bool IsListening { get; set; }
         public bool IsFavourite { get; set; }
         public bool IsOnWishlist { get; set; }

@@ -9,8 +9,10 @@
 
   <form class="form-inline search-filter" aform="ngForm" [formGroup]="searchAlbumForm">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" formControlName="filter">
-    <button (click)="searchAlbum()" class="btn btn-outline-success my-2 my-sm-0" type="button"><i class="bi bi-search"></i></button>
-    <button class="btn btn-warning my-2 my-sm-0" type="button" data-bs-toggle="modal" data-bs-target="#filtersModal"><i class="bi bi-filter"></i></button>
+    <button (click)="searchAlbum()" class="btn btn-outline-success my-2 my-sm-0" type="button"><i
+        class="bi bi-search"></i></button>
+    <button class="btn btn-warning my-2 my-sm-0" type="button" data-bs-toggle="modal" data-bs-target="#filtersModal"><i
+        class="bi bi-filter"></i></button>
   </form>
 
   <div class="container">
@@ -24,27 +26,29 @@
 
           <div class="data col-md-8">
             <h5 class="card-text card-title title">{{ album.Title }}</h5>
-            <p class="card-text release-date"><strong>Release Date:</strong> {{ album.ReleaseDate | date:'yyyy-MM-dd' }} </p>
+            <p class="card-text release-date"><strong>Release Date:</strong> {{ album.ReleaseDate | date:'yyyy-MM-dd' }}
+            </p>
             <p class="card-text artists"><strong>Artist:</strong> {{ album.ArtistsNames }}</p>
             <p class="card-text genres"><strong>Genre:</strong> {{ album.GenresNames }}</p>
+            <p class="card-text record-label"><strong>Record Label:</strong> {{ album.RecordLabelName }}</p>
             <div class="buttons-trigger text-center mt-3" (click)="setSelectedAlbumId(album.Id)">
               More...
             </div>
 
             <div class="floating-menu d-flex flex-column" *ngIf="selectedAlbumId === album.Id">
-              <button class="btn btn-outline-warning btn-sm mb-1" (click)="updateAlbumLink(album.Id, 1)"
+              <button class="btn favourites" (click)="updateAlbumLink(album.Id, 1)"
                 [disabled]="album.IsFavourite">
                 <i class="bi bi-star"></i> Favourites
               </button>
-              <button class="btn btn-outline-info btn-sm mb-1" (click)="updateAlbumLink(album.Id, 2)"
+              <button class="btn listening" (click)="updateAlbumLink(album.Id, 2)"
                 [disabled]="album.IsListening">
                 <i class="bi bi-headphones"></i> Listening
               </button>
-              <button class="btn btn-outline-success btn-sm mb-1" (click)="updateAlbumLink(album.Id, 3)"
+              <button class="btn wishlist" (click)="updateAlbumLink(album.Id, 3)"
                 [disabled]="album.IsOnWishlist">
                 <i class="bi bi-cart-plus"></i> Wishlist
               </button>
-              <button class="btn btn-primary btn-sm mb-1" [routerLink]="['/albums/update', album.Id]">
+              <button class="btn edit" [routerLink]="['/albums/update', album.Id]">
                 <i class="bi bi-pencil"></i> Edit
               </button>
               <button class="btn btn-danger btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#deleteAlbumModal"
@@ -77,7 +81,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title fw-bold">Filter Albums</h5>
-        <button type="button" (click)="closeFiltersModal()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" (click)="closeFiltersModal()" class="btn-close" data-bs-dismiss="modal"
+          aria-label="Close"></button>
       </div>
 
       <div class="modal-body">
@@ -108,8 +113,8 @@
       </div>
 
       <div class="modal-footer border-0 d-flex justify-content-center gap-3">
-        <button type="button" class="btn btn-warning"
-          [disabled]="!(filterAlbumsForm.valid && filterAlbumsForm.dirty)" (click)="filterAlbums()">
+        <button type="button" class="btn btn-warning" [disabled]="!(filterAlbumsForm.valid && filterAlbumsForm.dirty)"
+          (click)="filterAlbums()">
           Filter
         </button>
         <button type="button" class="btn btn-danger" (click)="clearFilters()">

@@ -1,6 +1,5 @@
 body{
     display: flex;
-    justify-content: space-between;
     align-items: center;
     flex-direction: column;
 }
@@ -82,3 +81,6 @@ body{
     border-radius: 20px;
 }
   
+.pagination{
+    margin-top: auto;
+}

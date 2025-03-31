@@ -7,6 +7,7 @@ import { SelectOptionResult } from 'src/app/models/select-option-result.model';
 import { AlbumsService } from 'src/services/albums/albums.service';
 import { ArtistsService } from 'src/services/artists/artists.service';
 import { GenresService } from 'src/services/genres/genres.service';
+import { RecordLabelsService } from 'src/services/record-labels/record-labels.service';
 
 @Component({
   selector: 'app-add-album',
@@ -18,6 +19,7 @@ export class AddAlbumComponent implements OnInit {
   addAlbumForm!: FormGroup;
   genresOptions!: SelectOptionResult[];
   artistsOptions!: SelectOptionResult[];
+  recordLabelOptions!: SelectOptionResult[];
 
   constructor(
     private toaster: ToastrService, 
@@ -25,7 +27,8 @@ export class AddAlbumComponent implements OnInit {
     private router: Router, 
     private albumService: AlbumsService,
     private artistService: ArtistsService,
-    private genreService: GenresService
+    private genreService: GenresService,
+    private recordLabelService: RecordLabelsService
   ) {
     this.addAlbumForm = this.fb.group({
       title: ['', Validators.required],
@@ -33,7 +36,8 @@ export class AddAlbumComponent implements OnInit {
       cover: ['', Validators.required],
       releaseDate: ['', Validators.required],
       genres: [[], Validators.required],
-      artists: [[], Validators.required]
+      artists: [[], Validators.required],
+      recordLabel: [[], Validators.required]
     });
 
     this.setDefaultValues();
@@ -49,7 +53,7 @@ export class AddAlbumComponent implements OnInit {
         Description: this.addAlbumForm.value.description,
         Cover: this.addAlbumForm.value.cover,
         ReleaseDate: this.addAlbumForm.value.releaseDate,
-        RecordLabel: '7FA85F64-5717-4562-B3FC-2C963F66AFA6',
+        RecordLabel: this.addAlbumForm.value.recordLabel,
         Genres: this.addAlbumForm.value.genres,
         Artists: this.addAlbumForm.value.artists
       };
@@ -80,6 +84,15 @@ export class AddAlbumComponent implements OnInit {
     this.genreService.getGenreSelectOptions().subscribe({
       next: (res) => {
         this.genresOptions = res;
+      },
+      error: (err) => {
+        this.toaster.error(err.message || 'An error occurred', 'ERROR', { timeOut: 5000 });
+      }
+    });
+
+    this.recordLabelService.getRecordLabelSelectOptions().subscribe({
+      next: (res) => {
+        this.recordLabelOptions = res;
       },
       error: (err) => {
         this.toaster.error(err.message || 'An error occurred', 'ERROR', { timeOut: 5000 });

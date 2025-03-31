@@ -1,52 +1,61 @@
 <body>
-<div class="container d-flex justify-content-center align-items-center vh-90">
-  <div class="col-md-6 bg-light p-4 mt-4 rounded shadow">
-    <h1 class="mb-3 text-center">Add New Album</h1>
-        <form [formGroup]="addAlbumForm" (ngSubmit)="addAlbum()">
-          <mat-form-field appearance="fill" class="w-100 mb-3">
-            <mat-label>Title</mat-label>
-            <input matInput type="text" formControlName="title">
-          </mat-form-field>
-  
-          <div class="row">
-            <mat-form-field appearance="fill" class="col-6">
-              <mat-label>Cover</mat-label>
-              <textarea matInput rows="1" formControlName="cover"></textarea>
-            </mat-form-field>
-    
-            <mat-form-field appearance="fill" class="col-6">
-              <mat-label>Release Date</mat-label>
-              <input matInput [matDatepicker]="picker" formControlName="releaseDate">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
+  <div class="container d-flex justify-content-center align-items-center vh-90">
+    <div class="col-md-6 bg-light p-4 mt-4 rounded shadow">
+      <h1 class="mb-3 text-center">Add New Album</h1>
+      <form [formGroup]="addAlbumForm" (ngSubmit)="addAlbum()">
+        <mat-form-field appearance="fill" class="w-100 mb-3">
+          <mat-label>Title</mat-label>
+          <input matInput type="text" formControlName="title">
+        </mat-form-field>
 
-          <div class="row">
-              <mat-form-field appearance="fill" class="col-6">
-                <mat-label>Genres</mat-label>
-                <mat-select formControlName="genres" multiple>
-                  <mat-option *ngFor="let genre of genresOptions" [value]="genre.Id">{{ genre.Value }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-      
-              <mat-form-field appearance="fill" class="col-6">
-                <mat-label>Artists</mat-label>
-                <mat-select formControlName="artists" multiple>
-                  <mat-option *ngFor="let artist of artistsOptions" [value]="artist.Id">{{ artist.Value }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-          </div>
-
-          <mat-form-field appearance="fill" class="w-100 mb-3">
-            <mat-label>Description</mat-label>
-            <textarea matInput rows="5" formControlName="description"></textarea>
+        <div class="row">
+          <mat-form-field appearance="fill" class="col-6">
+            <mat-label>Cover</mat-label>
+            <textarea matInput rows="1" formControlName="cover"></textarea>
           </mat-form-field>
-          
-          <div class="d-flex justify-content-center md-3">
+
+          <mat-form-field appearance="fill" class="col-6">
+            <mat-label>Release Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="releaseDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="fill" class="col-6">
+            <mat-label>Genres</mat-label>
+            <mat-select formControlName="genres" multiple>
+              <mat-option *ngFor="let genre of genresOptions" [value]="genre.Id">{{ genre.Value }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="col-6">
+            <mat-label>Artists</mat-label>
+            <mat-select formControlName="artists" multiple>
+              <mat-option *ngFor="let artist of artistsOptions" [value]="artist.Id">{{ artist.Value }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="fill" class="col-12">
+            <mat-label>Record Label</mat-label>
+            <mat-select formControlName="recordLabel">
+              <mat-option *ngFor="let label of recordLabelOptions" [value]="label.Id">{{ label.Value }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="fill" class="w-100 mb-3">
+          <mat-label>Description</mat-label>
+          <textarea matInput rows="5" formControlName="description"></textarea>
+        </mat-form-field>
+
+        <div class="d-flex justify-content-center md-3">
           <button mat-raised-button color="primary" type="submit">Save</button>
-          </div>
-        </form>
-      </div>
+        </div>
+      </form>
+    </div>
   </div>
-  </body>
+</body>

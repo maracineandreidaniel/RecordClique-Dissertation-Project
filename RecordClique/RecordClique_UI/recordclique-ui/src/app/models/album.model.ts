@@ -9,6 +9,7 @@ export interface Album {
     Artists: string[];
     ArtistsNames?: string;
     GenresNames?: string;
+    RecordLabelName?: string;
     IsFavourite?: boolean;
     IsListening?: boolean;
     IsOnWishlist?: boolean;
