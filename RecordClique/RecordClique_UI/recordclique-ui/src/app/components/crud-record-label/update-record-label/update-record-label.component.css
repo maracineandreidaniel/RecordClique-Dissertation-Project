@@ -1,6 +1,13 @@
+body{
+    background-color: #f4f6fb;
+    overflow: auto;
+}
+
 .container{
     margin-top: 200px;
     border-radius: 20px;
+    background-color: white;
+    max-width: 550px;
 }
 
 input, textarea{
@@ -9,4 +16,9 @@ input, textarea{
 
 .text-field{
     width: 80%;
+}
+
+button{
+    width: 100px;
+    background-color: #3f51b5;
 }

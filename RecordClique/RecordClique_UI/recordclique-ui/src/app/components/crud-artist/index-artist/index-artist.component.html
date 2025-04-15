@@ -22,8 +22,8 @@
           </div>
 
           <div class="data col-md-8">
-            <h5 class="card-text card-title title">{{ artist.Name }}</h5>
-            <p class="card-text biography shadow-sm">{{ artist.Biography }}</p>
+            <h3 class="card-text card-title title">{{ artist.Name }}</h3>
+            <p class="card-text biography">{{ artist.Biography }}</p>
             <div class="buttons">
               <button mat-raised-button [routerLink]="['/artists/update', artist.Id]" style="background-color: orange">
                 <mat-icon>edit</mat-icon>Edit

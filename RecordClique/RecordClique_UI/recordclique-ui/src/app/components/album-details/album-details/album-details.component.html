@@ -1,7 +1,7 @@
 <body>
 
   <div class="track-list-wrapper">
-    <div class="track-list shadow">
+    <div class="track-list shadow" *ngIf="tracks && tracks.length > 0; else noTracksTemplate">
       <div class="track" *ngFor="let track of tracks">
         <div>{{ track.Title }}</div>
         <button (click)="togglePlayPause(track)">
@@ -11,48 +11,49 @@
     </div>
   </div>
 
-  <div class="reviews">
-
-    <div class="review-list-full">
-      <div *ngFor="let review of reviews" class="review-line">
-        <div class="left">
-          <span class="commenter-name">{{review.UserName}}</span> 
-          <div class="rating">
-            <span *ngFor="let star of [].constructor(review.Rating)">★</span>
+  <div class="reviews-wrapper" *ngIf="reviews && reviews.length > 0; else noCommentsTemplate">
+    <div class="reviews">
+      <div class="review-list-full">
+        <div *ngFor="let review of reviews" class="review-line">
+          <div class="left">
+            <span class="commenter-name">{{review.UserName}}</span>
+            <div class="rating">
+              <span *ngFor="let star of [].constructor(review.Rating)">★</span>
+            </div>
+            <p class="comment">{{ review.Comment }}</p>
           </div>
-          <p class="comment">{{ review.Comment }}</p>
+
+          <button mat-icon-button color="warn" data-bs-toggle="modal" data-bs-target="#deleteReviewModal"
+            (click)="setSelectedReviewId(review.Id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+
+
+      <div class="buttons">
+        <div *ngIf="totalPages > 1">
+          <ul class="pagination">
+            <li class="page-item" *ngFor="let pageNum of [].constructor(totalPages); let i = index"
+              [ngClass]="{'active': page === i + 1}">
+              <a class="page-link" (click)="pageChange(i+1)">{{ i + 1 }}</a>
+            </li>
+          </ul>
         </div>
 
-        <button mat-icon-button color="warn" data-bs-toggle="modal" data-bs-target="#deleteReviewModal"
-          (click)="setSelectedReviewId(review.Id)">
-          <mat-icon>delete</mat-icon>
+        <button class="add-review" mat-raised-button data-bs-toggle="modal" data-bs-target="#addReviewModal">
+          +
         </button>
       </div>
+
     </div>
-
-
-    <div class="buttons">
-      <div *ngIf="totalPages > 1">
-        <ul class="pagination">
-          <li class="page-item" *ngFor="let pageNum of [].constructor(totalPages); let i = index"
-            [ngClass]="{'active': page === i + 1}">
-            <a class="page-link" (click)="pageChange(i+1)">{{ i + 1 }}</a>
-          </li>
-        </ul>
-      </div>
-
-      <button class="add-review" mat-raised-button data-bs-toggle="modal" data-bs-target="#addReviewModal"
-        color="primary">
-        +
-      </button>
-    </div>
-
   </div>
 
 </body>
 
 
-<div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="deleteReviewModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteReviewModal" tabindex="-1" aria-labelledby="deleteReviewModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -76,7 +77,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title fw-bold">Add Review</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeAddModal()" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeAddModal()"
+          aria-label="Close"></button>
       </div>
 
       <div class="modal-body">
@@ -86,8 +88,10 @@
             <p class="mt-2 mb-0">Selected Stars: {{ addReviewForm.value.rating }}</p>
           </div>
 
-          <textarea formControlName="comment" class="form-control" rows="4" placeholder="Write your review..."></textarea>
-          <p *ngIf="addReviewForm.controls['comment'].invalid && addReviewForm.controls['comment'].touched" class="text-danger small">
+          <textarea formControlName="comment" class="form-control" rows="4"
+            placeholder="Write your review..."></textarea>
+          <p *ngIf="addReviewForm.controls['comment'].invalid && addReviewForm.controls['comment'].touched"
+            class="text-danger small">
             Comment is required (min 5 characters).
           </p>
         </form>
@@ -95,8 +99,23 @@
 
       <div class="modal-footer border-0 d-flex justify-content-center">
         <button type="button" class="btn btn-light" data-bs-dismiss="modal" (click)="closeAddModal()">Cancel</button>
-        <button type="button" class="btn btn-primary" [disabled]="addReviewForm.invalid" (click)="addReview()">Add Review</button>
+        <button type="button" class="btn btn-primary" [disabled]="addReviewForm.invalid" (click)="addReview()">Add
+          Review</button>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #noTracksTemplate>
+  <div class="no-tracks-template">
+    <h3>There is no track added for this album yet! 😢</h3>
+  </div>
+</ng-template>
+
+<ng-template #noCommentsTemplate>
+  <div class="no-comments-template">
+    <button class="add-review" mat-raised-button data-bs-toggle="modal" data-bs-target="#addReviewModal">
+      Add your first comment here
+    </button>
+  </div>
+</ng-template>

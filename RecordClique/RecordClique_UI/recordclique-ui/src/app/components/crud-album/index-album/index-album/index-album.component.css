@@ -3,6 +3,8 @@ body{
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    background-color: #f4f6fb;
+    overflow: auto;
 }
 
 .form-inline{

@@ -1,12 +1,12 @@
 <body>
   <div class="tabs">
-    <button [routerLink]="['/users-page/favourites']" [class.active]="actionLabel === 'Favourite'">
+    <button class="favourite" [routerLink]="['/users-page/favourites']" [class.active]="actionLabel === 'Favourite'">
       Favourites
     </button>
-    <button [routerLink]="['/users-page/listening']" [class.active]="actionLabel === 'Listening'">
+    <button class="listening" [routerLink]="['/users-page/listening']" [class.active]="actionLabel === 'Listening'">
       Listening
     </button>
-    <button [routerLink]="['/users-page/wishlist']" [class.active]="actionLabel === 'Wishlist'">
+    <button class="wishlist" [routerLink]="['/users-page/wishlist']" [class.active]="actionLabel === 'Wishlist'">
       Wishlist
     </button>
   </div>
@@ -21,7 +21,7 @@
           </div>
 
           <div class="data col-md-8">
-            <h5 class="card-text card-title title">{{ album.Title }}</h5>
+            <h1 class="card-text card-title title">{{ album.Title }}</h1>
             <p class="card-text biography shadow-sm">{{ album.Description }}</p>
             <button (click)='updateAlbumLink(album.Id)'>Remove from {{ actionLabel }}</button>
           </div>

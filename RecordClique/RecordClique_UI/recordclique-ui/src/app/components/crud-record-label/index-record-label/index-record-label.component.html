@@ -16,8 +16,8 @@
           </div>
 
           <div class="data col-md-8">
-            <h5 class="card-text card-title title">{{ recordLabel.Name }}</h5>
-            <p class="card-text biography shadow-sm">{{ recordLabel.Biography }}</p>
+            <h3 class="card-text card-title title">{{ recordLabel.Name }}</h3>
+            <p class="card-text biography">{{ recordLabel.Biography }}</p>
             <div class="buttons">
               <button mat-raised-button [routerLink]="['/record-labels/update', recordLabel.Id]"
                 style="background-color: orange">

@@ -115,7 +115,8 @@ export class AlbumDetailsComponent {
           Comment: this.addReviewForm.value.comment,
           Rating: this.addReviewForm.value.rating,
           FK_AlbumId: this.albumId,
-          FK_UserId: this.userId
+          FK_UserId: this.userId,
+          UserName: ''
         };
   
         this.reviewsService.addReview(review).subscribe({
