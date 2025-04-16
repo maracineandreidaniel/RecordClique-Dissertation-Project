@@ -56,7 +56,7 @@ body{
 }
 
 .data {
-    flex-grow: 1; 
+    flex-grow: 0.5; 
     display: flex;
     flex-direction: column;
     justify-content: space-between; 
