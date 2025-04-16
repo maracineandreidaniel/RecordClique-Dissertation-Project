@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Artist } from 'src/app/models/artist.model';
 import { ArtistsService } from 'src/services/artists/artists.service';
+import { AuthenticationService } from 'src/services/authentication/authentication.service';
+import { UserStoreService } from 'src/services/user-store/user-store.service';
 
 @Component({
   selector: 'app-index-artist',
@@ -16,11 +18,14 @@ export class IndexArtistComponent {
   page: number = 1;
   pageSize: number = 5;
   totalPages: number = 0;
+  public role!: string;
 
   constructor(
     private artistService: ArtistsService,
     private fb: FormBuilder,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private userStore: UserStoreService,
+    private auth: AuthenticationService,
   ) {
     this.searchArtistForm = this.fb.group({
       filter: ['']
@@ -29,6 +34,12 @@ export class IndexArtistComponent {
 
   ngOnInit(): void {
     this.loadScreenings(this.page, this.pageSize);  
+
+    this.userStore.getRoleFromStore().subscribe((val) => {
+      let roleFromToken = this.auth.getRoleFromToken();
+      this.role = val || roleFromToken;
+    });
+
   }
 
   deleteArtist(id: string) {

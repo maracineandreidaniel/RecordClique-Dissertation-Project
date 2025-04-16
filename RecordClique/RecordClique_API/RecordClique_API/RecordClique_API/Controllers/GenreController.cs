@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RecordClique_BusinessLogic.Services;
 using RecordClique_BusinessLogic.Services.Abstractions;
 
@@ -15,6 +16,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpGet("SelectOptions")]
+        [Authorize(Policy = "AdminUserPolicy")]
         public async Task<IActionResult> GetRecordLabelSelectOptions()
         {
             var result = await _genreService.GetGenreSelectOptions();

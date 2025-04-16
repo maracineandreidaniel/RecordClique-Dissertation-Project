@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RecordClique_BusinessLogic.DTOs;
 using RecordClique_BusinessLogic.Services.Abstractions;
 
@@ -15,7 +16,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Policy = "AdminUserPolicy")]
+        [Authorize(Policy = "AdminUserPolicy")]
         public async Task<IActionResult> GetReviews(int pageNumber, int pageSize, Guid? albumId)
         {
             var reviews = await _reviewService.GetReviews(pageNumber, pageSize, albumId);
@@ -23,6 +24,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<IActionResult> CreateReview(ReviewDTO reviewDto)
         {
             var review = await _reviewService.CreateReview(reviewDto);
@@ -30,6 +32,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<IActionResult> DeleteReview(Guid reviewId)
         {
             var review = await _reviewService.DeleteReview(reviewId);

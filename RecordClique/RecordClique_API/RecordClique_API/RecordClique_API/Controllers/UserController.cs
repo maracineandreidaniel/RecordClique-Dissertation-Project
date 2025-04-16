@@ -139,7 +139,8 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpGet("user-details")]
-            public async Task<IActionResult> GetUserDetails(string username)
+        [Authorize(Policy = "AdminUserPolicy")]
+        public async Task<IActionResult> GetUserDetails(string username)
             {               
 
                 try
@@ -158,6 +159,7 @@ namespace RecordClique_API.Controllers
             }
 
         [HttpGet("user-initials")]
+        [Authorize(Policy = "AdminUserPolicy")]
         public async Task<IActionResult> GetUserInitials(string username)
         {
 
@@ -177,6 +179,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpGet("links")]
+        [Authorize(Policy = "AdminUserPolicy")]
         public async Task<IActionResult> GetUserAlbumLinks(int pageNumber, int pageSize, Guid? albumId, Guid? userId)
         {
 

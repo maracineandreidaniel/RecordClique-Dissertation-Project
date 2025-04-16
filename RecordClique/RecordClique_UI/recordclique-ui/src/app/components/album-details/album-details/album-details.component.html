@@ -23,7 +23,7 @@
             <p class="comment">{{ review.Comment }}</p>
           </div>
 
-          <button mat-icon-button color="warn" data-bs-toggle="modal" data-bs-target="#deleteReviewModal"
+          <button *ngIf = " role === 'Admin' " mat-icon-button color="warn" data-bs-toggle="modal" data-bs-target="#deleteReviewModal"
             (click)="setSelectedReviewId(review.Id)">
             <mat-icon>delete</mat-icon>
           </button>

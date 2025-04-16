@@ -28,6 +28,7 @@ export class IndexAlbumComponent {
    defaultValueFilterArtist = "00000000-0000-0000-0000-000000000000";
    defaultValueFilterGenre = "00000000-0000-0000-0000-000000000000";
    userId: string = '';
+   public role!: string;
  
    constructor(
      private router: Router,
@@ -75,6 +76,11 @@ export class IndexAlbumComponent {
  
    ngOnInit(): void {
      this.loadAlbums(this.page, this.pageSize);  
+
+     this.userStore.getRoleFromStore().subscribe((val) => {
+      let roleFromToken = this.auth.getRoleFromToken();
+      this.role = val || roleFromToken;
+    });
    }
  
    deleteAlbum(id: string) {

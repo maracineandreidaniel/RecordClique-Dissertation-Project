@@ -18,7 +18,7 @@
           <div class="data col-md-8">
             <h3 class="card-text card-title title">{{ recordLabel.Name }}</h3>
             <p class="card-text biography">{{ recordLabel.Biography }}</p>
-            <div class="buttons">
+            <div class="buttons" *ngIf = " role === 'Admin' ">
               <button mat-raised-button [routerLink]="['/record-labels/update', recordLabel.Id]"
                 style="background-color: orange">
                 <mat-icon>edit</mat-icon>Edit

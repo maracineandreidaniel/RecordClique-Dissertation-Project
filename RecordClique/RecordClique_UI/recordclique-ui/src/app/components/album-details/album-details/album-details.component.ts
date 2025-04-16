@@ -28,9 +28,9 @@ export class AlbumDetailsComponent {
   audio = new Audio();
   isPlaying = false;
   currentTrack: Track | null = null;
+  role!: string;
 
   constructor( private fb: FormBuilder, 
-      private router: Router,  
       private route: ActivatedRoute,
       private tracksService: TracksService,
       private reviewsService: ReviewsService,
@@ -53,6 +53,11 @@ export class AlbumDetailsComponent {
   ngOnInit(): void {
     this.tracksService.getTracks(this.albumId).subscribe((data) => {
       this.tracks = data;
+    });
+
+    this.userStore.getRoleFromStore().subscribe((val) => {
+      let roleFromToken = this.auth.getRoleFromToken();
+      this.role = val || roleFromToken;
     });
 
     this.loadScreenings(this.page, this.pageSize);  

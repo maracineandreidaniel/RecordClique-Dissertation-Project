@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { RecordLabel } from 'src/app/models/record-label.model';
+import { AuthenticationService } from 'src/services/authentication/authentication.service';
 import { RecordLabelsService } from 'src/services/record-labels/record-labels.service';
+import { UserStoreService } from 'src/services/user-store/user-store.service';
 
 @Component({
   selector: 'app-index-record-label',
@@ -15,15 +17,23 @@ export class IndexRecordLabelComponent {
     page: number = 1;
     pageSize: number = 4;
     totalPages: number = 0;
+    public role!: string;
   
     constructor(
       private recordLabelService: RecordLabelsService,
       private fb: FormBuilder,
-      private toast: ToastrService
+      private toast: ToastrService,
+      private userStore: UserStoreService,
+      private auth: AuthenticationService,
     ) {}
   
     ngOnInit(): void {
       this.loadRecordLabels(this.page, this.pageSize);  
+
+      this.userStore.getRoleFromStore().subscribe((val) => {
+        let roleFromToken = this.auth.getRoleFromToken();
+        this.role = val || roleFromToken;
+      });
     }
   
     deleteRecordLabel(id: string) {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RecordClique.Models.DTOs;
 using RecordClique_BusinessLogic.Services.Abstractions;
 
@@ -15,6 +16,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<IActionResult> AddArtist([FromBody]ArtistDto artistRequest)
         {
             var artist = await _artistService.AddArtist(artistRequest);
@@ -22,6 +24,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpDelete("{id:Guid}")]
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<IActionResult> RemoveArtist([FromRoute] Guid id)
         {
             var result = await _artistService.DeleteArtist(id);
@@ -29,6 +32,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpGet("{id:Guid}")]
+        [Authorize(Policy = "AdminUserPolicy")]
         public async Task<IActionResult> GetArtistById([FromRoute] Guid id)
         {
             var artist = await _artistService.GetArtistById(id);
@@ -40,6 +44,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpPut]
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<IActionResult> UpdateArtist([FromBody]ArtistDto updateArtistRequest)
         {
             try
@@ -59,7 +64,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpGet("/artists")]
-        //[Authorize(Policy = "AdminUserPolicy")]
+        [Authorize(Policy = "AdminUserPolicy")]
         public async Task<IActionResult> GetArtists(int pageNumber, int pageSize, string? filterName)
 
         {
@@ -68,6 +73,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpGet("SelectOptions")]
+        [Authorize(Policy = "AdminUserPolicy")]
         public async Task<IActionResult> GetArtistSelectOptions()
         {
             var result = await _artistService.GetArtistSelectOptions();

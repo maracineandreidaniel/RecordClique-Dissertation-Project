@@ -48,10 +48,10 @@
                 [disabled]="album.IsOnWishlist">
                 <i class="bi bi-cart-plus"></i> Wishlist
               </button>
-              <button class="btn edit" [routerLink]="['/albums/update', album.Id]">
+              <button *ngIf = " role === 'Admin' " class="btn edit" [routerLink]="['/albums/update', album.Id]">
                 <i class="bi bi-pencil"></i> Edit
               </button>
-              <button class="btn btn-danger btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#deleteAlbumModal"
+              <button  *ngIf = " role === 'Admin' " class="btn btn-danger btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#deleteAlbumModal"
                 (click)="setSelectedAlbumId(album.Id)">
                 <i class="bi bi-trash"></i> Delete
               </button>

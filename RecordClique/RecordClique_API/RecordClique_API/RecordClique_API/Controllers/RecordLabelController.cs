@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RecordClique_BusinessLogic.DTOs;
 using RecordClique_BusinessLogic.Services;
 using RecordClique_BusinessLogic.Services.Abstractions;
@@ -16,7 +17,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpGet("/record-labels")]
-        //[Authorize(Policy = "AdminUserPolicy")]
+        [Authorize(Policy = "AdminUserPolicy")]
         public async Task<IActionResult> GetRecordLabels(int pageNumber, int pageSize)
 
         {
@@ -25,6 +26,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<IActionResult> AddRecordLabel([FromBody] RecordLabelDto recordLabelRequest)
         {
             var recordLabel = await _recordLabelService.AddRecordLabel(recordLabelRequest);
@@ -32,6 +34,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpDelete("{id:Guid}")]
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<IActionResult> RemoveRecordLabel([FromRoute] Guid id)
         {
             var result = await _recordLabelService.DeleteRecordLabel(id);
@@ -39,6 +42,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpGet("{id:Guid}")]
+        [Authorize(Policy = "AdminUserPolicy")]
         public async Task<IActionResult> GetRecordLabelById([FromRoute] Guid id)
         {
             var recordLabel = await _recordLabelService.GetRecordLabelById(id);
@@ -50,6 +54,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpPut]
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<IActionResult> UpdateRecordLabel([FromBody] RecordLabelDto recordLabelRequest)
         {
             try
@@ -69,6 +74,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpGet("SelectOptions")]
+        [Authorize(Policy = "AdminUserPolicy")]
         public async Task<IActionResult> GetRecordLabelSelectOptions()
         {
             var result = await _recordLabelService.GetRecordLabelSelectOptions();

@@ -16,6 +16,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "AdminUserPolicy")]
         public async Task<IActionResult> GetStatistics()
         {
             var statistics = await _statisticService.GetStatisticsAsync();
@@ -23,7 +24,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpGet("generate-report")]
-        //[Authorize(Policy = "AdminUserPolicy")]
+        [Authorize(Policy = "AdminUserPolicy")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileContentResult))]
         public async Task<IActionResult> GenerateReport()
         {

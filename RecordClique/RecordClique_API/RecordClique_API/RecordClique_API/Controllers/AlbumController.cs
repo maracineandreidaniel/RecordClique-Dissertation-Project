@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using RecordClique.Models;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RecordClique_BusinessLogic.DTOs;
-using RecordClique_BusinessLogic.Services;
 using RecordClique_BusinessLogic.Services.Abstractions;
 
 namespace RecordClique_API.Controllers
@@ -18,6 +17,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<IActionResult> AddAlbum([FromBody] AlbumDto albumRequest)
         {
             try
@@ -32,6 +32,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpPut]
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<IActionResult> UpdateAlbum([FromBody] AlbumDto albumRequest)
         {
             try
@@ -46,6 +47,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpDelete("{id:Guid}")]
+        [Authorize(Policy = "AdminPolicy")]
         public async Task<IActionResult> RemoveAlbum([FromRoute] Guid id)
         {
             var result = await _albumService.RemoveAlbum(id);
@@ -53,7 +55,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpGet("/albums")]
-        //[Authorize(Policy = "AdminUserPolicy")]
+        [Authorize(Policy = "AdminUserPolicy")]
         public async Task<IActionResult> GetAlbums(int pageNumber, int pageSize, string? filterName, Guid? artistId, Guid? genreId, int? year, Guid? userId)
 
         {
@@ -62,6 +64,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpGet("{id:Guid}")]
+        [Authorize(Policy = "AdminUserPolicy")]
         public async Task<IActionResult> GetAlbumById([FromRoute] Guid id)
         {
             var album = await _albumService.GetAlbumById(id);
@@ -73,6 +76,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpGet("userAllAlbums")]
+        [Authorize(Policy = "AdminUserPolicy")]
         public async Task<IActionResult> GetUserAllAlbums(int pageNumber, int pageSize, Guid userId, int? type)
         {
             var albums = await _albumService.GetUserAllAlbums(pageNumber, pageSize,userId, type);
@@ -84,6 +88,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpPut("album-link")]
+        [Authorize(Policy = "AdminUserPolicy")]
         public async Task<IActionResult> UpdateUserAlbumLink(Guid albumId, Guid userId, Boolean ind, int type)
         {
             var link = await _albumService.UpdateUserAlbumLink(albumId, userId, ind, type);
@@ -95,6 +100,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpGet("placeholderText")]
+        [Authorize(Policy = "AdminUserPolicy")]
         public async Task<IActionResult> GetPlaceholderText(string text)
         {
              var newJsonObject = new

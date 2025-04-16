@@ -24,7 +24,7 @@
           <div class="data col-md-8">
             <h3 class="card-text card-title title">{{ artist.Name }}</h3>
             <p class="card-text biography">{{ artist.Biography }}</p>
-            <div class="buttons">
+            <div class="buttons" *ngIf = " role === 'Admin' ">
               <button mat-raised-button [routerLink]="['/artists/update', artist.Id]" style="background-color: orange">
                 <mat-icon>edit</mat-icon>Edit
               </button>
