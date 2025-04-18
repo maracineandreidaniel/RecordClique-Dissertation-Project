@@ -22,7 +22,7 @@ export class AssistantComponent {
    }
   
 displayText() {
-    this.albumService.getPlaceholderText(this.assistantFormGroup.value.message).subscribe({
+    this.albumService.getGPTResponse(this.assistantFormGroup.value.message).subscribe({
       next: (res) => {
         this.generatedMessage = res.Message;
       },

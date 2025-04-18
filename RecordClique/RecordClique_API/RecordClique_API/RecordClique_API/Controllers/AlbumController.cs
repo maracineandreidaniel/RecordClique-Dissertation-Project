@@ -11,9 +11,12 @@ namespace RecordClique_API.Controllers
     {
 
         private readonly IAlbumService _albumService;
-        public AlbumController(IAlbumService albumService)
+        private readonly IAssistantService _assistantService;
+
+        public AlbumController(IAlbumService albumService, IAssistantService assistantService)
         {
             _albumService = albumService;
+            _assistantService = assistantService;
         }
 
         [HttpPost]
@@ -99,16 +102,12 @@ namespace RecordClique_API.Controllers
             return NotFound();
         }
 
-        [HttpGet("placeholderText")]
+        [HttpGet("gpt-response")]
         [Authorize(Policy = "AdminUserPolicy")]
-        public async Task<IActionResult> GetPlaceholderText(string text)
+        public IActionResult GetAICustom(string text)
         {
-             var newJsonObject = new
-            {
-                Message = "I'm glad you like: " + text
-            };
-
-            return Ok(newJsonObject);
+            var response = _assistantService.GetAssistantResponse(text);
+            return Ok(response);
         }
 
     }
