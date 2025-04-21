@@ -6,7 +6,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>Discover Music</h1>
+            <h1>RecordClique</h1>
             <p>Your journey through timeless albums and sounds.</p>
         </header>
 
@@ -15,17 +15,17 @@
                 <div class="text">
                     <h2>Explore Music</h2>
                     <p>Discover new albums across various genres, from classics to modern hits. Immerse yourself in a world of sound.</p>
-                    <a href="#" class="cta-button">Explore Now</a>
+                    <a routerLink="/albums" class="cta-button">Explore Now</a>
                 </div>
-                <div class="image"></div>
+                <img src="https://media.istockphoto.com/id/1474338774/video/music-inspiration-neon-people-woman-headphones.jpg?s=640x640&k=20&c=yONPc29R8SnG7o14jM-LiS40nXn1FxhtoZ6kwUv1e6o=" alt="">
             </div>
 
             <div class="card right">
-                <div class="image"></div>
+                <img src="https://paulminors.com/wp-content/uploads/2021/07/My-favourite-music-for-getting-in-the-zone-PMP-219.jpg" alt="">
                 <div class="text">
                     <h2>Track Your Favorites</h2>
                     <p>Save your favorite albums, create lists, and revisit your top picks anytime.</p>
-                    <a href="#" class="cta-button">Start Tracking</a>
+                    <a routerLink="/users-page/favourites" class="cta-button">Start Tracking</a>
                 </div>
             </div>
 
@@ -33,9 +33,18 @@
                 <div class="text">
                     <h2>Share Your Thoughts</h2>
                     <p>Leave reviews, rate albums, and connect with a community of music enthusiasts.</p>
-                    <a href="#" class="cta-button">Join the Community</a>
+                    <a routerLink="/albums" class="cta-button">Join the Community</a>
                 </div>
-                <div class="image"></div>
+                <img src="https://gatherup.com/wp-content/uploads/2023/11/Q423-PowerofPositiveReviews-Blog.png" alt="">
+            </div>
+
+            <div class="card right">
+                <img src="https://online.berklee.edu/takenote/wp-content/uploads/2023/07/AI_music_article_image_2023.jpg" alt="">
+                <div class="text">
+                    <h2>Get Suggestions</h2>
+                    <p>Get the most suitable suggestions for you from our AI Assistant.</p>
+                    <a [routerLink]="['/assistant']" class="cta-button">Talk to Assistant</a>
+                </div>
             </div>
         </section>
     </div>

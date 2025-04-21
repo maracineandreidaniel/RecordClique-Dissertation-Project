@@ -1,6 +1,5 @@
-/* General Styles */
 body {
-    background-color: #F8F9FA; /* Light Background */
+    background-color: #f4f6fb; 
     color: #212A31;
     font-family: 'Poppins', sans-serif;
     text-align: center;
@@ -8,7 +7,6 @@ body {
     padding: 0;
 }
 
-/* Container */
 .container {
     width: 90%;
     max-width: 1200px;
@@ -16,7 +14,6 @@ body {
     padding: 20px 0;
 }
 
-/* Header */
 header {
     padding: 20px 0;
 }
@@ -32,7 +29,6 @@ p {
     margin-bottom: 20px;
 }
 
-/* Content Cards */
 .content {
     display: flex;
     flex-direction: column;
@@ -62,7 +58,6 @@ p {
     flex-direction: row;
 }
 
-/* Text */
 .text {
     flex: 1;
     text-align: left;
@@ -81,15 +76,13 @@ p {
     line-height: 1.6;
 }
 
-/* Image Placeholder */
-.image {
+img {
     flex: 1;
     height: 200px;
     background: #748D92;
     border-radius: 10px;
 }
 
-/* Call-to-Action Button */
 .cta-button {
     display: inline-block;
     background-color: #124E66;
@@ -107,20 +100,17 @@ p {
     transform: scale(1.05);
 }
 
-/* Footer */
 footer {
     margin-top: 50px;
     font-size: 0.9em;
     color: #748D92;
 }
 
-/* Animations */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .card {
         flex-direction: column;

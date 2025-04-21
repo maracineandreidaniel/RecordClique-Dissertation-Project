@@ -1,0 +1,13 @@
+button{
+    background-color: #124E66;
+}
+
+button:hover{
+    background-color: #2E3944;
+}
+
+#forgot{
+    color: #124E66;
+    cursor: pointer;
+    text-decoration: none;
+}

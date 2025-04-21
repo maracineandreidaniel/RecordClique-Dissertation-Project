@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AlbumsService } from 'src/services/albums/albums.service';
-import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-assistant',

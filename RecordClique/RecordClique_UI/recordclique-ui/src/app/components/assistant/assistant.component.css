@@ -56,13 +56,13 @@
   }
   
   .custom-input:focus {
-    border-color: #3f51b5;
+    border-color: #124E66;
   }
   
   .submit-button {
     align-self: center;
     padding: 10px 28px;
-    background-color: #3f51b5;
+    background-color: #124E66;
     color: white;
     border: none;
     border-radius: 8px;
