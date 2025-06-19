@@ -10,9 +10,9 @@ namespace RecordClique_BusinessLogic.Services
 
         private readonly string _apiKey;
 
-        public AssistantService(IConfiguration config)
+        public AssistantService()
         {
-            _apiKey = config["APIKeys:OpenAI"] ?? "";
+            _apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY") ?? "";
         }
 
 
