@@ -24,7 +24,7 @@ namespace RecordClique_API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Policy = "AdminUserPolicy")]
         public async Task<IActionResult> CreateReview(ReviewDTO reviewDto)
         {
             var review = await _reviewService.CreateReview(reviewDto);
